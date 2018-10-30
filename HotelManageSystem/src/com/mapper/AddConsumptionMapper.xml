@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.AddConsumptionMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.AddConsumption" >
+    <id column="add_consumption_id" property="addConsumptionId" jdbcType="CHAR" />
+    <result column="add_consumption_name" property="addConsumptionName" jdbcType="VARCHAR" />
+    <result column="add_consumption_price" property="addConsumptionPrice" jdbcType="VARCHAR" />
+    <result column="add_consumption_customer" property="addConsumptionCustomer" jdbcType="CHAR" />
+    <result column="add_consumption_room" property="addConsumptionRoom" jdbcType="CHAR" />
+    <result column="add_consumption_time" property="addConsumptionTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    add_consumption_id, add_consumption_name, add_consumption_price, add_consumption_customer, 
+    add_consumption_room, add_consumption_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.AddConsumptionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from add_consumption
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from add_consumption
+    where add_consumption_id = #{addConsumptionId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from add_consumption
+    where add_consumption_id = #{addConsumptionId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.AddConsumptionExample" >
+    delete from add_consumption
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.AddConsumption" >
+    insert into add_consumption (add_consumption_id, add_consumption_name, 
+      add_consumption_price, add_consumption_customer, 
+      add_consumption_room, add_consumption_time)
+    values (#{addConsumptionId,jdbcType=CHAR}, #{addConsumptionName,jdbcType=VARCHAR}, 
+      #{addConsumptionPrice,jdbcType=VARCHAR}, #{addConsumptionCustomer,jdbcType=CHAR}, 
+      #{addConsumptionRoom,jdbcType=CHAR}, #{addConsumptionTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.AddConsumption" >
+    insert into add_consumption
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addConsumptionId != null" >
+        add_consumption_id,
+      </if>
+      <if test="addConsumptionName != null" >
+        add_consumption_name,
+      </if>
+      <if test="addConsumptionPrice != null" >
+        add_consumption_price,
+      </if>
+      <if test="addConsumptionCustomer != null" >
+        add_consumption_customer,
+      </if>
+      <if test="addConsumptionRoom != null" >
+        add_consumption_room,
+      </if>
+      <if test="addConsumptionTime != null" >
+        add_consumption_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addConsumptionId != null" >
+        #{addConsumptionId,jdbcType=CHAR},
+      </if>
+      <if test="addConsumptionName != null" >
+        #{addConsumptionName,jdbcType=VARCHAR},
+      </if>
+      <if test="addConsumptionPrice != null" >
+        #{addConsumptionPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="addConsumptionCustomer != null" >
+        #{addConsumptionCustomer,jdbcType=CHAR},
+      </if>
+      <if test="addConsumptionRoom != null" >
+        #{addConsumptionRoom,jdbcType=CHAR},
+      </if>
+      <if test="addConsumptionTime != null" >
+        #{addConsumptionTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.AddConsumptionExample" resultType="java.lang.Integer" >
+    select count(*) from add_consumption
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update add_consumption
+    <set >
+      <if test="record.addConsumptionId != null" >
+        add_consumption_id = #{record.addConsumptionId,jdbcType=CHAR},
+      </if>
+      <if test="record.addConsumptionName != null" >
+        add_consumption_name = #{record.addConsumptionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addConsumptionPrice != null" >
+        add_consumption_price = #{record.addConsumptionPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addConsumptionCustomer != null" >
+        add_consumption_customer = #{record.addConsumptionCustomer,jdbcType=CHAR},
+      </if>
+      <if test="record.addConsumptionRoom != null" >
+        add_consumption_room = #{record.addConsumptionRoom,jdbcType=CHAR},
+      </if>
+      <if test="record.addConsumptionTime != null" >
+        add_consumption_time = #{record.addConsumptionTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update add_consumption
+    set add_consumption_id = #{record.addConsumptionId,jdbcType=CHAR},
+      add_consumption_name = #{record.addConsumptionName,jdbcType=VARCHAR},
+      add_consumption_price = #{record.addConsumptionPrice,jdbcType=VARCHAR},
+      add_consumption_customer = #{record.addConsumptionCustomer,jdbcType=CHAR},
+      add_consumption_room = #{record.addConsumptionRoom,jdbcType=CHAR},
+      add_consumption_time = #{record.addConsumptionTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.AddConsumption" >
+    update add_consumption
+    <set >
+      <if test="addConsumptionName != null" >
+        add_consumption_name = #{addConsumptionName,jdbcType=VARCHAR},
+      </if>
+      <if test="addConsumptionPrice != null" >
+        add_consumption_price = #{addConsumptionPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="addConsumptionCustomer != null" >
+        add_consumption_customer = #{addConsumptionCustomer,jdbcType=CHAR},
+      </if>
+      <if test="addConsumptionRoom != null" >
+        add_consumption_room = #{addConsumptionRoom,jdbcType=CHAR},
+      </if>
+      <if test="addConsumptionTime != null" >
+        add_consumption_time = #{addConsumptionTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where add_consumption_id = #{addConsumptionId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.AddConsumption" >
+    update add_consumption
+    set add_consumption_name = #{addConsumptionName,jdbcType=VARCHAR},
+      add_consumption_price = #{addConsumptionPrice,jdbcType=VARCHAR},
+      add_consumption_customer = #{addConsumptionCustomer,jdbcType=CHAR},
+      add_consumption_room = #{addConsumptionRoom,jdbcType=CHAR},
+      add_consumption_time = #{addConsumptionTime,jdbcType=VARCHAR}
+    where add_consumption_id = #{addConsumptionId,jdbcType=CHAR}
+  </update>
+</mapper>

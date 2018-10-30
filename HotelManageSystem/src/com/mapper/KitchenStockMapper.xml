@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.KitchenStockMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.KitchenStock" >
+    <id column="kitchen_stock_id" property="kitchenStockId" jdbcType="CHAR" />
+    <result column="kitchen_stock_name" property="kitchenStockName" jdbcType="CHAR" />
+    <result column="kitchen_stock_number" property="kitchenStockNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    kitchen_stock_id, kitchen_stock_name, kitchen_stock_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.KitchenStockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from kitchen_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from kitchen_stock
+    where kitchen_stock_id = #{kitchenStockId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from kitchen_stock
+    where kitchen_stock_id = #{kitchenStockId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.KitchenStockExample" >
+    delete from kitchen_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.KitchenStock" >
+    insert into kitchen_stock (kitchen_stock_id, kitchen_stock_name, kitchen_stock_number
+      )
+    values (#{kitchenStockId,jdbcType=CHAR}, #{kitchenStockName,jdbcType=CHAR}, #{kitchenStockNumber,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.KitchenStock" >
+    insert into kitchen_stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="kitchenStockId != null" >
+        kitchen_stock_id,
+      </if>
+      <if test="kitchenStockName != null" >
+        kitchen_stock_name,
+      </if>
+      <if test="kitchenStockNumber != null" >
+        kitchen_stock_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="kitchenStockId != null" >
+        #{kitchenStockId,jdbcType=CHAR},
+      </if>
+      <if test="kitchenStockName != null" >
+        #{kitchenStockName,jdbcType=CHAR},
+      </if>
+      <if test="kitchenStockNumber != null" >
+        #{kitchenStockNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.KitchenStockExample" resultType="java.lang.Integer" >
+    select count(*) from kitchen_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update kitchen_stock
+    <set >
+      <if test="record.kitchenStockId != null" >
+        kitchen_stock_id = #{record.kitchenStockId,jdbcType=CHAR},
+      </if>
+      <if test="record.kitchenStockName != null" >
+        kitchen_stock_name = #{record.kitchenStockName,jdbcType=CHAR},
+      </if>
+      <if test="record.kitchenStockNumber != null" >
+        kitchen_stock_number = #{record.kitchenStockNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update kitchen_stock
+    set kitchen_stock_id = #{record.kitchenStockId,jdbcType=CHAR},
+      kitchen_stock_name = #{record.kitchenStockName,jdbcType=CHAR},
+      kitchen_stock_number = #{record.kitchenStockNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.KitchenStock" >
+    update kitchen_stock
+    <set >
+      <if test="kitchenStockName != null" >
+        kitchen_stock_name = #{kitchenStockName,jdbcType=CHAR},
+      </if>
+      <if test="kitchenStockNumber != null" >
+        kitchen_stock_number = #{kitchenStockNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where kitchen_stock_id = #{kitchenStockId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.KitchenStock" >
+    update kitchen_stock
+    set kitchen_stock_name = #{kitchenStockName,jdbcType=CHAR},
+      kitchen_stock_number = #{kitchenStockNumber,jdbcType=VARCHAR}
+    where kitchen_stock_id = #{kitchenStockId,jdbcType=CHAR}
+  </update>
+</mapper>

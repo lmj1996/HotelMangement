@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.WorkRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.WorkRecord" >
+    <id column="work_record_id" property="workRecordId" jdbcType="CHAR" />
+    <result column="work_record_currentstaff" property="workRecordCurrentstaff" jdbcType="CHAR" />
+    <result column="work_record_nextstaff" property="workRecordNextstaff" jdbcType="CHAR" />
+    <result column="work_record_time" property="workRecordTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    work_record_id, work_record_currentstaff, work_record_nextstaff, work_record_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.WorkRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from work_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from work_record
+    where work_record_id = #{workRecordId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from work_record
+    where work_record_id = #{workRecordId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.WorkRecordExample" >
+    delete from work_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.WorkRecord" >
+    insert into work_record (work_record_id, work_record_currentstaff, work_record_nextstaff, 
+      work_record_time)
+    values (#{workRecordId,jdbcType=CHAR}, #{workRecordCurrentstaff,jdbcType=CHAR}, #{workRecordNextstaff,jdbcType=CHAR}, 
+      #{workRecordTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.WorkRecord" >
+    insert into work_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="workRecordId != null" >
+        work_record_id,
+      </if>
+      <if test="workRecordCurrentstaff != null" >
+        work_record_currentstaff,
+      </if>
+      <if test="workRecordNextstaff != null" >
+        work_record_nextstaff,
+      </if>
+      <if test="workRecordTime != null" >
+        work_record_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="workRecordId != null" >
+        #{workRecordId,jdbcType=CHAR},
+      </if>
+      <if test="workRecordCurrentstaff != null" >
+        #{workRecordCurrentstaff,jdbcType=CHAR},
+      </if>
+      <if test="workRecordNextstaff != null" >
+        #{workRecordNextstaff,jdbcType=CHAR},
+      </if>
+      <if test="workRecordTime != null" >
+        #{workRecordTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.WorkRecordExample" resultType="java.lang.Integer" >
+    select count(*) from work_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update work_record
+    <set >
+      <if test="record.workRecordId != null" >
+        work_record_id = #{record.workRecordId,jdbcType=CHAR},
+      </if>
+      <if test="record.workRecordCurrentstaff != null" >
+        work_record_currentstaff = #{record.workRecordCurrentstaff,jdbcType=CHAR},
+      </if>
+      <if test="record.workRecordNextstaff != null" >
+        work_record_nextstaff = #{record.workRecordNextstaff,jdbcType=CHAR},
+      </if>
+      <if test="record.workRecordTime != null" >
+        work_record_time = #{record.workRecordTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update work_record
+    set work_record_id = #{record.workRecordId,jdbcType=CHAR},
+      work_record_currentstaff = #{record.workRecordCurrentstaff,jdbcType=CHAR},
+      work_record_nextstaff = #{record.workRecordNextstaff,jdbcType=CHAR},
+      work_record_time = #{record.workRecordTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.WorkRecord" >
+    update work_record
+    <set >
+      <if test="workRecordCurrentstaff != null" >
+        work_record_currentstaff = #{workRecordCurrentstaff,jdbcType=CHAR},
+      </if>
+      <if test="workRecordNextstaff != null" >
+        work_record_nextstaff = #{workRecordNextstaff,jdbcType=CHAR},
+      </if>
+      <if test="workRecordTime != null" >
+        work_record_time = #{workRecordTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where work_record_id = #{workRecordId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.WorkRecord" >
+    update work_record
+    set work_record_currentstaff = #{workRecordCurrentstaff,jdbcType=CHAR},
+      work_record_nextstaff = #{workRecordNextstaff,jdbcType=CHAR},
+      work_record_time = #{workRecordTime,jdbcType=VARCHAR}
+    where work_record_id = #{workRecordId,jdbcType=CHAR}
+  </update>
+</mapper>

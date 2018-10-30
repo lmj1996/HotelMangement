@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.StockPurchaseMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.StockPurchase" >
+    <id column="stock_purchase_id" property="stockPurchaseId" jdbcType="CHAR" />
+    <result column="stock_purchase_num" property="stockPurchaseNum" jdbcType="VARCHAR" />
+    <result column="stock_purchase_name" property="stockPurchaseName" jdbcType="VARCHAR" />
+    <result column="stock_purchase_price" property="stockPurchasePrice" jdbcType="VARCHAR" />
+    <result column="stock_purchase_number" property="stockPurchaseNumber" jdbcType="VARCHAR" />
+    <result column="stock_purchase_staff" property="stockPurchaseStaff" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stock_purchase_id, stock_purchase_num, stock_purchase_name, stock_purchase_price, 
+    stock_purchase_number, stock_purchase_staff
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.StockPurchaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stock_purchase
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock_purchase
+    where stock_purchase_id = #{stockPurchaseId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from stock_purchase
+    where stock_purchase_id = #{stockPurchaseId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.StockPurchaseExample" >
+    delete from stock_purchase
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.StockPurchase" >
+    insert into stock_purchase (stock_purchase_id, stock_purchase_num, stock_purchase_name, 
+      stock_purchase_price, stock_purchase_number, 
+      stock_purchase_staff)
+    values (#{stockPurchaseId,jdbcType=CHAR}, #{stockPurchaseNum,jdbcType=VARCHAR}, #{stockPurchaseName,jdbcType=VARCHAR}, 
+      #{stockPurchasePrice,jdbcType=VARCHAR}, #{stockPurchaseNumber,jdbcType=VARCHAR}, 
+      #{stockPurchaseStaff,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.StockPurchase" >
+    insert into stock_purchase
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockPurchaseId != null" >
+        stock_purchase_id,
+      </if>
+      <if test="stockPurchaseNum != null" >
+        stock_purchase_num,
+      </if>
+      <if test="stockPurchaseName != null" >
+        stock_purchase_name,
+      </if>
+      <if test="stockPurchasePrice != null" >
+        stock_purchase_price,
+      </if>
+      <if test="stockPurchaseNumber != null" >
+        stock_purchase_number,
+      </if>
+      <if test="stockPurchaseStaff != null" >
+        stock_purchase_staff,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockPurchaseId != null" >
+        #{stockPurchaseId,jdbcType=CHAR},
+      </if>
+      <if test="stockPurchaseNum != null" >
+        #{stockPurchaseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurchaseName != null" >
+        #{stockPurchaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurchasePrice != null" >
+        #{stockPurchasePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurchaseNumber != null" >
+        #{stockPurchaseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurchaseStaff != null" >
+        #{stockPurchaseStaff,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.StockPurchaseExample" resultType="java.lang.Integer" >
+    select count(*) from stock_purchase
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stock_purchase
+    <set >
+      <if test="record.stockPurchaseId != null" >
+        stock_purchase_id = #{record.stockPurchaseId,jdbcType=CHAR},
+      </if>
+      <if test="record.stockPurchaseNum != null" >
+        stock_purchase_num = #{record.stockPurchaseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockPurchaseName != null" >
+        stock_purchase_name = #{record.stockPurchaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockPurchasePrice != null" >
+        stock_purchase_price = #{record.stockPurchasePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockPurchaseNumber != null" >
+        stock_purchase_number = #{record.stockPurchaseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockPurchaseStaff != null" >
+        stock_purchase_staff = #{record.stockPurchaseStaff,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stock_purchase
+    set stock_purchase_id = #{record.stockPurchaseId,jdbcType=CHAR},
+      stock_purchase_num = #{record.stockPurchaseNum,jdbcType=VARCHAR},
+      stock_purchase_name = #{record.stockPurchaseName,jdbcType=VARCHAR},
+      stock_purchase_price = #{record.stockPurchasePrice,jdbcType=VARCHAR},
+      stock_purchase_number = #{record.stockPurchaseNumber,jdbcType=VARCHAR},
+      stock_purchase_staff = #{record.stockPurchaseStaff,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.StockPurchase" >
+    update stock_purchase
+    <set >
+      <if test="stockPurchaseNum != null" >
+        stock_purchase_num = #{stockPurchaseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurchaseName != null" >
+        stock_purchase_name = #{stockPurchaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurchasePrice != null" >
+        stock_purchase_price = #{stockPurchasePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurchaseNumber != null" >
+        stock_purchase_number = #{stockPurchaseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurchaseStaff != null" >
+        stock_purchase_staff = #{stockPurchaseStaff,jdbcType=CHAR},
+      </if>
+    </set>
+    where stock_purchase_id = #{stockPurchaseId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.StockPurchase" >
+    update stock_purchase
+    set stock_purchase_num = #{stockPurchaseNum,jdbcType=VARCHAR},
+      stock_purchase_name = #{stockPurchaseName,jdbcType=VARCHAR},
+      stock_purchase_price = #{stockPurchasePrice,jdbcType=VARCHAR},
+      stock_purchase_number = #{stockPurchaseNumber,jdbcType=VARCHAR},
+      stock_purchase_staff = #{stockPurchaseStaff,jdbcType=CHAR}
+    where stock_purchase_id = #{stockPurchaseId,jdbcType=CHAR}
+  </update>
+</mapper>

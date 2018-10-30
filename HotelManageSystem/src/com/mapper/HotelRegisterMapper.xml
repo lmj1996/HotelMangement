@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.HotelRegisterMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.HotelRegister" >
+    <id column="hotel_register_id" property="hotelRegisterId" jdbcType="CHAR" />
+    <result column="hotel_register_customer" property="hotelRegisterCustomer" jdbcType="CHAR" />
+    <result column="hotel_register_room" property="hotelRegisterRoom" jdbcType="CHAR" />
+    <result column="hotel_register_starttime" property="hotelRegisterStarttime" jdbcType="VARCHAR" />
+    <result column="hotel_register_endtime" property="hotelRegisterEndtime" jdbcType="VARCHAR" />
+    <result column="hotel_register_security" property="hotelRegisterSecurity" jdbcType="VARCHAR" />
+    <result column="hotel_register_totalprice" property="hotelRegisterTotalprice" jdbcType="VARCHAR" />
+    <result column="hotel_register_createtime" property="hotelRegisterCreatetime" jdbcType="VARCHAR" />
+    <result column="hotel_register_modifytime" property="hotelRegisterModifytime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hotel_register_id, hotel_register_customer, hotel_register_room, hotel_register_starttime, 
+    hotel_register_endtime, hotel_register_security, hotel_register_totalprice, hotel_register_createtime, 
+    hotel_register_modifytime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.HotelRegisterExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hotel_register
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from hotel_register
+    where hotel_register_id = #{hotelRegisterId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from hotel_register
+    where hotel_register_id = #{hotelRegisterId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.HotelRegisterExample" >
+    delete from hotel_register
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.HotelRegister" >
+    insert into hotel_register (hotel_register_id, hotel_register_customer, 
+      hotel_register_room, hotel_register_starttime, 
+      hotel_register_endtime, hotel_register_security, 
+      hotel_register_totalprice, hotel_register_createtime, 
+      hotel_register_modifytime)
+    values (#{hotelRegisterId,jdbcType=CHAR}, #{hotelRegisterCustomer,jdbcType=CHAR}, 
+      #{hotelRegisterRoom,jdbcType=CHAR}, #{hotelRegisterStarttime,jdbcType=VARCHAR}, 
+      #{hotelRegisterEndtime,jdbcType=VARCHAR}, #{hotelRegisterSecurity,jdbcType=VARCHAR}, 
+      #{hotelRegisterTotalprice,jdbcType=VARCHAR}, #{hotelRegisterCreatetime,jdbcType=VARCHAR}, 
+      #{hotelRegisterModifytime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.HotelRegister" >
+    insert into hotel_register
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotelRegisterId != null" >
+        hotel_register_id,
+      </if>
+      <if test="hotelRegisterCustomer != null" >
+        hotel_register_customer,
+      </if>
+      <if test="hotelRegisterRoom != null" >
+        hotel_register_room,
+      </if>
+      <if test="hotelRegisterStarttime != null" >
+        hotel_register_starttime,
+      </if>
+      <if test="hotelRegisterEndtime != null" >
+        hotel_register_endtime,
+      </if>
+      <if test="hotelRegisterSecurity != null" >
+        hotel_register_security,
+      </if>
+      <if test="hotelRegisterTotalprice != null" >
+        hotel_register_totalprice,
+      </if>
+      <if test="hotelRegisterCreatetime != null" >
+        hotel_register_createtime,
+      </if>
+      <if test="hotelRegisterModifytime != null" >
+        hotel_register_modifytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotelRegisterId != null" >
+        #{hotelRegisterId,jdbcType=CHAR},
+      </if>
+      <if test="hotelRegisterCustomer != null" >
+        #{hotelRegisterCustomer,jdbcType=CHAR},
+      </if>
+      <if test="hotelRegisterRoom != null" >
+        #{hotelRegisterRoom,jdbcType=CHAR},
+      </if>
+      <if test="hotelRegisterStarttime != null" >
+        #{hotelRegisterStarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterEndtime != null" >
+        #{hotelRegisterEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterSecurity != null" >
+        #{hotelRegisterSecurity,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterTotalprice != null" >
+        #{hotelRegisterTotalprice,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterCreatetime != null" >
+        #{hotelRegisterCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterModifytime != null" >
+        #{hotelRegisterModifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.HotelRegisterExample" resultType="java.lang.Integer" >
+    select count(*) from hotel_register
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update hotel_register
+    <set >
+      <if test="record.hotelRegisterId != null" >
+        hotel_register_id = #{record.hotelRegisterId,jdbcType=CHAR},
+      </if>
+      <if test="record.hotelRegisterCustomer != null" >
+        hotel_register_customer = #{record.hotelRegisterCustomer,jdbcType=CHAR},
+      </if>
+      <if test="record.hotelRegisterRoom != null" >
+        hotel_register_room = #{record.hotelRegisterRoom,jdbcType=CHAR},
+      </if>
+      <if test="record.hotelRegisterStarttime != null" >
+        hotel_register_starttime = #{record.hotelRegisterStarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelRegisterEndtime != null" >
+        hotel_register_endtime = #{record.hotelRegisterEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelRegisterSecurity != null" >
+        hotel_register_security = #{record.hotelRegisterSecurity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelRegisterTotalprice != null" >
+        hotel_register_totalprice = #{record.hotelRegisterTotalprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelRegisterCreatetime != null" >
+        hotel_register_createtime = #{record.hotelRegisterCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelRegisterModifytime != null" >
+        hotel_register_modifytime = #{record.hotelRegisterModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update hotel_register
+    set hotel_register_id = #{record.hotelRegisterId,jdbcType=CHAR},
+      hotel_register_customer = #{record.hotelRegisterCustomer,jdbcType=CHAR},
+      hotel_register_room = #{record.hotelRegisterRoom,jdbcType=CHAR},
+      hotel_register_starttime = #{record.hotelRegisterStarttime,jdbcType=VARCHAR},
+      hotel_register_endtime = #{record.hotelRegisterEndtime,jdbcType=VARCHAR},
+      hotel_register_security = #{record.hotelRegisterSecurity,jdbcType=VARCHAR},
+      hotel_register_totalprice = #{record.hotelRegisterTotalprice,jdbcType=VARCHAR},
+      hotel_register_createtime = #{record.hotelRegisterCreatetime,jdbcType=VARCHAR},
+      hotel_register_modifytime = #{record.hotelRegisterModifytime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.HotelRegister" >
+    update hotel_register
+    <set >
+      <if test="hotelRegisterCustomer != null" >
+        hotel_register_customer = #{hotelRegisterCustomer,jdbcType=CHAR},
+      </if>
+      <if test="hotelRegisterRoom != null" >
+        hotel_register_room = #{hotelRegisterRoom,jdbcType=CHAR},
+      </if>
+      <if test="hotelRegisterStarttime != null" >
+        hotel_register_starttime = #{hotelRegisterStarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterEndtime != null" >
+        hotel_register_endtime = #{hotelRegisterEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterSecurity != null" >
+        hotel_register_security = #{hotelRegisterSecurity,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterTotalprice != null" >
+        hotel_register_totalprice = #{hotelRegisterTotalprice,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterCreatetime != null" >
+        hotel_register_createtime = #{hotelRegisterCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelRegisterModifytime != null" >
+        hotel_register_modifytime = #{hotelRegisterModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hotel_register_id = #{hotelRegisterId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.HotelRegister" >
+    update hotel_register
+    set hotel_register_customer = #{hotelRegisterCustomer,jdbcType=CHAR},
+      hotel_register_room = #{hotelRegisterRoom,jdbcType=CHAR},
+      hotel_register_starttime = #{hotelRegisterStarttime,jdbcType=VARCHAR},
+      hotel_register_endtime = #{hotelRegisterEndtime,jdbcType=VARCHAR},
+      hotel_register_security = #{hotelRegisterSecurity,jdbcType=VARCHAR},
+      hotel_register_totalprice = #{hotelRegisterTotalprice,jdbcType=VARCHAR},
+      hotel_register_createtime = #{hotelRegisterCreatetime,jdbcType=VARCHAR},
+      hotel_register_modifytime = #{hotelRegisterModifytime,jdbcType=VARCHAR}
+    where hotel_register_id = #{hotelRegisterId,jdbcType=CHAR}
+  </update>
+  
+  <select id="selectByRoomId"  resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from hotel_register where hotel_register_room = #{roomId,jdbcType=CHAR}
+  </select>
+  
+</mapper>

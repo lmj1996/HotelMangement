@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.StockReceiveMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.StockReceive" >
+    <id column="stock_receive_id" property="stockReceiveId" jdbcType="CHAR" />
+    <result column="stock_receive_name" property="stockReceiveName" jdbcType="CHAR" />
+    <result column="stock_receive_num" property="stockReceiveNum" jdbcType="VARCHAR" />
+    <result column="stock_receive_staff" property="stockReceiveStaff" jdbcType="CHAR" />
+    <result column="stock_receive_time" property="stockReceiveTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stock_receive_id, stock_receive_name, stock_receive_num, stock_receive_staff, stock_receive_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.StockReceiveExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stock_receive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock_receive
+    where stock_receive_id = #{stockReceiveId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from stock_receive
+    where stock_receive_id = #{stockReceiveId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.StockReceiveExample" >
+    delete from stock_receive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.StockReceive" >
+    insert into stock_receive (stock_receive_id, stock_receive_name, stock_receive_num, 
+      stock_receive_staff, stock_receive_time)
+    values (#{stockReceiveId,jdbcType=CHAR}, #{stockReceiveName,jdbcType=CHAR}, #{stockReceiveNum,jdbcType=VARCHAR}, 
+      #{stockReceiveStaff,jdbcType=CHAR}, #{stockReceiveTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.StockReceive" >
+    insert into stock_receive
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockReceiveId != null" >
+        stock_receive_id,
+      </if>
+      <if test="stockReceiveName != null" >
+        stock_receive_name,
+      </if>
+      <if test="stockReceiveNum != null" >
+        stock_receive_num,
+      </if>
+      <if test="stockReceiveStaff != null" >
+        stock_receive_staff,
+      </if>
+      <if test="stockReceiveTime != null" >
+        stock_receive_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockReceiveId != null" >
+        #{stockReceiveId,jdbcType=CHAR},
+      </if>
+      <if test="stockReceiveName != null" >
+        #{stockReceiveName,jdbcType=CHAR},
+      </if>
+      <if test="stockReceiveNum != null" >
+        #{stockReceiveNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockReceiveStaff != null" >
+        #{stockReceiveStaff,jdbcType=CHAR},
+      </if>
+      <if test="stockReceiveTime != null" >
+        #{stockReceiveTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.StockReceiveExample" resultType="java.lang.Integer" >
+    select count(*) from stock_receive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stock_receive
+    <set >
+      <if test="record.stockReceiveId != null" >
+        stock_receive_id = #{record.stockReceiveId,jdbcType=CHAR},
+      </if>
+      <if test="record.stockReceiveName != null" >
+        stock_receive_name = #{record.stockReceiveName,jdbcType=CHAR},
+      </if>
+      <if test="record.stockReceiveNum != null" >
+        stock_receive_num = #{record.stockReceiveNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockReceiveStaff != null" >
+        stock_receive_staff = #{record.stockReceiveStaff,jdbcType=CHAR},
+      </if>
+      <if test="record.stockReceiveTime != null" >
+        stock_receive_time = #{record.stockReceiveTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stock_receive
+    set stock_receive_id = #{record.stockReceiveId,jdbcType=CHAR},
+      stock_receive_name = #{record.stockReceiveName,jdbcType=CHAR},
+      stock_receive_num = #{record.stockReceiveNum,jdbcType=VARCHAR},
+      stock_receive_staff = #{record.stockReceiveStaff,jdbcType=CHAR},
+      stock_receive_time = #{record.stockReceiveTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.StockReceive" >
+    update stock_receive
+    <set >
+      <if test="stockReceiveName != null" >
+        stock_receive_name = #{stockReceiveName,jdbcType=CHAR},
+      </if>
+      <if test="stockReceiveNum != null" >
+        stock_receive_num = #{stockReceiveNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockReceiveStaff != null" >
+        stock_receive_staff = #{stockReceiveStaff,jdbcType=CHAR},
+      </if>
+      <if test="stockReceiveTime != null" >
+        stock_receive_time = #{stockReceiveTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stock_receive_id = #{stockReceiveId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.StockReceive" >
+    update stock_receive
+    set stock_receive_name = #{stockReceiveName,jdbcType=CHAR},
+      stock_receive_num = #{stockReceiveNum,jdbcType=VARCHAR},
+      stock_receive_staff = #{stockReceiveStaff,jdbcType=CHAR},
+      stock_receive_time = #{stockReceiveTime,jdbcType=VARCHAR}
+    where stock_receive_id = #{stockReceiveId,jdbcType=CHAR}
+  </update>
+</mapper>
