@@ -288,4 +288,10 @@
       staff_modifytime = #{staffModifytime,jdbcType=VARCHAR}
     where staff_id = #{staffId,jdbcType=CHAR}
   </update>
+  
+  <select id="getStaffInfo" resultMap="BaseResultMap" parameterType="com.pojo.StaffExample" >
+  	select * from staff where staff_num = #{staffNum,jdbcType=VARCHAR}
+  </select>
+  
+  
 </mapper>

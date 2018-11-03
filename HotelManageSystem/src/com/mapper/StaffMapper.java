@@ -27,4 +27,10 @@ public interface StaffMapper {
     int updateByPrimaryKeySelective(Staff record);
 
     int updateByPrimaryKey(Staff record);
+
+    /**
+     * 根据员工工号查询员工信息 * @param staffNum
+     * @return
+     */
+	Staff getStaffInfo(String staffNum);
 }

@@ -11,9 +11,14 @@
 <title>查询用户</title>
 </head>
 <body>
-	<form action="room/queryById.do" method="post">
-		输入要查询的id:	<input type="text" name="id"/>
-		<button type="submit">提交</button>
+	<form action="${pageContext.request.contextPath}/jump/jumpToLogin.do" method="post" id="login">
+		
 	</form>
+	<script>
+		window.onload = function() {
+			document.getElementById("login").submit();
+		}
+	</script>
+	
 </body>
 </html>
