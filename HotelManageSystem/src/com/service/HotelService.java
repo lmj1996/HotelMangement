@@ -1,6 +1,5 @@
 package com.service;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.DTO.*;
+import com.VO.*;
 import com.mapper.*;
 import com.pojo.*;
 import com.pojo.RoomExample.Criteria;
@@ -24,24 +24,61 @@ public class HotelService {
 	@Resource
 	private CustomerMapper customerMapper;
 
-	//添加房间
+	// 添加房间
 	public String addRoom(Room room) {
-		Room newroom = new Room();
-		System.out.println("编号"+room.getRoomNum());
-		newroom = roomMapper.selectByNum(room.getRoomNum());
-		System.out.println("房间信息"+newroom);
-		if(newroom!=null) {
-			System.out.println("已存在的编号");
+		String x = "LT-";
+		if (room.getRoomFloor().trim().length() == 1) {
+			List<Room> room_1 = new ArrayList<>();
+			room_1 = roomMapper.getRoomByFloor(room.getRoomFloor());
+			if (room_1 != null) {
+				String maxNumber = roomMapper.getMaxNumber(room.getRoomFloor());
+				if (maxNumber != null && maxNumber.trim().length() > 0) {
+					int nextNumber = Integer.parseInt(maxNumber);
+					nextNumber = nextNumber + 1;
+					String num = String.format("%03d", nextNumber);
+					room.setRoomNum(x + room.getRoomFloor() + "-" + num);
+				} else {
+					room.setRoomNum(x + room.getRoomFloor() + "-" + "001");
+				}
+
+			} else {
+				room.setRoomNum(x + room.getRoomFloor() + "-" + "001");
+			}
+			room.setRoomId(BuildUuid.getUuid());
+			room.setRoomState("空闲");
+			roomMapper.insertSelective(room);
+			System.out.println("添加成功");
+			return "success";
+
+		} else if (room.getRoomFloor().trim().length() == 2) {
+			List<Room> room_2 = new ArrayList<>();
+			room_2 = roomMapper.getRoomByFloor(room.getRoomFloor());
+			System.out.println("room:" + room_2);
+			if (room_2 != null) {
+				String maxNumber2 = roomMapper.getTwoMaxNumber(room.getRoomFloor());
+				if (maxNumber2 != null && maxNumber2.trim().length() > 0) {
+					int nextNumber2 = Integer.parseInt(maxNumber2);
+					nextNumber2 = nextNumber2 + 1;
+					String num2 = String.format("%03d", nextNumber2);
+					room.setRoomNum(x + room.getRoomFloor() + "-" + num2);
+				} else {
+					room.setRoomNum(x + room.getRoomFloor() + "-" + "001");
+				}
+
+			} else {
+				room.setRoomNum(x + room.getRoomFloor() + "-" + "001");
+			}
+			room.setRoomId(BuildUuid.getUuid());
+			room.setRoomState("空闲");
+			roomMapper.insertSelective(room);
+			System.out.println("添加成功");
+			return "success";
+		} else {
 			return "error";
-		}else {
-		room.setRoomId(BuildUuid.getUuid());
-		roomMapper.insertSelective(room);
-		System.out.println("添加成功");
-		return "success";
 		}
 	}
 
-	//查询所有房间
+	// 查询所有房间
 	public List<RoomDTO> findAllRoom() {
 		List<RoomDTO> listRoomDTO = new ArrayList<>();
 		RoomDTO roomDTO;
@@ -81,28 +118,115 @@ public class HotelService {
 		return null;
 	}
 
-	//更新房间信息
+	// 房间分页功能
+	public RoomVO queryAllRoom(RoomVO roomVO) {
+		List<RoomDTO> listRoomDTO = new ArrayList<>();
+		RoomDTO roomDTO;
+		List<Room> listRoom = new ArrayList<>();
+		HotelRegister hotelRegister;
+		Customer customer;
+
+		RoomExample roomExample = new RoomExample();
+		roomExample.setStartRow((roomVO.getPageIndex()-1)*roomVO.getPageSize());
+		roomExample.setPageSize(roomVO.getPageSize());
+		Criteria roomCriteria = roomExample.createCriteria();
+		roomCriteria.andRoomIdIsNotNull();
+		if (roomVO.getFloor() != null && roomVO.getFloor().trim().length() > 0) {
+			roomCriteria.andRoomFloorEqualTo(roomVO.getFloor());
+		}
+		if (roomVO.getState() != null && roomVO.getState().trim().length() > 0) {
+			roomCriteria.andRoomStateEqualTo(roomVO.getState());
+		}
+		if (roomVO.getType() != null && roomVO.getType().trim().length() > 0) {
+			roomCriteria.andRoomTypeEqualTo(roomVO.getType());
+		}
+		if (roomVO.getSearch() != null && roomVO.getSearch().trim().length() > 0) {
+			roomCriteria.andRoomNumLike("%" + roomVO.getSearch() + "%");
+		}
+		
+		
+		int count = roomMapper.countByExample(roomExample);
+		/**
+		 * 设置总数量
+		 */
+		roomVO.setTotalRecords(count);
+		/**
+		 * 设置总页数
+		 */
+		roomVO.setTotalPages(((count - 1) / roomVO.getPageSize()) + 1);
+		/**
+		 * 判断是否拥有上一页
+		 */
+		if (roomVO.getPageIndex() <= 1) {
+			roomVO.setHavePrePage(false);
+		} else {
+			roomVO.setHavePrePage(true);
+		}
+		/**
+		 * 判断是否拥有下一页
+		 */
+		if (roomVO.getPageIndex() >= roomVO.getTotalPages()) {
+			roomVO.setHaveNextPage(false);
+		} else {
+			roomVO.setHaveNextPage(true);
+		}
+		
+		listRoom = roomMapper.selectByExampleForPaging(roomExample);
+		if (listRoom != null && listRoom.size() > 0) {
+			for (Room room : listRoom) {
+				roomDTO = new RoomDTO();
+				hotelRegister = new HotelRegister();
+				customer = new Customer();
+				if (room != null) {
+					if (room.getRoomState() != null && room.getRoomState().trim().length() > 0) {
+						if (room.getRoomState().equals("已租出")) {
+							hotelRegister = hotelRegisterMapper.selectByRoomId(room.getRoomId());
+							customer = customerMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterCustomer());
+							roomDTO.setRoom(room);
+							roomDTO.setHotelRegister(hotelRegister);
+							roomDTO.setCustomer(customer);
+						} else {
+							roomDTO.setRoom(room);
+						}
+
+					}
+				}
+				if(roomVO.getSearch()!=null&&roomVO.getSearch().trim().length()>0) {
+					room.setRoomNum(room.getRoomNum().replaceAll(roomVO.getSearch(), "<span style='color: #ff5063;'>" + roomVO.getSearch() + "</span>"));
+				}
+				listRoomDTO.add(roomDTO);
+
+			}
+			roomVO.setListRoomDTO(listRoomDTO);
+			return roomVO;
+		}
+
+		return null;
+
+	}
+
+	// 更新房间信息
 	public String updateRoom(Room room) {
 		room.setRoomState("空闲");
 		roomMapper.updateByPrimaryKeySelective(room);
 		return "success";
 	}
 
-	//顾客住宿登记
+	// 顾客住宿登记
 	public String customerStayOverNight(Room room, Customer customer, HotelRegister hotelRegister) {
 		customer.setCustomerId(BuildUuid.getUuid());
 		customerMapper.insertSelective(customer);
-		
+
 		hotelRegister.setHotelRegisterId(BuildUuid.getUuid());
 		hotelRegister.setHotelRegisterCustomer(customer.getCustomerId());
 		hotelRegister.setHotelRegisterRoom(room.getRoomId());
 		hotelRegister.setHotelRegisterCreatetime(TimeUtil.getStringSecond());
 		hotelRegister.setHotelRegisterModifytime(TimeUtil.getStringSecond());
 		hotelRegisterMapper.insertSelective(hotelRegister);
-		
+
 		room.setRoomState("已租出");
 		roomMapper.updateByPrimaryKeySelective(room);
-		
+
 		return "success";
 	}
 

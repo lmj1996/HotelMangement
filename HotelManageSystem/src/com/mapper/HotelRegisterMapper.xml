@@ -5,6 +5,7 @@
     <id column="hotel_register_id" property="hotelRegisterId" jdbcType="CHAR" />
     <result column="hotel_register_customer" property="hotelRegisterCustomer" jdbcType="CHAR" />
     <result column="hotel_register_room" property="hotelRegisterRoom" jdbcType="CHAR" />
+    <result column="hotel_register_chargingway" property="hotelRegisterChargingway" jdbcType="CHAR" />
     <result column="hotel_register_starttime" property="hotelRegisterStarttime" jdbcType="VARCHAR" />
     <result column="hotel_register_endtime" property="hotelRegisterEndtime" jdbcType="VARCHAR" />
     <result column="hotel_register_security" property="hotelRegisterSecurity" jdbcType="VARCHAR" />
@@ -71,9 +72,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    hotel_register_id, hotel_register_customer, hotel_register_room, hotel_register_starttime, 
-    hotel_register_endtime, hotel_register_security, hotel_register_totalprice, hotel_register_createtime, 
-    hotel_register_modifytime
+    hotel_register_id, hotel_register_customer, hotel_register_room, hotel_register_chargingway, 
+    hotel_register_starttime, hotel_register_endtime, hotel_register_security, hotel_register_totalprice, 
+    hotel_register_createtime, hotel_register_modifytime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.HotelRegisterExample" >
     select
@@ -107,15 +108,17 @@
   </delete>
   <insert id="insert" parameterType="com.pojo.HotelRegister" >
     insert into hotel_register (hotel_register_id, hotel_register_customer, 
-      hotel_register_room, hotel_register_starttime, 
-      hotel_register_endtime, hotel_register_security, 
-      hotel_register_totalprice, hotel_register_createtime, 
-      hotel_register_modifytime)
+      hotel_register_room, hotel_register_chargingway, 
+      hotel_register_starttime, hotel_register_endtime, 
+      hotel_register_security, hotel_register_totalprice, 
+      hotel_register_createtime, hotel_register_modifytime
+      )
     values (#{hotelRegisterId,jdbcType=CHAR}, #{hotelRegisterCustomer,jdbcType=CHAR}, 
-      #{hotelRegisterRoom,jdbcType=CHAR}, #{hotelRegisterStarttime,jdbcType=VARCHAR}, 
-      #{hotelRegisterEndtime,jdbcType=VARCHAR}, #{hotelRegisterSecurity,jdbcType=VARCHAR}, 
-      #{hotelRegisterTotalprice,jdbcType=VARCHAR}, #{hotelRegisterCreatetime,jdbcType=VARCHAR}, 
-      #{hotelRegisterModifytime,jdbcType=VARCHAR})
+      #{hotelRegisterRoom,jdbcType=CHAR}, #{hotelRegisterChargingway,jdbcType=CHAR}, 
+      #{hotelRegisterStarttime,jdbcType=VARCHAR}, #{hotelRegisterEndtime,jdbcType=VARCHAR}, 
+      #{hotelRegisterSecurity,jdbcType=VARCHAR}, #{hotelRegisterTotalprice,jdbcType=VARCHAR}, 
+      #{hotelRegisterCreatetime,jdbcType=VARCHAR}, #{hotelRegisterModifytime,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pojo.HotelRegister" >
     insert into hotel_register
@@ -128,6 +131,9 @@
       </if>
       <if test="hotelRegisterRoom != null" >
         hotel_register_room,
+      </if>
+      <if test="hotelRegisterChargingway != null" >
+        hotel_register_chargingway,
       </if>
       <if test="hotelRegisterStarttime != null" >
         hotel_register_starttime,
@@ -157,6 +163,9 @@
       </if>
       <if test="hotelRegisterRoom != null" >
         #{hotelRegisterRoom,jdbcType=CHAR},
+      </if>
+      <if test="hotelRegisterChargingway != null" >
+        #{hotelRegisterChargingway,jdbcType=CHAR},
       </if>
       <if test="hotelRegisterStarttime != null" >
         #{hotelRegisterStarttime,jdbcType=VARCHAR},
@@ -196,6 +205,9 @@
       <if test="record.hotelRegisterRoom != null" >
         hotel_register_room = #{record.hotelRegisterRoom,jdbcType=CHAR},
       </if>
+      <if test="record.hotelRegisterChargingway != null" >
+        hotel_register_chargingway = #{record.hotelRegisterChargingway,jdbcType=CHAR},
+      </if>
       <if test="record.hotelRegisterStarttime != null" >
         hotel_register_starttime = #{record.hotelRegisterStarttime,jdbcType=VARCHAR},
       </if>
@@ -224,6 +236,7 @@
     set hotel_register_id = #{record.hotelRegisterId,jdbcType=CHAR},
       hotel_register_customer = #{record.hotelRegisterCustomer,jdbcType=CHAR},
       hotel_register_room = #{record.hotelRegisterRoom,jdbcType=CHAR},
+      hotel_register_chargingway = #{record.hotelRegisterChargingway,jdbcType=CHAR},
       hotel_register_starttime = #{record.hotelRegisterStarttime,jdbcType=VARCHAR},
       hotel_register_endtime = #{record.hotelRegisterEndtime,jdbcType=VARCHAR},
       hotel_register_security = #{record.hotelRegisterSecurity,jdbcType=VARCHAR},
@@ -242,6 +255,9 @@
       </if>
       <if test="hotelRegisterRoom != null" >
         hotel_register_room = #{hotelRegisterRoom,jdbcType=CHAR},
+      </if>
+      <if test="hotelRegisterChargingway != null" >
+        hotel_register_chargingway = #{hotelRegisterChargingway,jdbcType=CHAR},
       </if>
       <if test="hotelRegisterStarttime != null" >
         hotel_register_starttime = #{hotelRegisterStarttime,jdbcType=VARCHAR},
@@ -268,6 +284,7 @@
     update hotel_register
     set hotel_register_customer = #{hotelRegisterCustomer,jdbcType=CHAR},
       hotel_register_room = #{hotelRegisterRoom,jdbcType=CHAR},
+      hotel_register_chargingway = #{hotelRegisterChargingway,jdbcType=CHAR},
       hotel_register_starttime = #{hotelRegisterStarttime,jdbcType=VARCHAR},
       hotel_register_endtime = #{hotelRegisterEndtime,jdbcType=VARCHAR},
       hotel_register_security = #{hotelRegisterSecurity,jdbcType=VARCHAR},

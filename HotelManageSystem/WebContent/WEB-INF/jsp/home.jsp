@@ -41,7 +41,7 @@
 							<a href="${pageContext.request.contextPath}/jsp/home.jsp" class="active"><i class="fa fa-area-chart fa-fw"></i>首页</a>
 						</li>
 						<li>
-							<a href="${pageContext.request.contextPath}/jsp/room/room_management.html"><i class="fa fa-home fa-fw"></i>房间</a>
+							<a href="${pageContext.request.contextPath}/hotel/getAllRoom.do"><i class="fa fa-home fa-fw"></i>房间</a>
 						</li>
 						<li>
 							<a href="${pageContext.request.contextPath}/jsp/staff/staff_management.html"><i class="fa fa-users fa-fw"></i>员工</a>

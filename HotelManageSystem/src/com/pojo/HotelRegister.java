@@ -7,6 +7,8 @@ public class HotelRegister {
 
     private String hotelRegisterRoom;
 
+    private String hotelRegisterChargingway;
+
     private String hotelRegisterStarttime;
 
     private String hotelRegisterEndtime;
@@ -41,6 +43,14 @@ public class HotelRegister {
 
     public void setHotelRegisterRoom(String hotelRegisterRoom) {
         this.hotelRegisterRoom = hotelRegisterRoom == null ? null : hotelRegisterRoom.trim();
+    }
+
+    public String getHotelRegisterChargingway() {
+        return hotelRegisterChargingway;
+    }
+
+    public void setHotelRegisterChargingway(String hotelRegisterChargingway) {
+        this.hotelRegisterChargingway = hotelRegisterChargingway == null ? null : hotelRegisterChargingway.trim();
     }
 
     public String getHotelRegisterStarttime() {
@@ -94,8 +104,9 @@ public class HotelRegister {
 	@Override
 	public String toString() {
 		return "HotelRegister [hotelRegisterId=" + hotelRegisterId + ", hotelRegisterCustomer=" + hotelRegisterCustomer
-				+ ", hotelRegisterRoom=" + hotelRegisterRoom + ", hotelRegisterStarttime=" + hotelRegisterStarttime
-				+ ", hotelRegisterEndtime=" + hotelRegisterEndtime + ", hotelRegisterSecurity=" + hotelRegisterSecurity
+				+ ", hotelRegisterRoom=" + hotelRegisterRoom + ", hotelRegisterChargingway=" + hotelRegisterChargingway
+				+ ", hotelRegisterStarttime=" + hotelRegisterStarttime + ", hotelRegisterEndtime="
+				+ hotelRegisterEndtime + ", hotelRegisterSecurity=" + hotelRegisterSecurity
 				+ ", hotelRegisterTotalprice=" + hotelRegisterTotalprice + ", hotelRegisterCreatetime="
 				+ hotelRegisterCreatetime + ", hotelRegisterModifytime=" + hotelRegisterModifytime + "]";
 	}

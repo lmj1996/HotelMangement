@@ -49,7 +49,6 @@
             <nav class="templatemo-top-nav col-lg-12 col-md-12">
               <ul class="text-uppercase">
                 <li><a href="room_management.html">查看房间</a></li>
-                <li><a href="room_add.html">增加房间</a></li>
                 <li><a href="room_charge.html" class="active">房间计费规则</a></li>
               </ul>  
             </nav> 

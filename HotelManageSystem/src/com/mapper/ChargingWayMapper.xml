@@ -6,7 +6,6 @@
     <result column="charging_way_name" property="chargingWayName" jdbcType="VARCHAR" />
     <result column="charging_way_starttime" property="chargingWayStarttime" jdbcType="VARCHAR" />
     <result column="charging_way_endtime" property="chargingWayEndtime" jdbcType="VARCHAR" />
-    <result column="charging_way_price" property="chargingWayPrice" jdbcType="VARCHAR" />
     <result column="charging_way_createtime" property="chargingWayCreatetime" jdbcType="VARCHAR" />
     <result column="charging_way_modifytime" property="chargingWayModifytime" jdbcType="VARCHAR" />
   </resultMap>
@@ -70,7 +69,7 @@
   </sql>
   <sql id="Base_Column_List" >
     charging_way_id, charging_way_name, charging_way_starttime, charging_way_endtime, 
-    charging_way_price, charging_way_createtime, charging_way_modifytime
+    charging_way_createtime, charging_way_modifytime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.ChargingWayExample" >
     select
@@ -104,10 +103,10 @@
   </delete>
   <insert id="insert" parameterType="com.pojo.ChargingWay" >
     insert into charging_way (charging_way_id, charging_way_name, charging_way_starttime, 
-      charging_way_endtime, charging_way_price, charging_way_createtime, 
+      charging_way_endtime, charging_way_createtime, 
       charging_way_modifytime)
     values (#{chargingWayId,jdbcType=CHAR}, #{chargingWayName,jdbcType=VARCHAR}, #{chargingWayStarttime,jdbcType=VARCHAR}, 
-      #{chargingWayEndtime,jdbcType=VARCHAR}, #{chargingWayPrice,jdbcType=VARCHAR}, #{chargingWayCreatetime,jdbcType=VARCHAR}, 
+      #{chargingWayEndtime,jdbcType=VARCHAR}, #{chargingWayCreatetime,jdbcType=VARCHAR}, 
       #{chargingWayModifytime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pojo.ChargingWay" >
@@ -124,9 +123,6 @@
       </if>
       <if test="chargingWayEndtime != null" >
         charging_way_endtime,
-      </if>
-      <if test="chargingWayPrice != null" >
-        charging_way_price,
       </if>
       <if test="chargingWayCreatetime != null" >
         charging_way_createtime,
@@ -147,9 +143,6 @@
       </if>
       <if test="chargingWayEndtime != null" >
         #{chargingWayEndtime,jdbcType=VARCHAR},
-      </if>
-      <if test="chargingWayPrice != null" >
-        #{chargingWayPrice,jdbcType=VARCHAR},
       </if>
       <if test="chargingWayCreatetime != null" >
         #{chargingWayCreatetime,jdbcType=VARCHAR},
@@ -180,9 +173,6 @@
       <if test="record.chargingWayEndtime != null" >
         charging_way_endtime = #{record.chargingWayEndtime,jdbcType=VARCHAR},
       </if>
-      <if test="record.chargingWayPrice != null" >
-        charging_way_price = #{record.chargingWayPrice,jdbcType=VARCHAR},
-      </if>
       <if test="record.chargingWayCreatetime != null" >
         charging_way_createtime = #{record.chargingWayCreatetime,jdbcType=VARCHAR},
       </if>
@@ -200,7 +190,6 @@
       charging_way_name = #{record.chargingWayName,jdbcType=VARCHAR},
       charging_way_starttime = #{record.chargingWayStarttime,jdbcType=VARCHAR},
       charging_way_endtime = #{record.chargingWayEndtime,jdbcType=VARCHAR},
-      charging_way_price = #{record.chargingWayPrice,jdbcType=VARCHAR},
       charging_way_createtime = #{record.chargingWayCreatetime,jdbcType=VARCHAR},
       charging_way_modifytime = #{record.chargingWayModifytime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -219,9 +208,6 @@
       <if test="chargingWayEndtime != null" >
         charging_way_endtime = #{chargingWayEndtime,jdbcType=VARCHAR},
       </if>
-      <if test="chargingWayPrice != null" >
-        charging_way_price = #{chargingWayPrice,jdbcType=VARCHAR},
-      </if>
       <if test="chargingWayCreatetime != null" >
         charging_way_createtime = #{chargingWayCreatetime,jdbcType=VARCHAR},
       </if>
@@ -236,7 +222,6 @@
     set charging_way_name = #{chargingWayName,jdbcType=VARCHAR},
       charging_way_starttime = #{chargingWayStarttime,jdbcType=VARCHAR},
       charging_way_endtime = #{chargingWayEndtime,jdbcType=VARCHAR},
-      charging_way_price = #{chargingWayPrice,jdbcType=VARCHAR},
       charging_way_createtime = #{chargingWayCreatetime,jdbcType=VARCHAR},
       charging_way_modifytime = #{chargingWayModifytime,jdbcType=VARCHAR}
     where charging_way_id = #{chargingWayId,jdbcType=CHAR}

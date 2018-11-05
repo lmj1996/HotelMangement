@@ -24,12 +24,10 @@ public class TestFile {
 	@Test
 	public void addRoom() {
 		Room room = new Room();
-		room.setRoomNum("ss005");
-		room.setRoomPrice("128");
-		room.setRoomLevel("一级");
-		room.setRoomFloor("1楼");
-		room.setRoomState("空闲");
-		room.setRoomType("单人间");
+		
+		room.setRoomPrice("5600/天");
+		room.setRoomFloor("2");
+		room.setRoomType("总统套房");
 		hotelService.addRoom(room);
 		
 	}
@@ -49,7 +47,6 @@ public class TestFile {
 		room.setRoomId("716f0520-39da-4fd1-84b5-ac93b51e51b2");
 		room.setRoomNum(num);
 		room.setRoomPrice(price);
-		room.setRoomLevel("总统套房");
 		room.setRoomFloor("1楼");
 		room.setRoomType("双人间");
 		hotelService.updateRoom(room);
@@ -61,7 +58,6 @@ public class TestFile {
 		room.setRoomId("f00f02da-90ed-4aaa-98bd-407dad437155");
 		room.setRoomNum("ss001");
 		room.setRoomPrice("168");
-		room.setRoomLevel("总统套房");
 		room.setRoomFloor("1楼");
 		room.setRoomState("空闲");
 		room.setRoomType("双人间");

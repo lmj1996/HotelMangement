@@ -27,6 +27,14 @@ public interface RoomMapper {
     int updateByPrimaryKeySelective(Room record);
 
     int updateByPrimaryKey(Room record);
+    
+    Room selectByNum(String roomNum);
 
-	Room selectByNum(String roomNum);
+	String getMaxNumber(String roomFloor);
+
+	String getTwoMaxNumber(String roomFloor);
+
+	List<Room> getRoomByFloor(String roomFloor);
+	
+	List<Room> selectByExampleForPaging(RoomExample example);
 }

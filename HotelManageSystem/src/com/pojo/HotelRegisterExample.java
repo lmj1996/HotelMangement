@@ -314,6 +314,76 @@ public class HotelRegisterExample {
             return (Criteria) this;
         }
 
+        public Criteria andHotelRegisterChargingwayIsNull() {
+            addCriterion("hotel_register_chargingway is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayIsNotNull() {
+            addCriterion("hotel_register_chargingway is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayEqualTo(String value) {
+            addCriterion("hotel_register_chargingway =", value, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayNotEqualTo(String value) {
+            addCriterion("hotel_register_chargingway <>", value, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayGreaterThan(String value) {
+            addCriterion("hotel_register_chargingway >", value, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel_register_chargingway >=", value, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayLessThan(String value) {
+            addCriterion("hotel_register_chargingway <", value, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayLessThanOrEqualTo(String value) {
+            addCriterion("hotel_register_chargingway <=", value, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayLike(String value) {
+            addCriterion("hotel_register_chargingway like", value, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayNotLike(String value) {
+            addCriterion("hotel_register_chargingway not like", value, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayIn(List<String> values) {
+            addCriterion("hotel_register_chargingway in", values, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayNotIn(List<String> values) {
+            addCriterion("hotel_register_chargingway not in", values, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayBetween(String value1, String value2) {
+            addCriterion("hotel_register_chargingway between", value1, value2, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChargingwayNotBetween(String value1, String value2) {
+            addCriterion("hotel_register_chargingway not between", value1, value2, "hotelRegisterChargingway");
+            return (Criteria) this;
+        }
+
         public Criteria andHotelRegisterStarttimeIsNull() {
             addCriterion("hotel_register_starttime is null");
             return (Criteria) this;

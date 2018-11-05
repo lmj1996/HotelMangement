@@ -9,8 +9,6 @@ public class ChargingWay {
 
     private String chargingWayEndtime;
 
-    private String chargingWayPrice;
-
     private String chargingWayCreatetime;
 
     private String chargingWayModifytime;
@@ -47,14 +45,6 @@ public class ChargingWay {
         this.chargingWayEndtime = chargingWayEndtime == null ? null : chargingWayEndtime.trim();
     }
 
-    public String getChargingWayPrice() {
-        return chargingWayPrice;
-    }
-
-    public void setChargingWayPrice(String chargingWayPrice) {
-        this.chargingWayPrice = chargingWayPrice == null ? null : chargingWayPrice.trim();
-    }
-
     public String getChargingWayCreatetime() {
         return chargingWayCreatetime;
     }
@@ -75,8 +65,8 @@ public class ChargingWay {
 	public String toString() {
 		return "ChargingWay [chargingWayId=" + chargingWayId + ", chargingWayName=" + chargingWayName
 				+ ", chargingWayStarttime=" + chargingWayStarttime + ", chargingWayEndtime=" + chargingWayEndtime
-				+ ", chargingWayPrice=" + chargingWayPrice + ", chargingWayCreatetime=" + chargingWayCreatetime
-				+ ", chargingWayModifytime=" + chargingWayModifytime + "]";
+				+ ", chargingWayCreatetime=" + chargingWayCreatetime + ", chargingWayModifytime="
+				+ chargingWayModifytime + "]";
 	}
     
 }

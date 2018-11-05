@@ -7,8 +7,6 @@ public class Room {
 
     private String roomType;
 
-    private String roomLevel;
-
     private String roomFloor;
 
     private String roomPrice;
@@ -39,14 +37,6 @@ public class Room {
         this.roomType = roomType == null ? null : roomType.trim();
     }
 
-    public String getRoomLevel() {
-        return roomLevel;
-    }
-
-    public void setRoomLevel(String roomLevel) {
-        this.roomLevel = roomLevel == null ? null : roomLevel.trim();
-    }
-
     public String getRoomFloor() {
         return roomFloor;
     }
@@ -73,8 +63,8 @@ public class Room {
 
 	@Override
 	public String toString() {
-		return "Room [roomId=" + roomId + ", roomNum=" + roomNum + ", roomType=" + roomType + ", roomLevel=" + roomLevel
-				+ ", roomFloor=" + roomFloor + ", roomPrice=" + roomPrice + ", roomState=" + roomState + "]";
+		return "Room [roomId=" + roomId + ", roomNum=" + roomNum + ", roomType=" + roomType + ", roomFloor=" + roomFloor
+				+ ", roomPrice=" + roomPrice + ", roomState=" + roomState + "]";
 	}
     
 }

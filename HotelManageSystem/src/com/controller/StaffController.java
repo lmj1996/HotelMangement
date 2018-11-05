@@ -22,17 +22,17 @@ public class StaffController {
 	@Resource(name = "staffService")
 	private StaffService staffService;
 
-	
+	/**
+	 * 登录
+	 */
 	@RequestMapping(value="/login")
 	public ModelAndView login(Staff staff) {
-		System.out.println("对象"+staff);
 		ModelAndView modelAndView = new ModelAndView();
 		HttpSession session = GetSession.getSession();
 
 				Staff staffInfo = staffService.getSession(staff.getStaffNum(), staff.getStaffPassword());
 				if(staffInfo!=null) {
 					session.setAttribute("staff", staffInfo);
-					System.out.println("kajsdlkajslkdja"+staffInfo);
 					modelAndView.setViewName("home");
 					return modelAndView;
 				}

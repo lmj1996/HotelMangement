@@ -4,8 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomExample {
-    protected String orderByClause;
+	protected int startRow;
+	protected int pageSize;
+	
+    public int getStartRow() {
+		return startRow;
+	}
 
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	protected String orderByClause;
+    
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
@@ -314,76 +333,6 @@ public class RoomExample {
             return (Criteria) this;
         }
 
-        public Criteria andRoomLevelIsNull() {
-            addCriterion("room_level is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelIsNotNull() {
-            addCriterion("room_level is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelEqualTo(String value) {
-            addCriterion("room_level =", value, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelNotEqualTo(String value) {
-            addCriterion("room_level <>", value, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelGreaterThan(String value) {
-            addCriterion("room_level >", value, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelGreaterThanOrEqualTo(String value) {
-            addCriterion("room_level >=", value, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelLessThan(String value) {
-            addCriterion("room_level <", value, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelLessThanOrEqualTo(String value) {
-            addCriterion("room_level <=", value, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelLike(String value) {
-            addCriterion("room_level like", value, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelNotLike(String value) {
-            addCriterion("room_level not like", value, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelIn(List<String> values) {
-            addCriterion("room_level in", values, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelNotIn(List<String> values) {
-            addCriterion("room_level not in", values, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelBetween(String value1, String value2) {
-            addCriterion("room_level between", value1, value2, "roomLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomLevelNotBetween(String value1, String value2) {
-            addCriterion("room_level not between", value1, value2, "roomLevel");
-            return (Criteria) this;
-        }
-
         public Criteria andRoomFloorIsNull() {
             addCriterion("room_floor is null");
             return (Criteria) this;
@@ -687,4 +636,7 @@ public class RoomExample {
             this(condition, value, secondValue, null);
         }
     }
+    
+    
+    
 }
