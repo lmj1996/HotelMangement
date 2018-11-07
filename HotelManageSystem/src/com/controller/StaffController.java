@@ -1,23 +1,21 @@
 package com.controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pojo.Staff;
-import com.service.StaffService;
-import com.util.GetSession;
+import com.DTO.*;
+import com.pojo.*;
+import com.service.*;
 
 @Controller
 
 @RequestMapping("/staff")
-
+@SessionAttributes("session")
 public class StaffController {
 	@Resource(name = "staffService")
 	private StaffService staffService;
@@ -26,13 +24,13 @@ public class StaffController {
 	 * 登录
 	 */
 	@RequestMapping(value="/login")
-	public ModelAndView login(Staff staff) {
+	public ModelAndView login(Staff staff, Model model) {
+		SessionDTO session = new SessionDTO();
 		ModelAndView modelAndView = new ModelAndView();
-		HttpSession session = GetSession.getSession();
-
-				Staff staffInfo = staffService.getSession(staff.getStaffNum(), staff.getStaffPassword());
+				Staff staffInfo = staffService.getStaffInfo(staff.getStaffNum(), staff.getStaffPassword());
 				if(staffInfo!=null) {
-					session.setAttribute("staff", staffInfo);
+					session.setStaff(staffInfo);
+					model.addAttribute("session", session);
 					modelAndView.setViewName("home");
 					return modelAndView;
 				}

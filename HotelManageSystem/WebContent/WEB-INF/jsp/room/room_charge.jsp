@@ -10,38 +10,20 @@
     <meta name="description" content="">
     <meta name="author" content="templatemo">
    
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
+    <link href="${pageContext.request.contextPath}/css/css_google.css" rel='stylesheet' type='text/css'>
    <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/templatemo-style.css" rel="stylesheet">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
 
   </head>
   <body>  
     <!-- Left column -->
     <div class="templatemo-flex-row">
-      <div class="templatemo-sidebar">
-         <header class="templatemo-site-header">
-          <h1>龙腾酒店管理系统</h1>
-        </header>
-        <div class="profile-photo-container">
-        <img src="${pageContext.request.contextPath}/images/banner3.jpg" alt="Profile Photo" class="img-responsive" >  
-          <div class="profile-photo-overlay"></div>
-        </div>      
-        
-        <div class="mobile-menu-icon">
-            <i class="fa fa-bars"></i>
-        </div>
-        <nav class="templatemo-left-nav">          
-          <ul>
-          	<li><a href="../index.html"><i class="fa fa-area-chart fa-fw"></i>首页</a></li>
-           <li><a href="room_management.html" class="active"><i class="fa fa-home fa-fw"></i>房间</a></li>
-            <li><a href="../staff/staff_management.html"><i class="fa fa-users fa-fw"></i>员工</a></li>
-              <li><a href="../stock/stock_management.html"><i class="fa fa-database fa-fw"></i>库存</a></li>
-          </ul>  
-        </nav>
-      </div>
+      
+      <jsp:include page="/WEB-INF/jsp/left_nav.jsp"></jsp:include>
+      
       <!-- Main content --> 
       <div class="templatemo-content col-1 light-gray-bg">
         <div class="templatemo-top-nav-container">

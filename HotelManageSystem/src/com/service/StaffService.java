@@ -12,7 +12,7 @@ public class StaffService {
 	@Resource
 	private StaffMapper staffMapper;
 
-	public Staff getSession(String staffNum, String staffPassword) {
+	public Staff getStaffInfo(String staffNum, String staffPassword) {
 		Staff staffInfo = staffMapper.getStaffInfo(staffNum);
 		if(staffInfo!=null) {
 			if(staffInfo.getStaffPassword().equals(staffPassword)) {

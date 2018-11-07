@@ -11,8 +11,8 @@
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- //Custom Theme files --> 
 <!-- web font --> 
-<link href="//fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-<link href="//fonts.googleapis.com/css?family=Arsenal:400,400i,700,700i" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/css_font-G.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/css_font-A.css" rel="stylesheet">
 
 </head>
 <body>

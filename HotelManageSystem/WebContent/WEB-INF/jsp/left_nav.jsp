@@ -1,56 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html  lang="en">
 	<head>
+		
+		
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title></title>
+		
 		<meta name="description" content="">
 		<meta name="author" content="templatemo">
-
-		<link href="${pageContext.request.contextPath}/css/css_google.css" rel='stylesheet' type='text/css'>
-		<link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet">
-		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
-		<link href="${pageContext.request.contextPath}/css/templatemo-style.css" rel="stylesheet">
-
-	</head>
-
-	<body>
-	
-		<!-- Left column -->
-		<div class="templatemo-flex-row">
 		
-		<jsp:include page="left_nav.jsp"></jsp:include>
+		
+		<script type="text/javascript">
+			function removeClass(){
+				var f = document.getElementsByClassName("c");
+				$.each(f,function(){
+					f.removeClass();					
+				})
+			}
 			
-			<!-- Main content -->
-			<div class="templatemo-content col-1 light-gray-bg">
-				<div class="templatemo-top-nav-container">
-					<div class="row">
-						<nav class="templatemo-top-nav col-lg-12 col-md-12">
-							<ul class="text-uppercase">
-								<li>${sessionScope.session.staff.staffName },欢迎使用本系统</li>
-							</ul>
-						</nav>
-					</div>
+			alert(${sessionScope.session.choice});
+			if("1" == ${sessionScope.session.choice}){
+				function addClass1(e){
+					$(e).addClass("active");
+				}
+			}
+			if("2" == ${sessionScope.session.choice}){
+				function addClass2(e){
+					$(e).addClass("active");
+				}
+			}
+			
+			if("3" == ${sessionScope.session.choice}){
+				function addClass3(e){
+					$(e).addClass("active");
+				}
+			}
+			if("4" == ${sessionScope.session.choice}){
+				function addClass4(e){
+					$(e).addClass("active");
+				}
+			}
+			
+		</script>
+	</head>
+	<body>
+			<div class="templatemo-sidebar">
+				<header class="templatemo-site-header">
+					<h1>龙腾酒店管理系统</h1>
+				</header>
+				<div class="profile-photo-container">
+					<img src="${pageContext.request.contextPath}/images/banner3.jpg" alt="Profile Photo" class="img-responsive" style="width: auto;height: auto;">
+					<div class="profile-photo-overlay"></div>
 				</div>
-				<div class="templatemo-content-container">
-					<img src="${pageContext.request.contextPath}/images/banner3.jpg" style="width: 82%;height: 65%;" />
+				
+				<div class="mobile-menu-icon">
+					<i class="fa fa-bars"></i>
 				</div>
+				<nav class="templatemo-left-nav">
+					<ul>
+						<li>
+							<a class="c" onclick="addClass1(this)" href="${pageContext.request.contextPath}/jump/jumpToHome.do" ><i class="fa fa-area-chart fa-fw"></i>首页</a>
+						</li>
+						<li>
+							<a class="c" onclick="addClass2(this)" href="${pageContext.request.contextPath}/hotel/getAllRoom.do?page=1" ><i class="fa fa-home fa-fw"></i>房间</a>
+						</li>
+						<li>
+							<a class="c" onclick="addClass3(this)" href="#" ><i class="fa fa-users fa-fw"></i>员工</a>
+						</li>
+						<li>
+							<a class="c" onclick="addClass4(this)" href="#" ><i class="fa fa-database fa-fw"></i>库存</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
-		</div>
-		</div>
-
-		<!-- JS -->
-
-		<script src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
-		<!-- jQuery -->
-		<script src="${pageContext.request.contextPath}/js/jquery-migrate-1.2.1.min.js"></script>
-		<!--  jQuery Migrate Plugin -->
-		<script src="https://www.google.com/jsapi"></script>
+			
+			
 		<!-- Google Chart -->
 		<script>
 			/* Google Chart 
@@ -110,9 +137,6 @@
 				}
 			});
 		</script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 		<!-- Templatemo Script -->
-
 	</body>
-
 </html>
