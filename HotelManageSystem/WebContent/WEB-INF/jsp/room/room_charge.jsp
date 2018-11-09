@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,8 +31,8 @@
           <div class="row">
             <nav class="templatemo-top-nav col-lg-12 col-md-12">
               <ul class="text-uppercase">
-                <li><a href="room_management.html">查看房间</a></li>
-                <li><a href="room_charge.html" class="active">房间计费规则</a></li>
+                <li><a href="${pageContext.request.contextPath}/hotel/getAllRoom.do?page=1">查看房间</a></li>
+                <li><a href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do" class="active">房间计费规则</a></li>
               </ul>  
             </nav> 
           </div>
@@ -51,7 +52,7 @@
            <div>
            	<table class="table table-hover" style="text-align: center;">
            		<thead>
-           			<tr>
+           			<tr class="form-control">
            				<td>计费规则名称</td>
            				<td>计费开始时间</td>
            				<td>计费结束时间</td>
@@ -59,51 +60,19 @@
            			</tr>
            		</thead>
            		<tbody>
-	           		<tr>
-	           			<td>
-	           				普通天房
-	           			</td>
-	           			<td>
-	           				当日中午12：00以后
-	           			</td>
-	           			<td>
-	           				次日中午12:30之前
-	           			</td>
-	           			<td>
+	           		<c:forEach items="${requestScope.listChargingWay }" var="cw">
+	           			<tr class="form-control">
+	           				<td>${cw.chargingWayName }</td>
+	           				<td>${cw.chargingWayStarttime }</td>
+	           				<td>${cw.chargingWayEndtime }</td>
+	           				<td>
 	           				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal_update">修改</button>
 	           				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_delete">删除</button>
 	           			</td>
-	           		</tr>
-	           		<tr>
-	           			<td>
-	           				午夜房
-	           			</td>
-	           			<td>
-	           				当日晚上23：00以后
-	           			</td>
-	           			<td>
-	           				次日中午12:30之前
-	           			</td>
-	           			<td>
-	           				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal_update">修改</button>
-	           				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_delete">删除</button>
-	           			</td>
-	           		</tr>
-	           		<tr>
-	           			<td>
-	           				钟点房
-	           			</td>
-	           			<td>
-	           				当日上午8：00以后
-	           			</td>
-	           			<td>
-	           				当日晚上18:30之前
-	           			</td>
-	           			<td>
-	           				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal_update">修改</button>
-	           				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_delete">删除</button>
-	           			</td>
-	           		</tr>
+	           			</tr>
+	           		</c:forEach>
+	           		
+	           		
            		</tbody>
            	</table>
            </div>
@@ -121,9 +90,9 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+	                <h4 class="modal-title" id="myModalLabel">添加计费方式</h4>
 	            </div>
-	            <form action="#" method="post">
+	            <form action="${pageContext.request.contextPath}/hotel/addChargingWay.do" method="post">
 		            <div class="modal-body">
 		            	<div style="text-align: center;">
 			            	<table class="table">
@@ -132,7 +101,7 @@
 			            				计费方式：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="" id="" class="form-control" placeholder="请输入计费方式名称" />
+			            				<input type="text" name="chargingWayName" id="" class="form-control" placeholder="请输入计费方式名称" />
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -140,7 +109,7 @@
 			            				计费开始时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="" id="" class="form-control" placeholder="请输入计费方式开始时间" />
+			            				<input type="text" name="chargingWayStarttime" id="" class="form-control" placeholder="请输入计费方式开始时间" />
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -148,7 +117,7 @@
 			            				计费结束时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="" id="" class="form-control" placeholder="请输入计费方式结束时间" />
+			            				<input type="text" name="chargingWayEndtime" id="" class="form-control" placeholder="请输入计费方式结束时间" />
 			            			</td>
 			            		</tr>
 			            	</table>
@@ -174,9 +143,9 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+	                <h4 class="modal-title" id="myModalLabel">修改计费方式</h4>
 	            </div>
-	            <form action="#" method="post">
+	            <form action="${pageContext.request.contextPath }/hotel/updateChargingWay.do" method="post">
 		            <div class="modal-body">
 		            	<div style="text-align: center;">
 			            	<table class="table">
@@ -185,7 +154,7 @@
 			            				计费方式：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="" id="" class="form-control" placeholder="请输入计费方式名称" />
+			            				<input type="text" name="chargingWayName" id="" class="form-control" value="${cw.chargingWayName}" placeholder="请输入计费方式名称" />
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -193,7 +162,7 @@
 			            				计费开始时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="" id="" class="form-control" placeholder="请输入计费方式开始时间" />
+			            				<input type="text" name="chargingWayStarttime" id="" class="form-control" value="${cw.chargingWayStarttime}" placeholder="请输入计费方式开始时间" />
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -201,7 +170,7 @@
 			            				计费结束时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="" id="" class="form-control" placeholder="请输入计费方式结束时间" />
+			            				<input type="text" name="chargingWayEndtime" id="" class="form-control" value="${cw.chargingWayEndtime}" placeholder="请输入计费方式结束时间" />
 			            			</td>
 			            		</tr>
 			            	</table>
@@ -227,16 +196,18 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+	                <h4 class="modal-title" id="myModalLabel">删除模态框</h4>
 	            </div>
 		            <div class="modal-body" style="text-align: center;">
 		            	是否确认删除？
 		            </div>
-		            <div class="modal-footer">
-		                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-		                <button type="submit" class="btn btn-primary">删除</button>
-		            </div>
-	            
+		            <form action="#">
+		            <input type="hidden" value="${cw.chargingWayId }" name="chargingWayId" />
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			                <button type="submit" class="btn btn-primary">删除</button>
+			            </div>
+	            	</form>
 	        </div><!-- /.modal-content -->
 	    </div><!-- /.modal-dialog -->
 		</div>
@@ -244,7 +215,6 @@
     <!-- JS -->
     <script src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/js/jquery-migrate-1.2.1.min.js"></script> <!--  jQuery Migrate Plugin -->
-    <script src="https://www.google.com/jsapi"></script> <!-- Google Chart -->
     <script>
       /* Google Chart 
       -------------------------------------------------------------------*/

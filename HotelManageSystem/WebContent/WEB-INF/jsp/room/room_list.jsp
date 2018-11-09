@@ -30,7 +30,7 @@
 <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
 
-
+<!-- parseInt(data.pageIndex+1) -->
 
 <script>
 	function clearTable(){
@@ -38,53 +38,55 @@
 		$("#paging").children().remove();
 	}
 
-	function flush() {
-		alert("ds:"+$("#search"))
-		alert($("#search").val());
-		
+	flush(1);
+	
+	function flush(page) {
 		$.post("${pageContext.request.contextPath}/hotel/getAllRoom2.do", {
-			"page" : 1,
+			"page" : page,
 			"state" : $("#state").val(),
 			"floor" : $("#floor").val(),
-			"type" : $("#type").val()
+			"type" : $("#type").val(),
+			"search" : $("#search").val()
 			
 		}, function(data) {
 			//清空
 			clearTable();
+			
 			if(null == data)
 				return
 			$.each(data.listRoomDTO, function() {
 				var k = '<tr>' + '<td>' + this.room.roomNum + '</td>' + '<td>' + this.room.roomState + '</td>' + '<td>' + this.room.roomFloor + '</td>' + '<td>' + this.room.roomType + '</td>' + '<td>' +this.room.roomPrice + '/天</td>';
 				k = k + '<td><div class=\"dropdown\"><button type=\"button\" class=\"btn dropdown-toggle\" id=\"dropdownMenu1\" data-toggle=\"dropdown\">操作 <span class=\"caret\"></span></button><ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dropdownMenu1\">';
 				if("空闲" == this.room.roomState)	{
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\">住宿登记</a></li>';
+					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomRegister(this.id)\">住宿登记</a></li>';
 				}
 				if("已租出" == this.room.roomState){
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\">换房</a></li>';
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\">结账</a></li>';
+					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomChangeRoom(this.id)\">换房</a></li>';
+					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomCheckOut(this.id)\">结账</a></li>';
 				}
 				if("清扫中" == this.room.roomState){
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\">完成清扫</a></li>';
+					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomClean(this.id)\">完成清扫</a></li>';
 				}
 				k = k + "</ul></div></td></tr>";
 				$("#roomList").append(k);
 			});
 			var paging = '<tr>'+'<td colspan="4">';
-			if(1 == this.pageIndex){
-				paging = paging + '第一页&nbsp;&nbsp;&nbsp;&nbsp;上一页&nbsp;&nbsp;&nbsp;&nbsp;';
+			if(1 == data.pageIndex){
+				paging = paging + '第一页\&nbsp;\&nbsp;\&nbsp;\&nbsp;上一页\&nbsp;\&nbsp;\&nbsp;\&nbsp;';
 			}else{
-				paging = paging + '<a href=\"${pageContext.request.contextPath }/hotel/getAllRoom2.do?page=1\">'+'第一页&nbsp;&nbsp;&nbsp;&nbsp;'+'</a>'
-				+ '<a href=\"${pageContext.request.contextPath }/hotel/getAllRoom2.do?page='+this.pageIndex-1+'\">'+'上一页&nbsp;&nbsp;&nbsp;&nbsp;'+'</a>'
+				paging = paging + '<a href=\"javascript:void(0);\" onclick=\"flush('+1+')\">'+'第一页\&nbsp;\&nbsp;\&nbsp;\&nbsp;'+'</a>'
+				+ '<a href=\"javascript:void(0);\" onclick=\"flush('+parseInt(data.pageIndex-1)+')\">'+'上一页\&nbsp;\&nbsp;\&nbsp;\&nbsp;'+'</a>'
 			}
-			paging = paging + '</td>'+'<td>' + '共'+this.totalPages+'页'+'</td>'
-			+'<td>'+'共'+this.totalRecords+'条记录'+'</td>'
-			+'<td>'+'当前第'+this.pageIndex+'页'+'</td>'
+			paging = paging + '</td>'+'<td>' + '共 '+data.totalPages+' 页'+'</td>'
+			+'<td>'+'共 '+data.totalRecords+' 条记录'+'</td>'
+			+'<td>'+'当前第 '+data.pageIndex+' 页'+'</td>'
 			+'<td>';
-			if(this.pageIndex != this.totalPages){
-				paging = paging + '<a href=\"${pageContext.request.contextPath }/hotel/getAllRoom2.do?page='+this.pageIndex+1+'\">'+'下一页&nbsp;&nbsp;&nbsp;&nbsp;'+'</a>'
-				+'<a href=\"${pageContext.request.contextPath }/hotel/getAllRoom2.do?page='+this.totalPages+'\">'+'最后一页'+'</a>';
+			if(data.pageIndex != data.totalPages){
+				
+				paging = paging + '<a href=\"javascript:void(0);\" onclick=\"flush('+parseInt(data.pageIndex+1)+')\">'+'下一页\&nbsp;\&nbsp;\&nbsp;\&nbsp;'+'</a>'
+				+'<a href=\"javascript:void(0);\" onclick=\"flush('+data.totalPages+')\">'+'最后一页'+'</a>';
 			}else{
-				paging = paging + '下一页&nbsp;&nbsp;&nbsp;&nbsp; 最后一页';
+				paging = paging + '下一页\&nbsp;\&nbsp;\&nbsp;\&nbsp; 最后一页';
 			}
 			paging = paging + '</td>'+'</tr>';
 			$("#paging").append(paging);
@@ -92,6 +94,23 @@
 		
 		
 		
+	}
+	
+	function sendIdToRoomRegister(id){
+		alert(id)
+		$("#roomId_register").val(id)
+	}
+	function sendIdToRoomCheckOut(id){
+		alert(id)
+		$("#roomId_checkout").val(id)
+	}
+	function sendIdToRoomChangeRoom(id){
+		alert(id)
+		$("#roomId_changeroom").val(id)
+	}
+	function sendIdToRoomClean(id){
+		alert(id)
+		$("#roomId_clean").val(id)
 	}
 </script>
 </head>
@@ -112,7 +131,7 @@
 								href="${pageContext.request.contextPath}/hotel/getAllRoom.do?page=1"
 								class="active">查看房间</a></li>
 
-							<li><a href="room_charge.html">房间计费规则</a></li>
+							<li><a href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -131,14 +150,13 @@
 
 				<div
 					style="width: 30%; margin-left: 72%; margin-top: -9%; position: relative;">
-					<form class="templatemo-search-form" role="search" method="post"
-						action="#">
+					<div class="templatemo-search-form" role="search">
 						<div class="input-group">
 							<button type="submit" class="fa fa-search"></button>
 							<input type="text" class="form-control" placeholder="Search"
-								name="search" id="search">
+								name="search" id="search" onchange="flush('1')">
 						</div>
-					</form>
+					</div>
 				</div>
 
 
@@ -149,7 +167,7 @@
 							<tr>
 								<td>编号</td>
 
-								<td><select id="state" onchange="flush(this)"
+								<td><select id="state" onchange="flush('1')"
 									class="form-control" style="text-align: center;" name="state">
 										<option value="">所有</option>
 										<option value="空闲">空闲</option>
@@ -157,7 +175,7 @@
 										<option value="清洁中">清洁中</option>
 								</select></td>
 
-								<td><select id="floor" onchange="flush()"
+								<td><select id="floor" onchange="flush('1')"
 									class="form-control" style="text-align: center;" name="floor">
 										<option value="">所有</option>
 										<option value="1">1</option>
@@ -167,7 +185,7 @@
 										<option value="5">5</option>
 								</select></td>
 
-								<td><select id="type" onchange="flush()"
+								<td><select id="type" onchange="flush('1')"
 									class="form-control" style="text-align: center;" name="type">
 										<option value="">所有</option>
 										<option value="单人间">单人间</option>
@@ -187,7 +205,7 @@
 						</thead>
 
 						<tbody id="roomList">
-							<c:forEach items="${requestScope.getRoomVO.listRoomDTO }"
+							<%-- <c:forEach items="${requestScope.getRoomVO.listRoomDTO }"
 								var="listDTO">
 								<tr>
 									<td>${listDTO.room.roomNum }</td>
@@ -229,7 +247,7 @@
 										</div>
 									</td>
 								</tr>
-							</c:forEach>
+							</c:forEach> --%>
 
 						</tbody>
 
@@ -237,7 +255,7 @@
 
 					<table class="table  table-striped table-hover table-main"
 						style="text-align: center;" id="paging">
-						<tr>
+						<%-- <tr>
 							<td colspan="4"><c:if
 									test="${requestScope.roomVO.pageIndex == 1}">第一页&nbsp;&nbsp;&nbsp;&nbsp;上一页&nbsp;&nbsp;&nbsp;&nbsp;</c:if>
 								<c:if test="${requestScope.roomVO.pageIndex != 1}">
@@ -249,7 +267,7 @@
 								</c:if></td>
 							<td>共 ${requestScope.roomVO.totalPages } 页</td>
 							<td>共 ${requestScope.roomVO.totalRecords } 条记录</td>
-							<td>当前第${requestScope.roomVO.pageIndex } 页</td>
+							<td>当前第 ${requestScope.roomVO.pageIndex } 页</td>
 
 							<td><c:if
 									test="${requestScope.roomVO.pageIndex != requestScope.roomVO.totalPages}">
@@ -259,7 +277,7 @@
 										href="${pageContext.request.contextPath }/hotel/getAllRoom.do?page=${requestScope.roomVO.totalPages}">最后一页</a>
 								</c:if> <c:if
 									test="${requestScope.roomVO.pageIndex == requestScope.roomVO.totalPages}">下一页&nbsp;&nbsp;&nbsp;&nbsp; 最后一页</c:if></td>
-						</tr>
+						</tr> --%>
 
 					</table>
 
@@ -347,8 +365,9 @@
 								<h4 class="modal-title" id="myModalLabel">住宿登记</h4>
 							</div>
 							<form
-								action="${pageContext.request.contextPath}/hotel/addRoom.do"
+								action="${pageContext.request.contextPath}/hotel/customerStayOverNight.do"
 								method="post">
+								<input type="hidden" id="roomId_register" name="roomId" />
 								<table class="table">
 
 									<tr>
@@ -378,7 +397,7 @@
 									<tr>
 										<td><label>预计离开时间</label></td>
 										<td><input type="text" class="form-control"
-											name="hotelRegisterEndtime" id="datepicker" /></td>
+											name="hotelRegisterEndtime" placeholder="例如：2018-11-30 12:00:00" /></td>
 									</tr>
 
 									<tr>
@@ -405,14 +424,7 @@
 										style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
 								</div>
 							</form>
-							<script>
-								$(function() {
-									$("#datepicker").datepicker({
-										changeMonth : true,
-										changeYear : true
-									});
-								});
-							</script>
+							
 						</div>
 						<!-- /.modal-content -->
 					</div>
@@ -431,7 +443,7 @@
 	<script
 		src="${pageContext.request.contextPath}/js/jquery-migrate-1.2.1.min.js"></script>
 	<!--  jQuery Migrate Plugin -->
-	<script src="https://www.google.com/jsapi"></script>
+	<!-- <script src="https://www.google.com/jsapi"></script> -->
 	<!-- Google Chart -->
 	<script>
 		/* Google Chart 

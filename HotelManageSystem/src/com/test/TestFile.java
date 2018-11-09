@@ -32,12 +32,7 @@ public class TestFile {
 		
 	}
 	
-	@Test
-	public void queryAllRoom() {
-		List<RoomDTO> listRoomDTO = hotelService.findAllRoom();
-		System.out.println("测试结果："+listRoomDTO);
-		
-	}
+	
 	
 	@Test
 	public void updateRoom() {
@@ -52,29 +47,6 @@ public class TestFile {
 		hotelService.updateRoom(room);
 	}
 	
-	@Test
-	public void customerStayOverNight() {
-		Room room = new Room();
-		room.setRoomId("f00f02da-90ed-4aaa-98bd-407dad437155");
-		room.setRoomNum("ss001");
-		room.setRoomPrice("168");
-		room.setRoomFloor("1楼");
-		room.setRoomState("空闲");
-		room.setRoomType("双人间");
-		
-		Customer customer = new Customer();
-		customer.setCustomerName("Jack");
-		customer.setCustomerPhone("11122244455");
-		customer.setCustomerCustomerid("111111888888884444");
-		customer.setCustomerBalance("3000");
-		
-		HotelRegister hotelRegister = new HotelRegister();
-		hotelRegister.setHotelRegisterStarttime(TimeUtil.getStringSecond());
-		hotelRegister.setHotelRegisterEndtime("2018-11-12 12:00:00");
-		hotelRegister.setHotelRegisterSecurity("300");
-		
-		hotelService.customerStayOverNight(room, customer, hotelRegister);
-		
-	}
+	
 	
 }

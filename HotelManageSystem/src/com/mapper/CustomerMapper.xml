@@ -241,4 +241,9 @@
       customer_vip_level = #{customerVipLevel,jdbcType=VARCHAR}
     where customer_id = #{customerId,jdbcType=CHAR}
   </update>
+  
+  <select id="selectCustomerByName" resultMap="BaseResultMap" parameterType="com.pojo.CustomerExample" >
+  	select * from customer where customer_name = #{customerName,jdbcType=VARCHAR}
+  </select>
+  
 </mapper>

@@ -32,4 +32,21 @@ public class JumpController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/jumpToChargeWay")
+	public ModelAndView jumpToChargeWay() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("room/room_charge");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/jumpToRoomList")
+	public ModelAndView jumpToRoomList(@ModelAttribute("session") SessionDTO session,Model model) {
+		//修改部分session内容
+		session.setChoice("2");
+		model.addAttribute(session);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("room/room_list");
+		return modelAndView;
+	}
+	
 }

@@ -23,6 +23,13 @@ public class HotelService {
 
 	@Resource
 	private CustomerMapper customerMapper;
+	
+	@Resource
+	private RechargeMapper rechargeMapper;
+	
+	@Resource
+	private ChargingWayMapper chargingWayMapper;
+	
 
 	// 添加房间
 	public String addRoom(Room room) {
@@ -78,45 +85,7 @@ public class HotelService {
 		}
 	}
 
-	// 查询所有房间
-	public List<RoomDTO> findAllRoom() {
-		List<RoomDTO> listRoomDTO = new ArrayList<>();
-		RoomDTO roomDTO;
-		List<Room> listRoom = new ArrayList<>();
-		HotelRegister hotelRegister;
-		Customer customer;
-
-		RoomExample roomExample = new RoomExample();
-		Criteria roomCriteria = roomExample.createCriteria();
-		roomCriteria.andRoomIdIsNotNull();
-		listRoom = roomMapper.selectByExample(roomExample);
-		if (listRoom != null && listRoom.size() > 0) {
-			for (Room room : listRoom) {
-				roomDTO = new RoomDTO();
-				hotelRegister = new HotelRegister();
-				customer = new Customer();
-				if (room != null) {
-					if (room.getRoomState() != null && room.getRoomState().trim().length() > 0) {
-						if (room.getRoomState().equals("已租出")) {
-							hotelRegister = hotelRegisterMapper.selectByRoomId(room.getRoomId());
-							customer = customerMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterCustomer());
-							roomDTO.setRoom(room);
-							roomDTO.setHotelRegister(hotelRegister);
-							roomDTO.setCustomer(customer);
-						} else {
-							roomDTO.setRoom(room);
-						}
-
-					}
-				}
-				listRoomDTO.add(roomDTO);
-
-			}
-			return listRoomDTO;
-		}
-
-		return null;
-	}
+	
 
 	// 房间分页功能
 	public RoomVO queryAllRoom(RoomVO roomVO) {
@@ -213,20 +182,67 @@ public class HotelService {
 	}
 
 	// 顾客住宿登记
-	public String customerStayOverNight(Room room, Customer customer, HotelRegister hotelRegister) {
-		customer.setCustomerId(BuildUuid.getUuid());
-		customerMapper.insertSelective(customer);
+	public String customerStayOverNight(Room room, Customer customer, HotelRegister hotelRegister,Recharge recharge) {
+		if(customer.getCustomerName()!=null&&customer.getCustomerName().trim().length()>0) {
+			Customer checkCustomer = customerMapper.selectCustomerByName(customer.getCustomerName());
+			if(checkCustomer!=null) {
+				if(checkCustomer.getCustomerCustomerid().equals(customer.getCustomerCustomerid())) {
+					
+				}
+			}else {
+				customer.setCustomerId(BuildUuid.getUuid());
+				customer.setCustomerBalance(recharge.getRechargeMoney());
+				customer.setCustomerType("游客");
+				customerMapper.insertSelective(customer);
+			}
+			recharge.setRechargeId(BuildUuid.getUuid());
+			recharge.setRechargeCustomer(customer.getCustomerId());
+			recharge.setRechargeTime(TimeUtil.getStringSecond());
+			rechargeMapper.insertSelective(recharge);
+			
+			hotelRegister.setHotelRegisterId(BuildUuid.getUuid());
+			hotelRegister.setHotelRegisterCustomer(customer.getCustomerId());
+			hotelRegister.setHotelRegisterRoom(room.getRoomId());
+			hotelRegister.setHotelRegisterStarttime(TimeUtil.getStringSecond());
+			hotelRegister.setHotelRegisterCreatetime(TimeUtil.getStringSecond());
+			hotelRegister.setHotelRegisterModifytime(TimeUtil.getStringSecond());
+			hotelRegisterMapper.insertSelective(hotelRegister);
 
-		hotelRegister.setHotelRegisterId(BuildUuid.getUuid());
-		hotelRegister.setHotelRegisterCustomer(customer.getCustomerId());
-		hotelRegister.setHotelRegisterRoom(room.getRoomId());
-		hotelRegister.setHotelRegisterCreatetime(TimeUtil.getStringSecond());
-		hotelRegister.setHotelRegisterModifytime(TimeUtil.getStringSecond());
-		hotelRegisterMapper.insertSelective(hotelRegister);
+			room.setRoomState("已租出");
+			roomMapper.updateByPrimaryKeySelective(room);
 
-		room.setRoomState("已租出");
-		roomMapper.updateByPrimaryKeySelective(room);
+			return "success";
+		}
+			
+		return "error";
+		
+		
+	}
 
+
+	// 添加计费规则
+	public String addChargingWay(ChargingWay chargingWay) {
+		chargingWay.setChargingWayId(BuildUuid.getUuid());
+		chargingWay.setChargingWayCreatetime(TimeUtil.getStringSecond());
+		chargingWay.setChargingWayModifytime(TimeUtil.getStringSecond());
+		chargingWayMapper.insertSelective(chargingWay);
+		return "success";
+		
+	}
+
+	// 查询计费规则
+	public List<ChargingWay> queryChargingWay() {
+		ChargingWayExample chargingWayExample = new ChargingWayExample();
+		com.pojo.ChargingWayExample.Criteria criteria = chargingWayExample.createCriteria();
+		criteria.andChargingWayIdIsNotNull();
+		List<ChargingWay> list = chargingWayMapper.selectByExample(chargingWayExample);
+		return list;
+	}
+
+	// 修改计费规则
+	public String updateChargingWay(ChargingWay chargingWay) {
+		chargingWay.setChargingWayModifytime(TimeUtil.getStringSecond());
+		chargingWayMapper.updateByPrimaryKeySelective(chargingWay);
 		return "success";
 	}
 

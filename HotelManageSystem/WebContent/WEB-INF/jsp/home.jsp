@@ -42,15 +42,13 @@
 				</div>
 			</div>
 		</div>
-		</div>
+		
 
 		<!-- JS -->
 
 		<script src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
 		<!-- jQuery -->
 		<script src="${pageContext.request.contextPath}/js/jquery-migrate-1.2.1.min.js"></script>
-		<!--  jQuery Migrate Plugin -->
-		<script src="https://www.google.com/jsapi"></script>
 		<!-- Google Chart -->
 		<script>
 			/* Google Chart 
