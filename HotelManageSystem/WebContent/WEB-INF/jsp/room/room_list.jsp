@@ -20,15 +20,9 @@
 <link href="${pageContext.request.contextPath}/css/templatemo-style.css"
 	rel="stylesheet">
 
-<link rel="stylesheet"
-	href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
-<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="jqueryui/style.css">
-
-
 <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
 
 <!-- parseInt(data.pageIndex+1) -->
 
@@ -41,7 +35,7 @@
 	flush(1);
 	
 	function flush(page) {
-		$.post("${pageContext.request.contextPath}/hotel/getAllRoom2.do", {
+		$.post("${pageContext.request.contextPath}/hotel/getAllRoom.do", {
 			"page" : page,
 			"state" : $("#state").val(),
 			"floor" : $("#floor").val(),
@@ -55,17 +49,16 @@
 			if(null == data)
 				return
 			$.each(data.listRoomDTO, function() {
-				var k = '<tr>' + '<td>' + this.room.roomNum + '</td>' + '<td>' + this.room.roomState + '</td>' + '<td>' + this.room.roomFloor + '</td>' + '<td>' + this.room.roomType + '</td>' + '<td>' +this.room.roomPrice + '/天</td>';
+				var k = '<tr>' + '<td>' + this.room.roomNum + '</td>' + '<td>' + this.room.roomState + '</td>' + '<td>' + this.room.roomFloor + '</td>' + '<td>' + this.room.roomType + '</td>' + '<td>' +this.room.roomPrice + '元/天</td>';
 				k = k + '<td><div class=\"dropdown\"><button type=\"button\" class=\"btn dropdown-toggle\" id=\"dropdownMenu1\" data-toggle=\"dropdown\">操作 <span class=\"caret\"></span></button><ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dropdownMenu1\">';
 				if("空闲" == this.room.roomState)	{
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomRegister(this.id)\">住宿登记</a></li>';
+					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToStayRegister.do?roomId='+this.room.roomId+'\">住宿登记</a></li>';
 				}
 				if("已租出" == this.room.roomState){
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomChangeRoom(this.id)\">换房</a></li>';
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomCheckOut(this.id)\">结账</a></li>';
+					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToCheckOut.do?roomId='+this.room.roomId+'\">结账</a></li>';
 				}
 				if("清扫中" == this.room.roomState){
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_stay_register\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomClean(this.id)\">完成清扫</a></li>';
+					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_clean\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomClean(this.id)\">完成清扫</a></li>';
 				}
 				k = k + "</ul></div></td></tr>";
 				$("#roomList").append(k);
@@ -96,18 +89,6 @@
 		
 	}
 	
-	function sendIdToRoomRegister(id){
-		alert(id)
-		$("#roomId_register").val(id)
-	}
-	function sendIdToRoomCheckOut(id){
-		alert(id)
-		$("#roomId_checkout").val(id)
-	}
-	function sendIdToRoomChangeRoom(id){
-		alert(id)
-		$("#roomId_changeroom").val(id)
-	}
 	function sendIdToRoomClean(id){
 		alert(id)
 		$("#roomId_clean").val(id)
@@ -128,10 +109,11 @@
 					<nav class="templatemo-top-nav col-lg-12 col-md-12">
 						<ul class="text-uppercase">
 							<li><a
-								href="${pageContext.request.contextPath}/hotel/getAllRoom.do?page=1"
+								href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"
 								class="active">查看房间</a></li>
 
-							<li><a href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -140,12 +122,10 @@
 			<div class="templatemo-content-container">
 
 				<div>
-					<input type="button" data-toggle="modal"
-						data-target="#myModal_addroom" name="" value="添加"
-						class="form-control"
+					<a href="${pageContext.request.contextPath }/jump/jumpToRoomAdd.do">
+						<input type="button" value="添加" class="form-control"
 						style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
-
-
+					</a>
 				</div>
 
 				<div
@@ -205,49 +185,6 @@
 						</thead>
 
 						<tbody id="roomList">
-							<%-- <c:forEach items="${requestScope.getRoomVO.listRoomDTO }"
-								var="listDTO">
-								<tr>
-									<td>${listDTO.room.roomNum }</td>
-									<td>${listDTO.room.roomState }</td>
-									<td>${listDTO.room.roomFloor }</td>
-									<td>${listDTO.room.roomType }</td>
-									<td>${listDTO.room.roomPrice }/天</td>
-									<td>
-										<div class="dropdown">
-											<button type="button" class="btn dropdown-toggle"
-												id="dropdownMenu1" data-toggle="dropdown">
-												操作 <span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu" role="menu"
-												aria-labelledby="dropdownMenu1">
-												<c:if test="${listDTO.room.roomState =='空闲' }">
-													<li role="presentation"><a role="menuitem"
-														tabindex="-1" data-toggle="modal"
-														data-target="#myModal_stay_register"
-														style="cursor: pointer;">住宿登记</a></li>
-												</c:if>
-												<c:if test="${listDTO.room.roomState =='已租出' }">
-													<li role="presentation"><a role="menuitem"
-														tabindex="-1" data-toggle="modal"
-														data-target="#myModal_stay_checkout"
-														style="cursor: pointer;">住宿结账</a></li>
-												</c:if>
-												<c:if test="${listDTO.room.roomState =='已租出' }">
-													<li role="presentation"><a role="menuitem"
-														tabindex="-1" data-toggle="modal"
-														data-target="#myModal_stay_changeroom"
-														style="cursor: pointer;">住宿换房</a></li>
-												</c:if>
-												<c:if test="${listDTO.room.roomState =='清扫中' }">
-													<li role="presentation"><a role="menuitem"
-														tabindex="-1" href="#" style="cursor: pointer;">完成清扫</a></li>
-												</c:if>
-											</ul>
-										</div>
-									</td>
-								</tr>
-							</c:forEach> --%>
 
 						</tbody>
 
@@ -255,29 +192,6 @@
 
 					<table class="table  table-striped table-hover table-main"
 						style="text-align: center;" id="paging">
-						<%-- <tr>
-							<td colspan="4"><c:if
-									test="${requestScope.roomVO.pageIndex == 1}">第一页&nbsp;&nbsp;&nbsp;&nbsp;上一页&nbsp;&nbsp;&nbsp;&nbsp;</c:if>
-								<c:if test="${requestScope.roomVO.pageIndex != 1}">
-									<a
-										href="${pageContext.request.contextPath }/hotel/getAllRoom.do?page=1">第一页&nbsp;&nbsp;&nbsp;&nbsp;</a>
-									<a
-										href="${pageContext.request.contextPath }/hotel/getAllRoom.do?page=${requestScope.roomVO.pageIndex-1}">上一页&nbsp;&nbsp;&nbsp;&nbsp;</a>
-
-								</c:if></td>
-							<td>共 ${requestScope.roomVO.totalPages } 页</td>
-							<td>共 ${requestScope.roomVO.totalRecords } 条记录</td>
-							<td>当前第 ${requestScope.roomVO.pageIndex } 页</td>
-
-							<td><c:if
-									test="${requestScope.roomVO.pageIndex != requestScope.roomVO.totalPages}">
-									<a
-										href="${pageContext.request.contextPath }/hotel/getAllRoom.do?page=${requestScope.roomVO.pageIndex+1}">下一页&nbsp;&nbsp;&nbsp;&nbsp;</a>
-									<a
-										href="${pageContext.request.contextPath }/hotel/getAllRoom.do?page=${requestScope.roomVO.totalPages}">最后一页</a>
-								</c:if> <c:if
-									test="${requestScope.roomVO.pageIndex == requestScope.roomVO.totalPages}">下一页&nbsp;&nbsp;&nbsp;&nbsp; 最后一页</c:if></td>
-						</tr> --%>
 
 					</table>
 
@@ -285,77 +199,13 @@
 
 
 
-				<!--
-			    	作者：LMJ
-			    	时间：2018-11-02
-			    	描述：添加模态框
-			    -->
-				<div class="modal fade" id="myModal_addroom" tabindex="-1"
-					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h4 class="modal-title" id="myModalLabel">添加房间</h4>
-							</div>
-							<form
-								action="${pageContext.request.contextPath}/hotel/addRoom.do"
-								method="post">
-								<table class="table">
-
-									<tr>
-										<td><label>房间类型</label></td>
-										<td><select class="form-control" name="roomType">
-												<option>单人间</option>
-												<option>双人间</option>
-												<option>普通套房</option>
-												<option>豪华套房</option>
-												<option>商务间</option>
-												<option>公寓间</option>
-												<option>总统套房</option>
-										</select></td>
-									</tr>
-
-									<tr>
-										<td><label>房间价格</label></td>
-										<td><input type="text" class="form-control"
-											name="roomPrice" placeholder="房价" /></td>
-									</tr>
-
-									<tr>
-										<td><label>所在楼层</label></td>
-										<td><select class="form-control" name="roomFloor">
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-												<option>4</option>
-												<option>5</option>
-												<option>6</option>
-										</select></td>
-									</tr>
-
-
-
-								</table>
-								<div>
-									<input type="submit" name="" value="添加" class="form-control"
-										style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
-								</div>
-							</form>
-
-						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
-				</div>
 
 				<!--
 			    	作者：LMJ
 			    	时间：2018-11-02
-			    	描述：住宿登记模态框
+			    	描述：完成清扫模态框
 			    -->
-				<div class="modal fade" id="myModal_stay_register" tabindex="-1"
+				<div class="modal fade" id="myModal_clean" tabindex="-1"
 					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -367,64 +217,15 @@
 							<form
 								action="${pageContext.request.contextPath}/hotel/customerStayOverNight.do"
 								method="post">
-								<input type="hidden" id="roomId_register" name="roomId" />
-								<table class="table">
-
-									<tr>
-										<td><label>用户名</label></td>
-										<td><input type="text" class="form-control"
-											name="customerName" placeholder="用户名" /></td>
-									</tr>
-
-									<tr>
-										<td><label>身份证</label></td>
-										<td><input type="text" class="form-control"
-											name="customerCustomerid" placeholder="身份证" /></td>
-									</tr>
-
-									<tr>
-										<td><label>联系电话</label></td>
-										<td><input type="text" class="form-control"
-											name="customerPhone" placeholder="联系电话" /></td>
-									</tr>
-
-									<tr>
-										<td><label>押金</label></td>
-										<td><input type="text" class="form-control"
-											name="hotelRegisterSecurity" placeholder="押金" /></td>
-									</tr>
-
-									<tr>
-										<td><label>预计离开时间</label></td>
-										<td><input type="text" class="form-control"
-											name="hotelRegisterEndtime" placeholder="例如：2018-11-30 12:00:00" /></td>
-									</tr>
-
-									<tr>
-										<td><label>计费类型</label></td>
-										<td><select class="form-control"
-											name="hotelRegisterChargingway">
-												<option>普通天房</option>
-												<option>午夜房</option>
-												<option>钟点房</option>
-
-										</select></td>
-									</tr>
-
-									<tr>
-										<td><label>充值金额</label></td>
-										<td><input type="text" class="form-control"
-											name="rechargeMoney" /></td>
-									</tr>
-
-
-								</table>
+								<input type="hidden" id="roomId_clean" name="roomId" />
+								<p>是否清扫完成</p>
 								<div>
-									<input type="submit" name="" value="添加" class="form-control"
-										style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
+									<input type="submit" name="" value="确认清扫完成"
+										class="form-control"
+										style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 50px;" />
 								</div>
 							</form>
-							
+
 						</div>
 						<!-- /.modal-content -->
 					</div>

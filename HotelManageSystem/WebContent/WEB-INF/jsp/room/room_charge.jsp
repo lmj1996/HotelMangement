@@ -18,6 +18,46 @@
     <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
 
+<script>
+	function clear(){
+		$("#listChargingWay").children().remove();
+	}
+	
+	getChargingWayInfo();
+	
+	function getChargingWayInfo(){
+		$.post("${pageContext.request.contextPath}/hotel/getChargingWay.do",function(data){
+			clear();
+			if(null==data)
+				return
+			var table = '';
+			$.each(data,function(){
+				table  = table + '<tr>'
+				+'<td>'+this.chargingWayName+'</td>'
+				+'<td>'+this.chargingWayStarttime+'</td>'
+				+'<td>'+this.chargingWayEndtime+'</td>'
+				+'<td>'+'<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#myModal_updat\e" id=\"'+this.chargingWayName+'&'+this.chargingWayStarttime+'&'+this.chargingWayEndtime+'&'+this.chargingWayId+'\" onclick=\"sendInfoToModel(this.id)\">修改</button>'
+				+'<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#myModal_delete\" id=\"'+this.chargingWayId+'\" onclick=\"sendIdToModel(this.id)\">删除</button>'
+				+'</td>'+'</tr>'
+			});
+			$("#listChargingWay").append(table);
+			
+			
+		},"json");
+	}
+
+	function sendInfoToModel(id){
+		var arr = id.spilt('&');
+		$("#chargingWayName").val(arr[0]);
+		$("#chargingWayStarttime").val(arr[1]);
+		$("#chargingWayEndtime").val(arr[2]);
+		$("#chargingWayId").val(arr[3]);
+	}
+	function sendIdToModel(id){
+		$("#chargingWayId_delete").val(id);
+	}
+</script>
+
   </head>
   <body>  
     <!-- Left column -->
@@ -31,7 +71,7 @@
           <div class="row">
             <nav class="templatemo-top-nav col-lg-12 col-md-12">
               <ul class="text-uppercase">
-                <li><a href="${pageContext.request.contextPath}/hotel/getAllRoom.do?page=1">查看房间</a></li>
+                <li><a href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
                 <li><a href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do" class="active">房间计费规则</a></li>
               </ul>  
             </nav> 
@@ -52,26 +92,14 @@
            <div>
            	<table class="table table-hover" style="text-align: center;">
            		<thead>
-           			<tr class="form-control">
+           			<tr>
            				<td>计费规则名称</td>
            				<td>计费开始时间</td>
            				<td>计费结束时间</td>
            				<td>操作</td>
            			</tr>
            		</thead>
-           		<tbody>
-	           		<c:forEach items="${requestScope.listChargingWay }" var="cw">
-	           			<tr class="form-control">
-	           				<td>${cw.chargingWayName }</td>
-	           				<td>${cw.chargingWayStarttime }</td>
-	           				<td>${cw.chargingWayEndtime }</td>
-	           				<td>
-	           				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal_update">修改</button>
-	           				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_delete">删除</button>
-	           			</td>
-	           			</tr>
-	           		</c:forEach>
-	           		
+           		<tbody id="listChargingWay">
 	           		
            		</tbody>
            	</table>
@@ -101,7 +129,7 @@
 			            				计费方式：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayName" id="" class="form-control" placeholder="请输入计费方式名称" />
+			            				<input type="text" name="chargingWayName"  class="form-control" placeholder="请输入计费方式名称" />
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -109,7 +137,7 @@
 			            				计费开始时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayStarttime" id="" class="form-control" placeholder="请输入计费方式开始时间" />
+			            				<input type="text" name="chargingWayStarttime"  class="form-control" placeholder="请输入计费方式开始时间" />
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -117,7 +145,7 @@
 			            				计费结束时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayEndtime" id="" class="form-control" placeholder="请输入计费方式结束时间" />
+			            				<input type="text" name="chargingWayEndtime" class="form-control" placeholder="请输入计费方式结束时间" />
 			            			</td>
 			            		</tr>
 			            	</table>
@@ -148,13 +176,14 @@
 	            <form action="${pageContext.request.contextPath }/hotel/updateChargingWay.do" method="post">
 		            <div class="modal-body">
 		            	<div style="text-align: center;">
+		            	<input type="hidden" id="chargingWayId" name="chargingWayId" />
 			            	<table class="table">
 			            		<tr>
 			            			<td>
 			            				计费方式：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayName" id="" class="form-control" value="${cw.chargingWayName}" placeholder="请输入计费方式名称" />
+			            				<input type="text" name="chargingWayName" id="chargingWayName" class="form-control"  placeholder="请输入计费方式名称" />
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -162,7 +191,7 @@
 			            				计费开始时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayStarttime" id="" class="form-control" value="${cw.chargingWayStarttime}" placeholder="请输入计费方式开始时间" />
+			            				<input type="text" name="chargingWayStarttime" id="chargingWayStarttime" class="form-control"  placeholder="请输入计费方式开始时间" />
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -170,7 +199,7 @@
 			            				计费结束时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayEndtime" id="" class="form-control" value="${cw.chargingWayEndtime}" placeholder="请输入计费方式结束时间" />
+			            				<input type="text" name="chargingWayEndtime" id="chargingWayEndtime" class="form-control"  placeholder="请输入计费方式结束时间" />
 			            			</td>
 			            		</tr>
 			            	</table>
@@ -201,8 +230,8 @@
 		            <div class="modal-body" style="text-align: center;">
 		            	是否确认删除？
 		            </div>
-		            <form action="#">
-		            <input type="hidden" value="${cw.chargingWayId }" name="chargingWayId" />
+		            <form action="${pageContext.request.contextPath }/hotel/deleteChargingWay.do" method="post">
+		            <input type="hidden" id="chargingWayId_delete" name="chargingWayId" />
 			            <div class="modal-footer">
 			                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 			                <button type="submit" class="btn btn-primary">删除</button>

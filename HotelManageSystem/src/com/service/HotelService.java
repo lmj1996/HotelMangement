@@ -23,13 +23,12 @@ public class HotelService {
 
 	@Resource
 	private CustomerMapper customerMapper;
-	
+
 	@Resource
 	private RechargeMapper rechargeMapper;
-	
+
 	@Resource
 	private ChargingWayMapper chargingWayMapper;
-	
 
 	// 添加房间
 	public String addRoom(Room room) {
@@ -53,6 +52,8 @@ public class HotelService {
 			}
 			room.setRoomId(BuildUuid.getUuid());
 			room.setRoomState("空闲");
+			room.setRoomCreatetime(TimeUtil.getStringSecond());
+			room.setRoomModifytime(TimeUtil.getStringSecond());
 			roomMapper.insertSelective(room);
 			System.out.println("添加成功");
 			return "success";
@@ -77,6 +78,8 @@ public class HotelService {
 			}
 			room.setRoomId(BuildUuid.getUuid());
 			room.setRoomState("空闲");
+			room.setRoomCreatetime(TimeUtil.getStringSecond());
+			room.setRoomModifytime(TimeUtil.getStringSecond());
 			roomMapper.insertSelective(room);
 			System.out.println("添加成功");
 			return "success";
@@ -85,18 +88,15 @@ public class HotelService {
 		}
 	}
 
-	
-
 	// 房间分页功能
 	public RoomVO queryAllRoom(RoomVO roomVO) {
 		List<RoomDTO> listRoomDTO = new ArrayList<>();
 		RoomDTO roomDTO;
 		List<Room> listRoom = new ArrayList<>();
-		HotelRegister hotelRegister;
-		Customer customer;
 
 		RoomExample roomExample = new RoomExample();
-		roomExample.setStartRow((roomVO.getPageIndex()-1)*roomVO.getPageSize());
+		roomExample.setOrderByClause("room_modifytime desc");
+		roomExample.setStartRow((roomVO.getPageIndex() - 1) * roomVO.getPageSize());
 		roomExample.setPageSize(roomVO.getPageSize());
 		Criteria roomCriteria = roomExample.createCriteria();
 		roomCriteria.andRoomIdIsNotNull();
@@ -112,8 +112,7 @@ public class HotelService {
 		if (roomVO.getSearch() != null && roomVO.getSearch().trim().length() > 0) {
 			roomCriteria.andRoomNumLike("%" + roomVO.getSearch() + "%");
 		}
-		
-		
+
 		int count = roomMapper.countByExample(roomExample);
 		/**
 		 * 设置总数量
@@ -139,29 +138,17 @@ public class HotelService {
 		} else {
 			roomVO.setHaveNextPage(true);
 		}
-		
+
 		listRoom = roomMapper.selectByExampleForPaging(roomExample);
 		if (listRoom != null && listRoom.size() > 0) {
 			for (Room room : listRoom) {
 				roomDTO = new RoomDTO();
-				hotelRegister = new HotelRegister();
-				customer = new Customer();
 				if (room != null) {
-					if (room.getRoomState() != null && room.getRoomState().trim().length() > 0) {
-						if (room.getRoomState().equals("已租出")) {
-							hotelRegister = hotelRegisterMapper.selectByRoomId(room.getRoomId());
-							customer = customerMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterCustomer());
-							roomDTO.setRoom(room);
-							roomDTO.setHotelRegister(hotelRegister);
-							roomDTO.setCustomer(customer);
-						} else {
-							roomDTO.setRoom(room);
-						}
-
-					}
+					roomDTO.setRoom(room);
 				}
-				if(roomVO.getSearch()!=null&&roomVO.getSearch().trim().length()>0) {
-					room.setRoomNum(room.getRoomNum().replaceAll(roomVO.getSearch(), "<span style='color: #ff5063;'>" + roomVO.getSearch() + "</span>"));
+				if (roomVO.getSearch() != null && roomVO.getSearch().trim().length() > 0) {
+					room.setRoomNum(room.getRoomNum().replaceAll(roomVO.getSearch(),
+							"<span style='color: #ff5063;'>" + roomVO.getSearch() + "</span>"));
 				}
 				listRoomDTO.add(roomDTO);
 
@@ -182,14 +169,14 @@ public class HotelService {
 	}
 
 	// 顾客住宿登记
-	public String customerStayOverNight(Room room, Customer customer, HotelRegister hotelRegister,Recharge recharge) {
-		if(customer.getCustomerName()!=null&&customer.getCustomerName().trim().length()>0) {
+	public String customerStayOverNight(Room room, Customer customer, HotelRegister hotelRegister, Recharge recharge) {
+		if (customer.getCustomerName() != null && customer.getCustomerName().trim().length() > 0) {
 			Customer checkCustomer = customerMapper.selectCustomerByName(customer.getCustomerName());
-			if(checkCustomer!=null) {
-				if(checkCustomer.getCustomerCustomerid().equals(customer.getCustomerCustomerid())) {
-					
+			if (checkCustomer != null) {
+				if (checkCustomer.getCustomerCustomerid().equals(customer.getCustomerCustomerid())) {
+
 				}
-			}else {
+			} else {
 				customer.setCustomerId(BuildUuid.getUuid());
 				customer.setCustomerBalance(recharge.getRechargeMoney());
 				customer.setCustomerType("游客");
@@ -199,7 +186,7 @@ public class HotelService {
 			recharge.setRechargeCustomer(customer.getCustomerId());
 			recharge.setRechargeTime(TimeUtil.getStringSecond());
 			rechargeMapper.insertSelective(recharge);
-			
+
 			hotelRegister.setHotelRegisterId(BuildUuid.getUuid());
 			hotelRegister.setHotelRegisterCustomer(customer.getCustomerId());
 			hotelRegister.setHotelRegisterRoom(room.getRoomId());
@@ -209,16 +196,15 @@ public class HotelService {
 			hotelRegisterMapper.insertSelective(hotelRegister);
 
 			room.setRoomState("已租出");
+			room.setRoomModifytime(TimeUtil.getStringSecond());
 			roomMapper.updateByPrimaryKeySelective(room);
 
 			return "success";
 		}
-			
-		return "error";
-		
-		
-	}
 
+		return "error";
+
+	}
 
 	// 添加计费规则
 	public String addChargingWay(ChargingWay chargingWay) {
@@ -227,7 +213,7 @@ public class HotelService {
 		chargingWay.setChargingWayModifytime(TimeUtil.getStringSecond());
 		chargingWayMapper.insertSelective(chargingWay);
 		return "success";
-		
+
 	}
 
 	// 查询计费规则
@@ -244,6 +230,43 @@ public class HotelService {
 		chargingWay.setChargingWayModifytime(TimeUtil.getStringSecond());
 		chargingWayMapper.updateByPrimaryKeySelective(chargingWay);
 		return "success";
+	}
+
+	// 删除计费规则
+	public String deleteChargingWay(ChargingWay chargingWay) {
+		chargingWayMapper.deleteByPrimaryKey(chargingWay.getChargingWayId());
+		return "success";
+	}
+
+	// 获得结账信息
+	public CheckOutDTO getCheckOutInfo(String roomId) {
+		CheckOutDTO checkOutDTO = new CheckOutDTO();
+		Room room = roomMapper.selectByPrimaryKey(roomId);
+		HotelRegister hotelRegister = hotelRegisterMapper.selectByRoomId(roomId);
+		Customer customer = customerMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterCustomer());
+		String currentTime = TimeUtil.getStringSecond();
+		// 总消费
+		String totalPrice;
+		// 余额
+		String settleMoney;
+		long count = TimeCount.getDay(hotelRegister.getHotelRegisterStarttime(), currentTime);
+		long base = Long.parseLong(room.getRoomPrice());
+		// 根据居住时间计算费用
+		long total = base * count;
+		long balance = Long.parseLong(customer.getCustomerBalance());
+		balance = balance - total;
+		long other = Long.parseLong(hotelRegister.getHotelRegisterTotalprice());
+		total = total + other;
+		totalPrice = total + "";
+		settleMoney = balance + "";
+		System.out.println("计算结果：" + totalPrice);
+		System.out.println("余额：" + settleMoney);
+		hotelRegister.setHotelRegisterTotalprice(totalPrice);
+		checkOutDTO.setCustomer(customer);
+		checkOutDTO.setHotelRegister(hotelRegister);
+		checkOutDTO.setSettleMoney(settleMoney);
+
+		return checkOutDTO;
 	}
 
 }

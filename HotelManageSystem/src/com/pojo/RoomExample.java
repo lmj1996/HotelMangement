@@ -22,9 +22,8 @@ public class RoomExample {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
+    protected String orderByClause;
 
-	protected String orderByClause;
-    
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
@@ -542,6 +541,146 @@ public class RoomExample {
             addCriterion("room_state not between", value1, value2, "roomState");
             return (Criteria) this;
         }
+
+        public Criteria andRoomCreatetimeIsNull() {
+            addCriterion("room_createtime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeIsNotNull() {
+            addCriterion("room_createtime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeEqualTo(String value) {
+            addCriterion("room_createtime =", value, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeNotEqualTo(String value) {
+            addCriterion("room_createtime <>", value, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeGreaterThan(String value) {
+            addCriterion("room_createtime >", value, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeGreaterThanOrEqualTo(String value) {
+            addCriterion("room_createtime >=", value, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeLessThan(String value) {
+            addCriterion("room_createtime <", value, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeLessThanOrEqualTo(String value) {
+            addCriterion("room_createtime <=", value, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeLike(String value) {
+            addCriterion("room_createtime like", value, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeNotLike(String value) {
+            addCriterion("room_createtime not like", value, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeIn(List<String> values) {
+            addCriterion("room_createtime in", values, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeNotIn(List<String> values) {
+            addCriterion("room_createtime not in", values, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeBetween(String value1, String value2) {
+            addCriterion("room_createtime between", value1, value2, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomCreatetimeNotBetween(String value1, String value2) {
+            addCriterion("room_createtime not between", value1, value2, "roomCreatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeIsNull() {
+            addCriterion("room_modifytime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeIsNotNull() {
+            addCriterion("room_modifytime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeEqualTo(String value) {
+            addCriterion("room_modifytime =", value, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeNotEqualTo(String value) {
+            addCriterion("room_modifytime <>", value, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeGreaterThan(String value) {
+            addCriterion("room_modifytime >", value, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeGreaterThanOrEqualTo(String value) {
+            addCriterion("room_modifytime >=", value, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeLessThan(String value) {
+            addCriterion("room_modifytime <", value, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeLessThanOrEqualTo(String value) {
+            addCriterion("room_modifytime <=", value, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeLike(String value) {
+            addCriterion("room_modifytime like", value, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeNotLike(String value) {
+            addCriterion("room_modifytime not like", value, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeIn(List<String> values) {
+            addCriterion("room_modifytime in", values, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeNotIn(List<String> values) {
+            addCriterion("room_modifytime not in", values, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeBetween(String value1, String value2) {
+            addCriterion("room_modifytime between", value1, value2, "roomModifytime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomModifytimeNotBetween(String value1, String value2) {
+            addCriterion("room_modifytime not between", value1, value2, "roomModifytime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -636,7 +775,4 @@ public class RoomExample {
             this(condition, value, secondValue, null);
         }
     }
-    
-    
-    
 }

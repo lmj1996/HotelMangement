@@ -29,4 +29,5 @@ public interface HotelRegisterMapper {
     int updateByPrimaryKey(HotelRegister record);
 
 	HotelRegister selectByRoomId(String roomId);
+
 }

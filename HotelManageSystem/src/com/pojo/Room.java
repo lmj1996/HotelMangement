@@ -13,6 +13,10 @@ public class Room {
 
     private String roomState;
 
+    private String roomCreatetime;
+
+    private String roomModifytime;
+
     public String getRoomId() {
         return roomId;
     }
@@ -61,10 +65,19 @@ public class Room {
         this.roomState = roomState == null ? null : roomState.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Room [roomId=" + roomId + ", roomNum=" + roomNum + ", roomType=" + roomType + ", roomFloor=" + roomFloor
-				+ ", roomPrice=" + roomPrice + ", roomState=" + roomState + "]";
-	}
-    
+    public String getRoomCreatetime() {
+        return roomCreatetime;
+    }
+
+    public void setRoomCreatetime(String roomCreatetime) {
+        this.roomCreatetime = roomCreatetime == null ? null : roomCreatetime.trim();
+    }
+
+    public String getRoomModifytime() {
+        return roomModifytime;
+    }
+
+    public void setRoomModifytime(String roomModifytime) {
+        this.roomModifytime = roomModifytime == null ? null : roomModifytime.trim();
+    }
 }

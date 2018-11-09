@@ -33,19 +33,6 @@
 		</div>
 		<nav class="templatemo-left-nav">
 			<ul>
-				<c:if test="${sessionScope.session.choice == null }">
-
-					<li><a
-						href="${pageContext.request.contextPath}/jump/jumpToHome.do">
-							<i class="fa fa-area-chart fa-fw"></i>首页
-					</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"><i
-							class="fa fa-home fa-fw"></i>房间</a></li>
-					<li><a href="#"><i class="fa fa-users fa-fw"></i>员工</a></li>
-					<li><a href="#"><i class="fa fa-database fa-fw"></i>库存</a></li>
-
-				</c:if>
 
 				<c:if test="${sessionScope.session.choice == 1 }">
 

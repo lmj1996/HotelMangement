@@ -30,6 +30,7 @@ public class StaffController {
 				Staff staffInfo = staffService.getStaffInfo(staff.getStaffNum(), staff.getStaffPassword());
 				if(staffInfo!=null) {
 					session.setStaff(staffInfo);
+					session.setChoice("1");
 					model.addAttribute("session", session);
 					modelAndView.setViewName("home");
 					return modelAndView;
