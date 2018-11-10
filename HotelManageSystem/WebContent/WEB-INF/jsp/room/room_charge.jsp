@@ -17,6 +17,7 @@
     <link href="${pageContext.request.contextPath}/css/templatemo-style.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/addDate.js"></script>
 
 <script>
 	function clear(){
@@ -34,8 +35,8 @@
 			$.each(data,function(){
 				table  = table + '<tr>'
 				+'<td>'+this.chargingWayName+'</td>'
-				+'<td>'+this.chargingWayStarttime+'</td>'
-				+'<td>'+this.chargingWayEndtime+'</td>'
+				+'<td>当天：'+this.chargingWayStarttime+'</td>'
+				+'<td>次日：'+this.chargingWayEndtime+'</td>'
 				+'<td>'+'<button type=\"button\" class=\"btn btn-info\" data-toggle=\"modal\" data-target=\"#myModal_updat\e" id=\"'+this.chargingWayName+'&'+this.chargingWayStarttime+'&'+this.chargingWayEndtime+'&'+this.chargingWayId+'\" onclick=\"sendInfoToModel(this.id)\">修改</button>'
 				+'<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#myModal_delete\" id=\"'+this.chargingWayId+'\" onclick=\"sendIdToModel(this.id)\">删除</button>'
 				+'</td>'+'</tr>'
@@ -47,7 +48,7 @@
 	}
 
 	function sendInfoToModel(id){
-		var arr = id.spilt('&');
+		var arr = id.split('&');
 		$("#chargingWayName").val(arr[0]);
 		$("#chargingWayStarttime").val(arr[1]);
 		$("#chargingWayEndtime").val(arr[2]);
@@ -137,7 +138,12 @@
 			            				计费开始时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayStarttime"  class="form-control" placeholder="请输入计费方式开始时间" />
+			            				<table>
+			            				<tr>
+			            					<td><label>当天：</label></td>
+			            					<td><input type="text" name="chargingWayStarttime"  class="form-control"  placeholder="请输入计费方式开始时间" /></td>
+			            				</tr>
+			            				</table>
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -145,7 +151,13 @@
 			            				计费结束时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayEndtime" class="form-control" placeholder="请输入计费方式结束时间" />
+			            			<table>
+			            				<tr>
+			            					<td><label>次日：</label></td>
+			            					<td><input type="text" name="chargingWayEndtime"  class="form-control"  placeholder="请输入计费方式结束时间" /></td>
+			            				</tr>
+			            				</table>
+			            				
 			            			</td>
 			            		</tr>
 			            	</table>
@@ -191,7 +203,12 @@
 			            				计费开始时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayStarttime" id="chargingWayStarttime" class="form-control"  placeholder="请输入计费方式开始时间" />
+			            				<table>
+			            				<tr>
+			            					<td><label>当天：</label></td>
+			            					<td><input type="text" name="chargingWayStarttime" id="chargingWayStarttime" class="form-control"  placeholder="请输入计费方式开始时间" /></td>
+			            				</tr>
+			            				</table>
 			            			</td>
 			            		</tr>
 			            		<tr>
@@ -199,7 +216,13 @@
 			            				计费结束时间：
 			            			</td>
 			            			<td>
-			            				<input type="text" name="chargingWayEndtime" id="chargingWayEndtime" class="form-control"  placeholder="请输入计费方式结束时间" />
+			            			<table>
+			            				<tr>
+			            					<td><label>次日：</label></td>
+			            					<td><input type="text" name="chargingWayEndtime" id="chargingWayEndtime" class="form-control"  placeholder="请输入计费方式结束时间" /></td>
+			            				</tr>
+			            				</table>
+			            				
 			            			</td>
 			            		</tr>
 			            	</table>

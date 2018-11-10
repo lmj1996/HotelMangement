@@ -201,7 +201,7 @@ public class HotelController {
 	}
 
 	/**
-	 * 结账
+	 * 获得结账信息
 	 * 
 	 * @return
 	 * @throws IOException
@@ -213,15 +213,30 @@ public class HotelController {
 		session.setChoice("2");
 		model.addAttribute(session);
 
+		System.out.println("结账：" + roomId);
 		CheckOutDTO checkOutDTO = new CheckOutDTO();
 		response.setContentType("text/html; charset=utf-8");
 		Gson gson = new Gson();
-
 		if (roomId != null && roomId.trim().length() > 0) {
 			checkOutDTO = hotelService.getCheckOutInfo(roomId);
 			response.getWriter().println(gson.toJson(checkOutDTO));
 		}
+	}
 
+	/**
+	 * 结账操作
+	 */
+	@RequestMapping(value = "/checkOut")
+	public ModelAndView checkOut(Room room, Customer customer, HotelRegister hotelRegister,
+			@ModelAttribute("session") SessionDTO session, Model model) {
+		// 修改部分session内容
+		session.setChoice("2");
+		model.addAttribute(session);
+		
+		hotelService.checkOut(room,customer,hotelRegister);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("room/room_list");
+		return modelAndView;
 	}
 
 }

@@ -245,5 +245,9 @@
   <select id="selectCustomerByName" resultMap="BaseResultMap" parameterType="com.pojo.CustomerExample" >
   	select * from customer where customer_name = #{customerName,jdbcType=VARCHAR}
   </select>
+  <select id="selectCustomerByIDnum" resultMap="BaseResultMap" parameterType="com.pojo.CustomerExample" >
+  	select * from customer where customer_customerID = #{customerCustomerid,jdbcType=VARCHAR}
+  </select>
+  
   
 </mapper>

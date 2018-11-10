@@ -170,25 +170,24 @@ public class HotelService {
 
 	// 顾客住宿登记
 	public String customerStayOverNight(Room room, Customer customer, HotelRegister hotelRegister, Recharge recharge) {
-		if (customer.getCustomerName() != null && customer.getCustomerName().trim().length() > 0) {
-			Customer checkCustomer = customerMapper.selectCustomerByName(customer.getCustomerName());
+		if (customer.getCustomerCustomerid() != null && customer.getCustomerCustomerid().trim().length() > 0) {
+			Customer checkCustomer = customerMapper.selectCustomerByIDnum(customer.getCustomerCustomerid());
 			if (checkCustomer != null) {
-				if (checkCustomer.getCustomerCustomerid().equals(customer.getCustomerCustomerid())) {
-
-				}
+				recharge.setRechargeCustomer(checkCustomer.getCustomerId());
+				hotelRegister.setHotelRegisterCustomer(checkCustomer.getCustomerId());
 			} else {
 				customer.setCustomerId(BuildUuid.getUuid());
 				customer.setCustomerBalance(recharge.getRechargeMoney());
 				customer.setCustomerType("游客");
 				customerMapper.insertSelective(customer);
+				recharge.setRechargeCustomer(customer.getCustomerId());
+				hotelRegister.setHotelRegisterCustomer(customer.getCustomerId());
 			}
 			recharge.setRechargeId(BuildUuid.getUuid());
-			recharge.setRechargeCustomer(customer.getCustomerId());
 			recharge.setRechargeTime(TimeUtil.getStringSecond());
 			rechargeMapper.insertSelective(recharge);
 
 			hotelRegister.setHotelRegisterId(BuildUuid.getUuid());
-			hotelRegister.setHotelRegisterCustomer(customer.getCustomerId());
 			hotelRegister.setHotelRegisterRoom(room.getRoomId());
 			hotelRegister.setHotelRegisterStarttime(TimeUtil.getStringSecond());
 			hotelRegister.setHotelRegisterCreatetime(TimeUtil.getStringSecond());
@@ -250,13 +249,25 @@ public class HotelService {
 		// 余额
 		String settleMoney;
 		long count = TimeCount.getDay(hotelRegister.getHotelRegisterStarttime(), currentTime);
+		System.out.println("天数：" + count);
 		long base = Long.parseLong(room.getRoomPrice());
+		System.out.println("价格：" + base);
 		// 根据居住时间计算费用
-		long total = base * count;
+		int a = (int) count;
+		if (a == 0) {
+			a = a + 1;
+		}
+		int b = (int) base;
+		int total = a * b;
 		long balance = Long.parseLong(customer.getCustomerBalance());
-		balance = balance - total;
-		long other = Long.parseLong(hotelRegister.getHotelRegisterTotalprice());
-		total = total + other;
+		int security = Integer.parseInt(hotelRegister.getHotelRegisterSecurity());
+		balance = balance - total + security;
+		if (hotelRegister.getHotelRegisterTotalprice() != null
+				&& hotelRegister.getHotelRegisterTotalprice().trim().length() > 0) {
+			long other = Long.parseLong(hotelRegister.getHotelRegisterTotalprice());
+			int c = (int) other;
+			total = total + c;
+		}
 		totalPrice = total + "";
 		settleMoney = balance + "";
 		System.out.println("计算结果：" + totalPrice);
@@ -267,6 +278,24 @@ public class HotelService {
 		checkOutDTO.setSettleMoney(settleMoney);
 
 		return checkOutDTO;
+	}
+
+	// 结账操作
+	public void checkOut(Room room, Customer customer, HotelRegister hotelRegister) {
+		Room room1 = roomMapper.selectByPrimaryKey(room.getRoomId());
+		room1.setRoomState("清扫中");
+		room1.setRoomModifytime(TimeUtil.getStringSecond());
+		roomMapper.updateByPrimaryKeySelective(room1);
+
+		Customer customer1 = customerMapper.selectCustomerByIDnum(customer.getCustomerCustomerid());
+		customer1.setCustomerBalance("0");
+		customerMapper.updateByPrimaryKeySelective(customer1);
+
+		HotelRegister hotelRegister1 = hotelRegisterMapper.selectByRoomId(room.getRoomId());
+		hotelRegister1.setHotelRegisterTotalprice(hotelRegister.getHotelRegisterTotalprice());
+		hotelRegister1.setHotelRegisterModifytime(TimeUtil.getStringSecond());
+		hotelRegisterMapper.updateByPrimaryKeySelective(hotelRegister1);
+
 	}
 
 }

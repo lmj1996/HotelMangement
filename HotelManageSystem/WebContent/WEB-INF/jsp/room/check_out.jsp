@@ -24,25 +24,11 @@
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
 	
-	<script>
-		getInfo();
-	
-		function getInfo(){
-			$.post("${pageContext.request.contextPath}/hotel/getCheckOutInfo.do",function(data){
-				$("#customerName").val(this.customer.customerName);
-				$("#customerCustomerid").val(this.customer.customerCustomerid);
-				$("#hotelRegisterTotalprice").val(this.hotelRegister.hotelRegisterTotalprice);
-				$("#hotelRegisterSecurity").val(this.hotelRegister.hotelRegisterSecurity);
-				$("#settleMoney").val(this.settleMoney);
-			},"json");
-		}
-	
-	</script>
+
 	
 	
 </head>
 <body>
-
 	<div class="templatemo-flex-row">
 
 		<jsp:include page="/WEB-INF/jsp/left_nav.jsp"></jsp:include>
@@ -65,36 +51,36 @@
 			</div>
 			<div class="templatemo-content-container">
 				<div
-					style="border: 1px solid rgba(155, 155, 200, 0.5); margin-top: -3%">
-					<form action="${pageContext.request.contextPath}/hotel/addRoom.do"
+					style="border: 1px solid rgba(155, 155, 200, 0.5);width:50%;margin-left: 25%">
+					<form action="${pageContext.request.contextPath}/hotel/checkOut.do"
 						method="post">
-						<input type="hidden" id="roomId_hide" name="roomId" value="${reuqestScope.roomId }" />
-						<table class="table">
+						<input type="hidden" id="roomId_hide" name="roomId" value="${requestScope.roomId }" /> 
+						<table class="table table-hover" style="text-align: center;">
 							<tr>
 								<td><label>客户名：</label></td>
-								<td><input type="text" class="form_control"  id="customerName" name="customerName" /></td>
+								<td><input type="text"   id="customerName" name="customerName" /></td>
 							</tr>
 							<tr>
 								<td><label>身份证号：</label></td>
-								<td><input type="text" class="form_control"  id="customerCustomerid" name="customerCustomerid" /></td>
+								<td><input type="text"   id="customerCustomerid" name="customerCustomerid" /></td>
 							</tr>
 							<tr>
 								<td><label>当前消费总金额：</label></td>
-								<td><input type="text" class="form_control"  id="hotelRegisterTotalprice" name="hotelRegisterTotalprice" /></td>
+								<td><input type="text"   id="hotelRegisterTotalprice" name="hotelRegisterTotalprice" /></td>
 							</tr>
 							<tr>
 								<td><label>押金：</label></td>
-								<td><input type="text" class="form_control"  id="hotelRegisterSecurity" name="hotelRegisterSecurity" /></td>
+								<td><input type="text"   id="hotelRegisterSecurity" name="hotelRegisterSecurity" /></td>
 							</tr>
 							<tr>
 								<td><label>结算金额:</label></td>
 								<td><input type="text" id="settleMoney" /></td>
 							</tr>
-
+							
 						</table>
 						<div>
 							<input type="submit" name="" value="结账" class="form-control"
-								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 80px;" />
+								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 40%;margin-left: 30%;" />
 						</div>
 					</form>
 
@@ -173,6 +159,28 @@
 			}
 		});
 	</script>
+	
+	<script>
+		getInfo();
+	
+		function getInfo(){
+			
+			$.post("${pageContext.request.contextPath}/hotel/getCheckOutInfo.do",{
+				"roomId" : $("#roomId_hide").val()
+			},function(data){
+				console.log(data)
+				if(null == data)
+					return
+				$("#customerName").val(data.customer.customerName);
+				$("#customerCustomerid").val(data.customer.customerCustomerid);
+				$("#hotelRegisterTotalprice").val(data.hotelRegister.hotelRegisterTotalprice);
+				$("#hotelRegisterSecurity").val(data.hotelRegister.hotelRegisterSecurity);
+				$("#settleMoney").val(data.settleMoney);
+			},"json");
+		}
+	
+	</script>
+	
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 </body>

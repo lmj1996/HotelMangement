@@ -90,8 +90,7 @@
 	}
 	
 	function sendIdToRoomClean(id){
-		alert(id)
-		$("#roomId_clean").val(id)
+		$("#roomId_clean").val(id);
 	}
 </script>
 </head>
@@ -212,18 +211,19 @@
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal"
 									aria-hidden="true">×</button>
-								<h4 class="modal-title" id="myModalLabel">住宿登记</h4>
+								<h4 class="modal-title" id="myModalLabel">清扫完成确认</h4>
 							</div>
 							<form
-								action="${pageContext.request.contextPath}/hotel/customerStayOverNight.do"
+								action="${pageContext.request.contextPath}/hotel/updateRoom.do"
 								method="post">
 								<input type="hidden" id="roomId_clean" name="roomId" />
-								<p>是否清扫完成</p>
-								<div>
-									<input type="submit" name="" value="确认清扫完成"
-										class="form-control"
-										style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 50px;" />
+								<div class="modal-body" style="text-align: center;">是否清扫完成？</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭</button>
+									<button type="submit" class="btn btn-primary">确认清扫完成</button>
 								</div>
+
 							</form>
 
 						</div>

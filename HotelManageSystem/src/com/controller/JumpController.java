@@ -116,6 +116,7 @@ public class JumpController {
 		session.setChoice("2");
 		model.addAttribute(session);
 		
+		System.out.println("跳转："+roomId);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("roomId", roomId);
 		modelAndView.setViewName("room/check_out");
