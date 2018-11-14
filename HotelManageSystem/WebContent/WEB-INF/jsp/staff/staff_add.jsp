@@ -11,6 +11,10 @@
 <meta name="description" content="">
 <meta name="author" content="templatemo">
 
+<link href="${pageContext.request.contextPath}/css/toastr.css"
+	rel='stylesheet' type='text/css'>
+<script src="${pageContext.request.contextPath}/js/toastr.js"></script>
+
 <link href="${pageContext.request.contextPath}/css/css_google.css"
 	rel='stylesheet' type='text/css'>
 <link href="${pageContext.request.contextPath}/css/font-awesome.min.css"
@@ -19,33 +23,35 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/templatemo-style.css"
 	rel="stylesheet">
-
-<script src="${pageContext.request.contextPath}/js/addDate.js"></script>
-
 <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
-
 <script>
 	function clear(){
-		$("#chargingWay").children().remove();
+		$("#position").children().remove();
 	}
 	
-	getChargingWay();
+	getPosition();
 	
-	function getChargingWay(){
-		$.post("${pageContext.request.contextPath}/hotel/getChargingWay.do",{
-			
-		},function(data){
+	function getPosition(){
+		$.post("${pageContext.request.contextPath}/staff/getAllPosition.do",function(data){
 			clear();
 			
 			if(null == data)
-				return 
+				return
 			$.each(data,function(){
-				var option = '<option value=\"'+this.chargingWayId+'\">'+this.chargingWayName+'</option>';
-				$("#chargingWay").append(option);
+				var option = '';
+				if(this.positionId == '1'){
+					option = option + '<option value=\"'+this.positionId+'\" selected=\"selected\">'+this.positionName+'</option>';
+				}else{
+					option = option +'<option value=\"'+this.positionId+'\">'+this.positionName+'</option>';
+				}
+				
+				$("#position").append(option);
 			});
+			
 		},"json");
+		
 	}
 	
 </script>
@@ -57,95 +63,73 @@
 
 		<jsp:include page="/WEB-INF/jsp/left_nav.jsp"></jsp:include>
 
-	
-	<!-- Main content -->
-	<div class="templatemo-content col-1 light-gray-bg">
-		<div class="templatemo-top-nav-container">
-			<div class="row">
-				<nav class="templatemo-top-nav col-lg-12 col-md-12">
-					<ul class="text-uppercase">
-						<li><a
-							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
 
-						<li><a
-							href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
-					</ul>
-				</nav>
-			</div>
+		<!-- Main content -->
+		<div class="templatemo-content col-1 light-gray-bg">
+			<div class="templatemo-top-nav-container">
+				<div class="row">
+					<nav class="templatemo-top-nav col-lg-12 col-md-12">
+						<ul class="text-uppercase">
+							<li><a
+								href="${pageContext.request.contextPath}/jump/jumpToStaffList.do">查看员工</a></li>
 
-		</div>
-		<div class="templatemo-content-container">
-			<div
-				style="border: 1px solid rgba(155, 155, 200, 0.5); margin-top: -3%">
-				<form
-					action="${pageContext.request.contextPath}/hotel/customerStayOverNight.do"
-					method="post">
-					<input type="hidden" name="roomId" value="${requestScope.roomId }" />
-					<table class="table">
-
-						<tr>
-							<td><label>用户名</label></td>
-							<td><input type="text" class="form-control"
-								name="customerName" placeholder="用户名" /></td>
-						</tr>
-
-						<tr>
-							<td><label>身份证</label></td>
-							<td><input type="text" class="form-control"
-								name="customerCustomerid" placeholder="身份证" /></td>
-						</tr>
-
-						<tr>
-							<td><label>联系电话</label></td>
-							<td><input type="text" class="form-control"
-								name="customerPhone" placeholder="联系电话" /></td>
-						</tr>
-
-						<tr>
-							<td><label>押金</label></td>
-							<td><input type="text" class="form-control"
-								name="hotelRegisterSecurity" placeholder="押金" /></td>
-						</tr>
-
-						<tr>
-							<td><label>预计离开时间</label></td>
-							<td><input type="text" readonly="readonly" class="form-control" id="start_time"
-								onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')"
-								name="hotelRegisterEndtime" /></td>
-						</tr>
-
-						<tr>
-							<td><label>计费类型</label></td>
-							<td><select class="form-control" id="chargingWay"
-								name="hotelRegisterChargingway">
-									<option>普通天房</option>
-									<option>午夜房</option>
-									<option>钟点房</option>
-
-							</select></td>
-						</tr>
-
-						<tr>
-							<td><label>充值金额</label></td>
-							<td><input type="text" class="form-control"
-								name="rechargeMoney" /></td>
-						</tr>
-
-
-					</table>
-					<div>
-						<input type="submit" name="" value="添加" class="form-control"
-							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
-					</div>
-				</form>
+							<li><a href="#">工作记录</a></li>
+						</ul>
+					</nav>
+				</div>
 
 			</div>
+			<div class="templatemo-content-container">
+				<div style="width: 40%; margin-left: 30%;">
+					<form action="${pageContext.request.contextPath}/staff/addStaff.do"
+						method="post">
+						<table class="table" style="text-align: center;">
+							<tr>
+								<td>姓名：</td>
+								<td><input type="text" maxlength="10" class="form-control"
+									name="staffName" /></td>
+							</tr>
+							<tr>
+								<td>性别：</td>
+								<td>
+									<div>
+										<label class="radio-inline"> <input
+											style="display: inline; cursor: pointer;" type="radio"
+											name="staffSex" value="男" checked />男
+										</label> <label class="radio-inline"> <input
+											style="display: inline; cursor: pointer;" type="radio"
+											name="staffSex" value="女">女
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>身份证号：</td>
+								<td><input type="text" maxlength="18" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
+									name="staffIdnumber" /></td>
+							</tr>
+							<tr>
+								<td>联系方式：</td>
+								<td><input type="text" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
+									name="staffPhone" /></td>
+							</tr>
+							<tr>
+								<td>职位：</td>
+								<td><select id="position" class="form-control" name="staffPosition"></select></td>
+							</tr>
 
-
+						</table>
+						<div style="text-align: center;">
+							<input type="submit" value="添加" class="form-control"
+								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 
-</div>
+
 
 
 
@@ -156,6 +140,7 @@
 	<script
 		src="${pageContext.request.contextPath}/js/jquery-migrate-1.2.1.min.js"></script>
 	<!--  jQuery Migrate Plugin -->
+	<!-- <script src="https://www.google.com/jsapi"></script> -->
 	<!-- Google Chart -->
 	<script>
 		/* Google Chart 
@@ -215,5 +200,6 @@
 	</script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
+	<!-- Templatemo Script -->
 </body>
 </html>

@@ -23,75 +23,80 @@
 <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
-	
 
-	
-	
+
+
+
 </head>
 <body>
 	<div class="templatemo-flex-row">
 
 		<jsp:include page="/WEB-INF/jsp/left_nav.jsp"></jsp:include>
 
-		<!-- Main content -->
-		<div class="templatemo-content col-1 light-gray-bg">
-			<div class="templatemo-top-nav-container">
-				<div class="row">
-					<nav class="templatemo-top-nav col-lg-12 col-md-12">
-						<ul class="text-uppercase">
-							<li><a
-								href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
+	
+	<!-- Main content -->
+	<div class="templatemo-content col-1 light-gray-bg">
+		<div class="templatemo-top-nav-container">
+			<div class="row">
+				<nav class="templatemo-top-nav col-lg-12 col-md-12">
+					<ul class="text-uppercase">
+						<li><a
+							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
 
-							<li><a
-								href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
-						</ul>
-					</nav>
-				</div>
+						<li><a
+							href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
+					</ul>
+				</nav>
+			</div>
+
+		</div>
+		<div class="templatemo-content-container">
+			<div
+				style="border: 1px solid rgba(155, 155, 200, 0.5); width: 50%; margin-left: 25%">
+				<form action="${pageContext.request.contextPath}/hotel/checkOut.do"
+					method="post">
+					<input type="hidden" id="roomId_hide" name="roomId"
+						value="${requestScope.roomId }" />
+					<table class="table table-hover" style="text-align: center;">
+						<tr>
+							<td><label>客户名：</label></td>
+							<td><input type="text" class="form-control" id="customerName" name="customerName" /></td>
+						</tr>
+						<tr>
+							<td><label>身份证号：</label></td>
+							<td><input type="text" class="form-control" id="customerCustomerid"
+								name="customerCustomerid" /></td>
+						</tr>
+						<tr>
+							<td><label>当前消费总金额：</label></td>
+							<td><input type="text" class="form-control" id="hotelRegisterTotalprice"
+								name="hotelRegisterTotalprice" /></td>
+						</tr>
+						<tr>
+							<td><label>押金：</label></td>
+							<td><input type="text" class="form-control" id="hotelRegisterSecurity"
+								name="hotelRegisterSecurity" /></td>
+						</tr>
+						<tr>
+							<td><label>结算金额:</label></td>
+							<td><input type="text" class="form-control" id="settleMoney" /></td>
+						</tr>
+
+					</table>
+					<div>
+						<input type="submit" name="" value="结账" class="form-control"
+							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 40%; margin-left: 30%;" />
+					</div>
+				</form>
+
 
 			</div>
-			<div class="templatemo-content-container">
-				<div
-					style="border: 1px solid rgba(155, 155, 200, 0.5);width:50%;margin-left: 25%">
-					<form action="${pageContext.request.contextPath}/hotel/checkOut.do"
-						method="post">
-						<input type="hidden" id="roomId_hide" name="roomId" value="${requestScope.roomId }" /> 
-						<table class="table table-hover" style="text-align: center;">
-							<tr>
-								<td><label>客户名：</label></td>
-								<td><input type="text"   id="customerName" name="customerName" /></td>
-							</tr>
-							<tr>
-								<td><label>身份证号：</label></td>
-								<td><input type="text"   id="customerCustomerid" name="customerCustomerid" /></td>
-							</tr>
-							<tr>
-								<td><label>当前消费总金额：</label></td>
-								<td><input type="text"   id="hotelRegisterTotalprice" name="hotelRegisterTotalprice" /></td>
-							</tr>
-							<tr>
-								<td><label>押金：</label></td>
-								<td><input type="text"   id="hotelRegisterSecurity" name="hotelRegisterSecurity" /></td>
-							</tr>
-							<tr>
-								<td><label>结算金额:</label></td>
-								<td><input type="text" id="settleMoney" /></td>
-							</tr>
-							
-						</table>
-						<div>
-							<input type="submit" name="" value="结账" class="form-control"
-								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 40%;margin-left: 30%;" />
-						</div>
-					</form>
 
 
-				</div>
-
-
-			</div>
 		</div>
 	</div>
 
+</div>
 
 
 
@@ -159,7 +164,7 @@
 			}
 		});
 	</script>
-	
+
 	<script>
 		getInfo();
 	
@@ -180,7 +185,7 @@
 		}
 	
 	</script>
-	
+
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 </body>

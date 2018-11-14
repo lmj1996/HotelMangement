@@ -43,7 +43,9 @@
 					<li><a
 						href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"><i
 							class="fa fa-home fa-fw"></i>房间</a></li>
-					<li><a href="#"><i class="fa fa-users fa-fw"></i>员工</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><i
+							class="fa fa-users fa-fw"></i>员工</a></li>
 					<li><a href="#"><i class="fa fa-database fa-fw"></i>库存</a></li>
 
 				</c:if>
@@ -57,7 +59,9 @@
 					<li><a class="active"
 						href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"><i
 							class="fa fa-home fa-fw"></i>房间</a></li>
-					<li><a href="#"><i class="fa fa-users fa-fw"></i>员工</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><i
+							class="fa fa-users fa-fw"></i>员工</a></li>
 					<li><a href="#"><i class="fa fa-database fa-fw"></i>库存</a></li>
 
 				</c:if>
@@ -71,7 +75,8 @@
 					<li><a
 						href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"><i
 							class="fa fa-home fa-fw"></i>房间</a></li>
-					<li><a class="active" href="#"><i
+					<li><a class="active"
+						href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><i
 							class="fa fa-users fa-fw"></i>员工</a></li>
 					<li><a href="#"><i class="fa fa-database fa-fw"></i>库存</a></li>
 
@@ -86,7 +91,9 @@
 					<li><a
 						href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"><i
 							class="fa fa-home fa-fw"></i>房间</a></li>
-					<li><a href="#"><i class="fa fa-users fa-fw"></i>员工</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><i
+							class="fa fa-users fa-fw"></i>员工</a></li>
 					<li><a class="active" href="#"><i
 							class="fa fa-database fa-fw"></i>库存</a></li>
 

@@ -19,88 +19,91 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/templatemo-style.css"
 	rel="stylesheet">
-	
-	<script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
 </head>
 <body>
-<div class="templatemo-flex-row">
+	<div class="templatemo-flex-row">
 
 		<jsp:include page="/WEB-INF/jsp/left_nav.jsp"></jsp:include>
 
-		<!-- Main content -->
-		<div class="templatemo-content col-1 light-gray-bg">
-			<div class="templatemo-top-nav-container">
-				<div class="row">
-					<nav class="templatemo-top-nav col-lg-12 col-md-12">
-						<ul class="text-uppercase">
-							<li><a href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
+	
+	<!-- Main content -->
+	<div class="templatemo-content col-1 light-gray-bg">
+		<div class="templatemo-top-nav-container">
+			<div class="row">
+				<nav class="templatemo-top-nav col-lg-12 col-md-12">
+					<ul class="text-uppercase">
+						<li><a
+							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
 
-							<li><a href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
-						</ul>
-					</nav>
-				</div>
-
+						<li><a
+							href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
+					</ul>
+				</nav>
 			</div>
-			<div class="templatemo-content-container">
-				<div
-					style="border: 1px solid rgba(155, 155, 200, 0.5); margin-top: -3%">
-						<form
-								action="${pageContext.request.contextPath}/hotel/addRoom.do"
-								method="post">
-								<table class="table">
 
-									<tr>
-										<td><label>房间类型</label></td>
-										<td><select class="form-control" name="roomType">
-												<option>单人间</option>
-												<option>双人间</option>
-												<option>普通套房</option>
-												<option>豪华套房</option>
-												<option>商务间</option>
-												<option>公寓间</option>
-												<option>总统套房</option>
-										</select></td>
-									</tr>
+		</div>
+		<div class="templatemo-content-container">
+			<div
+				style="border: 1px solid rgba(155, 155, 200, 0.5); margin-top: -3%">
+				<form action="${pageContext.request.contextPath}/hotel/addRoom.do"
+					method="post">
+					<table class="table">
 
-									<tr>
-										<td><label>房间价格</label></td>
-										<td><input type="text" class="form-control"
-											name="roomPrice" placeholder="房价" /></td>
-									</tr>
+						<tr>
+							<td><label>房间类型</label></td>
+							<td><select class="form-control" name="roomType">
+									<option>单人间</option>
+									<option>双人间</option>
+									<option>普通套房</option>
+									<option>豪华套房</option>
+									<option>商务间</option>
+									<option>公寓间</option>
+									<option>总统套房</option>
+							</select></td>
+						</tr>
 
-									<tr>
-										<td><label>所在楼层</label></td>
-										<td><select class="form-control" name="roomFloor">
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-												<option>4</option>
-												<option>5</option>
-												<option>6</option>
-										</select></td>
-									</tr>
+						<tr>
+							<td><label>房间价格</label></td>
+							<td><input type="text" class="form-control" name="roomPrice"
+								placeholder="房价" /></td>
+						</tr>
+
+						<tr>
+							<td><label>所在楼层</label></td>
+							<td><select class="form-control" name="roomFloor">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+							</select></td>
+						</tr>
 
 
 
-								</table>
-								<div>
-									<input type="submit" name="" value="添加" class="form-control"
-										style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
-								</div>
-							</form>
-					
+					</table>
+					<div>
+						<input type="submit" name="" value="添加" class="form-control"
+							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
 					</div>
-				
-				
-			</div>
-			</div>
+				</form>
+
 			</div>
 
 
+		</div>
+	</div>
+</div>
 
 
-<!-- JS -->
+
+
+	<!-- JS -->
 	<script
 		src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
 	<!-- jQuery -->

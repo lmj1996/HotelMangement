@@ -29,7 +29,7 @@
 							<div class="login-agileits-top"> 	
 								<form action="${pageContext.request.contextPath}/staff/login.do" method="post"> 
 									<p>账号</p>
-									<input type="text" class="name" name="staffNum" required=""/>
+									<input type="text" class="name" name="staffNum" required="" placeholder="员工编号/姓名/联系电话" />
 									<p>密码</p>
 									<input type="password" class="password" name="staffPassword" required=""/>  
 									<label class="anim">
@@ -44,7 +44,7 @@
 					</div>   
 				</div>
 				<div class="w3lsfooteragileits">
-					<p> &copy; <a href="index.html">2017</a> Shadow Login Form. All Rights Reserved | Design by <a href="http://w3layouts.com" target="=_blank">W3layouts</a></p>
+					<p> &copy; 2017 Shadow Login Form. All Rights Reserved | Design by W3layouts</p>
 				</div> 
 			</div>   
 		</div>

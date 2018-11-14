@@ -27,10 +27,27 @@ public interface StaffMapper {
     int updateByPrimaryKeySelective(Staff record);
 
     int updateByPrimaryKey(Staff record);
-
+    
     /**
-     * 根据员工工号查询员工信息 * @param staffNum
+     * 根据员工工号或者姓名或者联系电话查询员工信息
      * @return
      */
 	Staff getStaffInfo(String staffNum);
+
+	/**
+	 * 根据身份证号查询员工信息
+	 * @return
+	 */
+	Staff getStaffInfoByIDnum(String staffIdnumber);
+
+	/**
+	 * 获得编号最大值
+	 * @return
+	 */
+	String getMaxNumber();
+	
+	/**
+	 * 分页
+	 */
+	List<Staff> selectByExampleForPaging(StaffExample example);
 }

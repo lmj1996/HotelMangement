@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.DTO.RoomDTO;
+import com.mapper.PositionMapper;
 import com.pojo.*;
 import com.service.*;
 import com.util.TimeUtil;
@@ -20,6 +21,9 @@ import com.util.TimeUtil;
 public class TestFile {
 	@Resource(name="hotelService")
 	private HotelService hotelService;
+	
+	@Resource(name="staffService")
+	private StaffService staffService;
 	
 	@Test
 	public void addRoom() {
@@ -47,6 +51,24 @@ public class TestFile {
 		hotelService.updateRoom(room);
 	}
 	
+	@Test
+	public void addStaff() {
+		for(int i=0;i<=10;i++) {
+			Staff staff = new Staff();
+			staff.setStaffName("Andy"+i);
+			staff.setStaffSex("男");
+			staff.setStaffIdnumber("65164"+i);
+			staffService.insertStaff(staff);
+		}
+		
+	}
 	
+	@Test
+	public void addPosition() {
+		Position position = new Position();
+		position.setPositionName("保洁员");
+		position.setPositionLevel("5");
+		staffService.addPosition(position);
+	}
 	
 }

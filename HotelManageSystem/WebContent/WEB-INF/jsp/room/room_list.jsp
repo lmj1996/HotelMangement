@@ -96,146 +96,147 @@
 </head>
 
 <body>
-	<!-- Left column -->
 	<div class="templatemo-flex-row">
 
 		<jsp:include page="/WEB-INF/jsp/left_nav.jsp"></jsp:include>
+		
+	
+	<!-- Main content -->
+	<div class="templatemo-content col-1 light-gray-bg">
+		<div class="templatemo-top-nav-container">
+			<div class="row">
+				<nav class="templatemo-top-nav col-lg-12 col-md-12">
+					<ul class="text-uppercase">
+						<li><a
+							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"
+							class="active">查看房间</a></li>
 
-		<!-- Main content -->
-		<div class="templatemo-content col-1 light-gray-bg">
-			<div class="templatemo-top-nav-container">
-				<div class="row">
-					<nav class="templatemo-top-nav col-lg-12 col-md-12">
-						<ul class="text-uppercase">
-							<li><a
-								href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"
-								class="active">查看房间</a></li>
-
-							<li><a
-								href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
-						</ul>
-					</nav>
-				</div>
-
+						<li><a
+							href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
+					</ul>
+				</nav>
 			</div>
-			<div class="templatemo-content-container">
 
-				<div>
-					<a href="${pageContext.request.contextPath }/jump/jumpToRoomAdd.do">
-						<input type="button" value="添加" class="form-control"
-						style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
-					</a>
-				</div>
+		</div>
+		<div class="templatemo-content-container">
 
-				<div
-					style="width: 30%; margin-left: 72%; margin-top: -9%; position: relative;">
-					<div class="templatemo-search-form" role="search">
-						<div class="input-group">
-							<button type="submit" class="fa fa-search"></button>
-							<input type="text" class="form-control" placeholder="Search"
-								name="search" id="search" onchange="flush('1')">
-						</div>
+			<div>
+				<a href="${pageContext.request.contextPath }/jump/jumpToRoomAdd.do">
+					<input type="button" value="添加" class="form-control"
+					style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
+				</a>
+			</div>
+
+			<div
+				style="width: 30%; margin-left: 72%; margin-top: -9%; position: relative;">
+				<div class="templatemo-search-form" role="search">
+					<div class="input-group">
+						<button type="submit" class="fa fa-search"></button>
+						<input type="text" class="form-control" placeholder="Search"
+							name="search" id="search" onchange="flush('1')">
 					</div>
 				</div>
+			</div>
 
 
-				<div
-					style="border: 1px solid rgba(155, 155, 200, 0.5); margin-top: -3%">
-					<table class="table table-hover" style="text-align: center;">
-						<thead>
-							<tr>
-								<td>编号</td>
+			<div
+				style="border: 1px solid rgba(155, 155, 200, 0.5); margin-top: -3%">
+				<table class="table table-hover" style="text-align: center;">
+					<thead>
+						<tr>
+							<td>编号</td>
 
-								<td><select id="state" onchange="flush('1')"
-									class="form-control" style="text-align: center;" name="state">
-										<option value="">所有</option>
-										<option value="空闲">空闲</option>
-										<option value="已租出">已租出</option>
-										<option value="清洁中">清洁中</option>
-								</select></td>
+							<td><select id="state" onchange="flush('1')"
+								class="form-control" style="text-align: center;" name="state">
+									<option value="">所有</option>
+									<option value="空闲">空闲</option>
+									<option value="已租出">已租出</option>
+									<option value="清洁中">清洁中</option>
+							</select></td>
 
-								<td><select id="floor" onchange="flush('1')"
-									class="form-control" style="text-align: center;" name="floor">
-										<option value="">所有</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-								</select></td>
+							<td><select id="floor" onchange="flush('1')"
+								class="form-control" style="text-align: center;" name="floor">
+									<option value="">所有</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+							</select></td>
 
-								<td><select id="type" onchange="flush('1')"
-									class="form-control" style="text-align: center;" name="type">
-										<option value="">所有</option>
-										<option value="单人间">单人间</option>
-										<option value="双人间">双人间</option>
-										<option value="普通套房">普通套房</option>
-										<option value="高级套房">高级套房</option>
-										<option value="商务间">商务间</option>
-										<option value="公寓间">公寓间</option>
-										<option value="总统套房">总统套房</option>
-								</select></td>
+							<td><select id="type" onchange="flush('1')"
+								class="form-control" style="text-align: center;" name="type">
+									<option value="">所有</option>
+									<option value="单人间">单人间</option>
+									<option value="双人间">双人间</option>
+									<option value="普通套房">普通套房</option>
+									<option value="高级套房">高级套房</option>
+									<option value="商务间">商务间</option>
+									<option value="公寓间">公寓间</option>
+									<option value="总统套房">总统套房</option>
+							</select></td>
 
-								<td>价格</td>
+							<td>价格</td>
 
-								<td>操作</td>
+							<td>操作</td>
 
-							</tr>
-						</thead>
+						</tr>
+					</thead>
 
-						<tbody id="roomList">
+					<tbody id="roomList">
 
-						</tbody>
+					</tbody>
 
-					</table>
+				</table>
 
-					<table class="table  table-striped table-hover table-main"
-						style="text-align: center;" id="paging">
+				<table class="table  table-striped table-hover table-main"
+					style="text-align: center;" id="paging">
 
-					</table>
+				</table>
 
-				</div>
-
-
+			</div>
 
 
-				<!--
+
+
+			<!--
 			    	作者：LMJ
 			    	时间：2018-11-02
 			    	描述：完成清扫模态框
 			    -->
-				<div class="modal fade" id="myModal_clean" tabindex="-1"
-					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h4 class="modal-title" id="myModalLabel">清扫完成确认</h4>
-							</div>
-							<form
-								action="${pageContext.request.contextPath}/hotel/updateRoom.do"
-								method="post">
-								<input type="hidden" id="roomId_clean" name="roomId" />
-								<div class="modal-body" style="text-align: center;">是否清扫完成？</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">关闭</button>
-									<button type="submit" class="btn btn-primary">确认清扫完成</button>
-								</div>
-
-							</form>
-
+			<div class="modal fade" id="myModal_clean" tabindex="-1"
+				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+							<h4 class="modal-title" id="myModalLabel">清扫完成确认</h4>
 						</div>
-						<!-- /.modal-content -->
+						<form
+							action="${pageContext.request.contextPath}/hotel/updateRoom.do"
+							method="post">
+							<input type="hidden" id="roomId_clean" name="roomId" />
+							<div class="modal-body" style="text-align: center;">是否清扫完成？</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">关闭</button>
+								<button type="submit" class="btn btn-primary">确认清扫完成</button>
+							</div>
+
+						</form>
+
 					</div>
-					<!-- /.modal-dialog -->
+					<!-- /.modal-content -->
 				</div>
-
-
+				<!-- /.modal-dialog -->
 			</div>
+
+
 		</div>
 	</div>
+</div>
 
 	<!-- JS -->
 	<script

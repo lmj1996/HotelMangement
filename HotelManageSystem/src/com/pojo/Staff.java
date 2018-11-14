@@ -7,11 +7,15 @@ public class Staff {
 
     private String staffPassword;
 
-    private String staffWorkclass;
+    private String staffIdnumber;
 
     private String staffName;
 
     private String staffSex;
+
+    private String staffPhone;
+
+    private String staffAddress;
 
     private String staffEntrytime;
 
@@ -45,12 +49,12 @@ public class Staff {
         this.staffPassword = staffPassword == null ? null : staffPassword.trim();
     }
 
-    public String getStaffWorkclass() {
-        return staffWorkclass;
+    public String getStaffIdnumber() {
+        return staffIdnumber;
     }
 
-    public void setStaffWorkclass(String staffWorkclass) {
-        this.staffWorkclass = staffWorkclass == null ? null : staffWorkclass.trim();
+    public void setStaffIdnumber(String staffIdnumber) {
+        this.staffIdnumber = staffIdnumber == null ? null : staffIdnumber.trim();
     }
 
     public String getStaffName() {
@@ -67,6 +71,22 @@ public class Staff {
 
     public void setStaffSex(String staffSex) {
         this.staffSex = staffSex == null ? null : staffSex.trim();
+    }
+
+    public String getStaffPhone() {
+        return staffPhone;
+    }
+
+    public void setStaffPhone(String staffPhone) {
+        this.staffPhone = staffPhone == null ? null : staffPhone.trim();
+    }
+
+    public String getStaffAddress() {
+        return staffAddress;
+    }
+
+    public void setStaffAddress(String staffAddress) {
+        this.staffAddress = staffAddress == null ? null : staffAddress.trim();
     }
 
     public String getStaffEntrytime() {
@@ -104,9 +124,10 @@ public class Staff {
 	@Override
 	public String toString() {
 		return "Staff [staffId=" + staffId + ", staffNum=" + staffNum + ", staffPassword=" + staffPassword
-				+ ", staffWorkclass=" + staffWorkclass + ", staffName=" + staffName + ", staffSex=" + staffSex
-				+ ", staffEntrytime=" + staffEntrytime + ", staffPosition=" + staffPosition + ", staffCreatetime="
-				+ staffCreatetime + ", staffModifytime=" + staffModifytime + "]";
+				+ ", staffIdnumber=" + staffIdnumber + ", staffName=" + staffName + ", staffSex=" + staffSex
+				+ ", staffPhone=" + staffPhone + ", staffAddress=" + staffAddress + ", staffEntrytime=" + staffEntrytime
+				+ ", staffPosition=" + staffPosition + ", staffCreatetime=" + staffCreatetime + ", staffModifytime="
+				+ staffModifytime + "]";
 	}
     
 }
