@@ -159,4 +159,20 @@ public class JumpController {
 		return modelAndView;
 
 	}
+	
+	/**
+	 * 员工详细信息
+	 */
+	@RequestMapping(value = "/jumpToStaffDetail")
+	public ModelAndView jumpToStaffDetail(@ModelAttribute("session") SessionDTO session, Model model,String staffId) {
+		// 修改部分session内容
+		session.setChoice("3");
+		model.addAttribute(session);
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("id", staffId);
+		modelAndView.setViewName("staff/staff_detail");
+		return modelAndView;
+
+	}
 }

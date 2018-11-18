@@ -73,10 +73,12 @@ public class StaffService {
 		staffExample.setPageSize(staffVO.getPageSize());
 		Criteria criteria = staffExample.createCriteria();
 		criteria.andStaffIdNotEqualTo("1000001");
-		
+		Criteria criteria2 = staffExample.createCriteria();
+		criteria2.andStaffIdNotEqualTo("1000001");
 		if(staffVO.getSearch()!=null&&staffVO.getSearch().trim().length()>0) {
 			criteria.andStaffNumLike("%"+staffVO.getSearch()+"%");
-			criteria.andStaffNameLike("%"+staffVO.getSearch()+"%");
+			criteria2.andStaffNameLike("%"+staffVO.getSearch()+"%");
+			staffExample.or(criteria2);
 		}
 		if(staffVO.getPosition()!=null&&staffVO.getPosition().trim().length()>0) {
 			criteria.andStaffPositionEqualTo(staffVO.getPosition());
@@ -148,6 +150,17 @@ public class StaffService {
 		List<Position> list = positionMapper.selectByExample(positionExample);
 		System.out.println("结果"+list);
 		return list;
+	}
+
+	// 根据ID获得员工信息
+	public Staff getStaffInfoById(String id) {
+		Staff staff = staffMapper.selectByPrimaryKey(id);
+		return staff;
+	}
+
+	// 更新员工信息
+	public void updateStaffInfo(Staff staff) {
+		staffMapper.updateByPrimaryKeySelective(staff);
 	}
 	
 }

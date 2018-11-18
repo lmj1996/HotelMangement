@@ -58,10 +58,10 @@ public class StaffController {
 
 		ModelAndView modelAndView = new ModelAndView();
 		String s = staffService.insertStaff(staff);
-		if(s == "success") {
-		modelAndView.setViewName("staff/staff_list");
-		return modelAndView;
-		}else {
+		if (s == "success") {
+			modelAndView.setViewName("staff/staff_list");
+			return modelAndView;
+		} else {
 			modelAndView.setViewName("staff/staff_add");
 			return modelAndView;
 		}
@@ -69,7 +69,8 @@ public class StaffController {
 
 	/**
 	 * 员工列表
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	@RequestMapping(value = "/getAllStaff")
 	public void getAllStaff(StaffVO staffVO, int page, HttpServletRequest request, HttpServletResponse response,
@@ -78,16 +79,18 @@ public class StaffController {
 		session.setChoice("3");
 		model.addAttribute(session);
 
+		System.out.println(staffVO.getPosition());
 		staffVO.setPageIndex(page);
 		StaffVO getStaffVO = staffService.getAllStaffInfo(staffVO);
 		response.setContentType("text/html; charset=utf-8");
 		Gson gson = new Gson();
 		response.getWriter().println(gson.toJson(getStaffVO));
 	}
-	
+
 	/**
 	 * 获得所有职位
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	@RequestMapping(value = "/getAllPosition")
 	public void getAllPosition(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -95,6 +98,37 @@ public class StaffController {
 		response.setContentType("text/html; charset=utf-8");
 		Gson gson = new Gson();
 		response.getWriter().println(gson.toJson(listPosition));
+	}
+
+	/**
+	 * 查询员工信息
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/getStaffInfo")
+	public void getStaffInfo(HttpServletRequest request, HttpServletResponse response, String id) throws IOException {
+		System.out.println("ID:" + id);
+		Staff staffInfo = staffService.getStaffInfoById(id);
+		response.setContentType("text/html; charset=utf-8");
+		Gson gson = new Gson();
+		response.getWriter().println(gson.toJson(staffInfo));
+	}
+
+	/**
+	 * 更新员工信息
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/updateStaff")
+	public ModelAndView updateStaff(Staff staff, @ModelAttribute("session") SessionDTO session, Model model) {
+		// 修改部分session内容
+		session.setChoice("3");
+		model.addAttribute(session);
+
+		ModelAndView modelAndView = new ModelAndView();
+		staffService.updateStaffInfo(staff);
+		modelAndView.setViewName("staff/staff_list");
+		return modelAndView;
 	}
 
 }

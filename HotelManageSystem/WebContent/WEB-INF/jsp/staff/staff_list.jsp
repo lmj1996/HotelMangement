@@ -55,7 +55,7 @@
 	function flush(page) {
 		$.post("${pageContext.request.contextPath}/staff/getAllStaff.do", {
 			"page" : page,
-			"position" : $("#position").val(),
+			"position" : $("#selectPosition").val(),
 			"search" : $("#search").val()
 			
 		}, function(data) {
@@ -68,7 +68,7 @@
 				var k = '<tr>' + '<td>' + this.staff.staffNum + '</td>' + '<td>' + this.staff.staffName + '</td>' + '<td>' + this.staff.staffSex + '</td>' + '<td>' + this.position.positionName + '</td>' + '<td>' +this.staff.staffEntrytime + '</td>';
 				k = k + '<td><div class=\"dropdown\"><button type=\"button\" class=\"btn dropdown-toggle\" id=\"dropdownMenu1\" data-toggle=\"dropdown\">操作 <span class=\"caret\"></span></button><ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dropdownMenu1\">';
 				
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToStayRegister.do?staffId='+this.staff.staffId+'\">查看详细信息</a></li>';
+					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToStaffDetail.do?staffId='+this.staff.staffId+'\">查看详细信息</a></li>';
 				
 				k = k + "</ul></div></td></tr>";
 				$("#staffList").append(k);
