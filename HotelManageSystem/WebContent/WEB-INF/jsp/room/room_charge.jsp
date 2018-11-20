@@ -22,8 +22,9 @@
 <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/addDate.js"></script>
-
+<script src="${pageContext.request.contextPath}/js/toastr.js"></script>
+<link href="${pageContext.request.contextPath}/css/toastr.css"
+	rel="stylesheet">
 <script>
 	function clear(){
 		$("#listChargingWay").children().remove();
@@ -64,6 +65,8 @@
 	}
 </script>
 
+
+
 </head>
 <body>
 	<!-- Left column -->
@@ -71,54 +74,54 @@
 
 		<jsp:include page="/WEB-INF/jsp/left_nav.jsp"></jsp:include>
 
-	
-	<!-- Main content -->
-	<div class="templatemo-content col-1 light-gray-bg">
-		<div class="templatemo-top-nav-container">
-			<div class="row">
-				<nav class="templatemo-top-nav col-lg-12 col-md-12">
-					<ul class="text-uppercase">
-						<li><a
-							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
-						<li><a
-							href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do"
-							class="active">房间计费规则</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-		<div class="templatemo-content-container">
 
-			<div>
-				<table class="table">
-					<tr>
-						<td><input type="button" data-toggle="modal"
-							data-target="#myModal_add" name="" value="添加"
-							class="form-control"
-							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
-						</td>
-					</tr>
-				</table>
+		<!-- Main content -->
+		<div class="templatemo-content col-1 light-gray-bg">
+			<div class="templatemo-top-nav-container">
+				<div class="row">
+					<nav class="templatemo-top-nav col-lg-12 col-md-12">
+						<ul class="text-uppercase">
+							<li><a
+								href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do"
+								class="active">房间计费规则</a></li>
+						</ul>
+					</nav>
+				</div>
 			</div>
+			<div class="templatemo-content-container">
 
-			<div>
-				<table class="table table-hover" style="text-align: center;">
-					<thead>
+				<div>
+					<table class="table">
 						<tr>
-							<td>计费规则名称</td>
-							<td>计费开始时间</td>
-							<td>计费结束时间</td>
-							<td>操作</td>
+							<td><input type="button" data-toggle="modal"
+								data-target="#myModal_add" name="" value="添加"
+								class="form-control"
+								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
+							</td>
 						</tr>
-					</thead>
-					<tbody id="listChargingWay">
+					</table>
+				</div>
 
-					</tbody>
-				</table>
+				<div>
+					<table class="table table-hover" style="text-align: center;">
+						<thead>
+							<tr>
+								<td>计费规则名称</td>
+								<td>计费开始时间</td>
+								<td>计费结束时间</td>
+								<td>操作</td>
+							</tr>
+						</thead>
+						<tbody id="listChargingWay">
+
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 	<!--
     	作者：LMJ
@@ -351,6 +354,23 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 	<!-- Templatemo Script -->
-
+	
+	<script type="text/javascript">
+		;
+		(function toastrSuccess() {
+			var s = '${requestScope.state}';
+			if (s == "addChargingWay") {
+				toastr.success("添加计费方式成功!")
+			}
+			if (s == "updateChargingWay") {
+				toastr.success("更新计费方式成功!")
+			}
+			if (s == "deleteChargingWay") {
+				toastr.success("删除成功!")
+			}
+			
+		})();
+	</script>
+	
 </body>
 </html>

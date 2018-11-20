@@ -50,4 +50,20 @@ public interface StaffMapper {
 	 * 分页
 	 */
 	List<Staff> selectByExampleForPaging(StaffExample example);
+
+	/**
+	 * 根据电话号码获得信息
+	 * @param phoneNumber
+	 * @return
+	 */
+	Staff getStaffInfoByPhoneNumber(String phoneNumber);
+
+	/**
+	 * 除开特定ID的根据身份证号查询
+	 */
+	Staff getStaffInfoByIDnumExceptId(@Param("staffIdnumber") String staffIdnumber,@Param("staffId") String staffId);
+	/**
+	 * 除开特定ID的根据手机号查询
+	 */
+	Staff getStaffInfoByPhoneNumberExceptId(@Param("staffPhone") String staffPhone,@Param("staffId") String staffId);
 }

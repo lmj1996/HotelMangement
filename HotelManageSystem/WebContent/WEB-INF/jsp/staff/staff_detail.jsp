@@ -26,7 +26,9 @@
 <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
-
+<script src="${pageContext.request.contextPath}/js/toastr.js"></script>
+<link href="${pageContext.request.contextPath}/css/toastr.css"
+	rel="stylesheet">
 
 
 </head>
@@ -84,13 +86,13 @@
 							<tr>
 								<td>身份证号：</td>
 								<td><input id="staffIdnumber" type="text" disabled="disabled" maxlength="18" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
-									name="staffIdnumber" /></td>
+									name="staffIdnumber" onblur="checkIDnumber()" /></td>
 							</tr>
 							
 							<tr>
 								<td>联系方式：</td>
 								<td><input id="staffPhone" type="text" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
-									name="staffPhone" /></td>
+									name="staffPhone" onblur="checkPhoneNumber()" /></td>
 							</tr>
 							
 							<tr>
@@ -238,5 +240,29 @@
 	
 </script>
 	
+<script type="text/javascript">
+	function checkIDnumber(){
+		$.post("${pageContext.request.contextPath}/staff/checkIDnumber.do",{
+			"id" : $("#staffId_hidden").val(),
+			"IDnumber" : $("#staffIdnumber").val()
+		},function(data){
+			if(data == "repeat"){
+				toastr.error("身份证号重复！");
+			}
+		},"json");
+	}
+	function checkPhoneNumber(){
+		$.post("${pageContext.request.contextPath}/staff/checkPhoneNumber.do",{
+			"id" : $("#staffId_hidden").val(),
+			"phoneNumber" : $("#staffPhone").val()
+		},function(data){
+			if(data == "phoneRepeat"){
+				toastr.error("电话号码重复！");
+			}
+		},"json");
+	}
+	
+</script>
+
 </body>
 </html>

@@ -43,6 +43,7 @@ public class StaffController {
 			modelAndView.setViewName("home");
 			return modelAndView;
 		}
+		modelAndView.addObject("state", "error");
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
@@ -59,9 +60,11 @@ public class StaffController {
 		ModelAndView modelAndView = new ModelAndView();
 		String s = staffService.insertStaff(staff);
 		if (s == "success") {
+			modelAndView.addObject("state", "addStaff");
 			modelAndView.setViewName("staff/staff_list");
 			return modelAndView;
 		} else {
+			modelAndView.addObject("state", "addStaffError");
 			modelAndView.setViewName("staff/staff_add");
 			return modelAndView;
 		}
@@ -126,9 +129,37 @@ public class StaffController {
 		model.addAttribute(session);
 
 		ModelAndView modelAndView = new ModelAndView();
-		staffService.updateStaffInfo(staff);
+		String check = staffService.updateStaffInfo(staff);
+		if(check == "updateStaff") {
+		modelAndView.addObject("state", check);
 		modelAndView.setViewName("staff/staff_list");
+		}else {
+			modelAndView.addObject("state", check);
+			modelAndView.setViewName("staff/staff_detail");
+		}
 		return modelAndView;
 	}
 
+	/**
+	 * 验证身份证号是否重复
+	 */
+	@RequestMapping(value = "/checkIDnumber")
+	public void checkIDnumber(HttpServletRequest request, HttpServletResponse response, String IDnumber,String id) throws IOException {
+		String check = staffService.checkIDnumberIsRepeat(IDnumber,id);
+		response.setContentType("text/html; charset=utf-8");
+		Gson gson = new Gson();
+		response.getWriter().println(gson.toJson(check));
+	}
+	
+	/**
+	 * 验证身份证号是否重复
+	 */
+	@RequestMapping(value = "/checkPhoneNumber")
+	public void checkPhoneNumber(HttpServletRequest request, HttpServletResponse response, String phoneNumber,String id) throws IOException {
+		String check = staffService.checkPhoneNumberIsRepeat(phoneNumber,id);
+		response.setContentType("text/html; charset=utf-8");
+		Gson gson = new Gson();
+		response.getWriter().println(gson.toJson(check));
+	}
+	
 }

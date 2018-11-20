@@ -64,11 +64,10 @@ public class HotelController {
 		ModelAndView modelAndView = new ModelAndView();
 		String add = hotelService.addRoom(room);
 		if (add.equals("success")) {
-			System.out.println("添加成功");
+			modelAndView.addObject("state", "addRoom");
 			modelAndView.setViewName("room/room_list");
 			return modelAndView;
 		} else {
-			System.out.println("添加失败");
 			return null;
 		}
 	}
@@ -85,6 +84,7 @@ public class HotelController {
 		String update = hotelService.updateRoom(room);
 		if (update.equals("success")) {
 			System.out.println("更新成功");
+			modelAndView.addObject("state", "updateRoom");
 			modelAndView.setViewName("room/room_list");
 			return modelAndView;
 		} else {
@@ -109,6 +109,7 @@ public class HotelController {
 		ModelAndView modelAndView = new ModelAndView();
 		if (son.equals("success")) {
 			System.out.println("住宿登记成功");
+			modelAndView.addObject("state", "stayOverNight");
 			modelAndView.setViewName("room/room_list");
 			return modelAndView;
 		} else {
@@ -129,6 +130,7 @@ public class HotelController {
 		String s = hotelService.addChargingWay(chargingWay);
 		if (s.equals("success")) {
 			System.out.println("添加成功");
+			modelAndView.addObject("state", "addChargingWay");
 			modelAndView.setViewName("room/room_charge");
 			return modelAndView;
 		} else {
@@ -172,6 +174,7 @@ public class HotelController {
 		String s = hotelService.updateChargingWay(chargingWay);
 		if (s.equals("success")) {
 			System.out.println("修改成功");
+			modelAndView.addObject("state", "updateChargingWay");
 			modelAndView.setViewName("room/room_charge");
 			return modelAndView;
 		} else {
@@ -192,6 +195,7 @@ public class HotelController {
 		String s = hotelService.deleteChargingWay(chargingWay);
 		if (s.equals("success")) {
 			System.out.println("删除成功");
+			modelAndView.addObject("state", "deleteChargingWay");
 			modelAndView.setViewName("room/room_charge");
 			return modelAndView;
 		} else {
@@ -235,6 +239,7 @@ public class HotelController {
 		
 		hotelService.checkOut(room,customer,hotelRegister);
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("state", "checkSuccess");
 		modelAndView.setViewName("room/room_list");
 		return modelAndView;
 	}

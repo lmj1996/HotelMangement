@@ -48,7 +48,7 @@
 		</div>
 		<div class="templatemo-content-container">
 			<div
-				style="border: 1px solid rgba(155, 155, 200, 0.5); margin-top: -3%">
+				style="border: 1px solid rgba(155, 155, 200, 0.5); margin-top: 3%;width:50%;margin-left: 25%;">
 				<form action="${pageContext.request.contextPath}/hotel/addRoom.do"
 					method="post">
 					<table class="table">
@@ -89,7 +89,7 @@
 					</table>
 					<div>
 						<input type="submit" name="" value="添加" class="form-control"
-							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
+							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';width:50%;margin-left: 25%;" />
 					</div>
 				</form>
 

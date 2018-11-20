@@ -22,6 +22,11 @@
 <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/toastr.js"></script>
+<link href="${pageContext.request.contextPath}/css/toastr.css"
+	rel="stylesheet">
+
 <script>
 	function clearTable(){
 		$("#staffList").children().remove();
@@ -101,6 +106,8 @@
 	
 	
 </script>
+
+
 
 </head>
 <body>
@@ -257,5 +264,20 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 	<!-- Templatemo Script -->
+	
+	<script type="text/javascript">
+		;
+		(function toastrSuccess() {
+			var s = '${requestScope.state}';
+			if (s == "addStaff") {
+				toastr.success("添加员工成功!")
+			}
+			if (s == "updateStaff") {
+				toastr.success("更新员工成功!")
+			}
+			
+		})();
+	</script>
+	
 </body>
 </html>

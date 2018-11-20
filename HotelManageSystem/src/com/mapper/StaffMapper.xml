@@ -423,5 +423,17 @@
 		</if>
 	</select>
 
+	<select id="getStaffInfoByPhoneNumber" resultMap="BaseResultMap"
+		parameterType="com.pojo.StaffExample">
+		select * from staff where staff_phone =
+		#{phoneNumber,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getStaffInfoByIDnumExceptId" resultMap="BaseResultMap" parameterType="com.pojo.StaffExample">
+		select * from staff where staff_IDnumber = #{staffIdnumber,jdbcType=VARCHAR} and staff_id != #{staffId,jdbcType=CHAR}
+	</select>
 
+	<select id="getStaffInfoByPhoneNumberExceptId" resultMap="BaseResultMap" parameterType="com.pojo.StaffExample">
+		select * from staff where staff_phone = #{staffPhone,jdbcType=VARCHAR} and staff_id != #{staffId,jdbcType=CHAR}
+	</select>
 </mapper>

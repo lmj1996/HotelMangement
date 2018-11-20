@@ -26,6 +26,10 @@
 <script src="${pageContext.request.contextPath}/js/jquery-2.11.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap-3.37.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/toastr.js"></script>
+<link href="${pageContext.request.contextPath}/css/toastr.css"
+	rel="stylesheet">
+
 <script>
 	function clear(){
 		$("#position").children().remove();
@@ -54,8 +58,33 @@
 		
 	}
 	
+	
+	
 </script>
 
+<script type="text/javascript">
+	function checkIDnumber(){
+		$.post("${pageContext.request.contextPath}/staff/checkIDnumber.do",{
+			"id" : "",
+			"IDnumber" : $("#IDnumber").val()
+		},function(data){
+			if(data == "repeat"){
+				toastr.error("身份证号重复！");
+			}
+		},"json");
+	}
+	function checkPhoneNumber(){
+		$.post("${pageContext.request.contextPath}/staff/checkPhoneNumber.do",{
+			"id" : "",
+			"phoneNumber" : $("#phoneNumber").val()
+		},function(data){
+			if(data == "phoneRepeat"){
+				toastr.error("电话号码重复！");
+			}
+		},"json");
+	}
+	
+</script>
 
 </head>
 <body>
@@ -105,17 +134,20 @@
 							</tr>
 							<tr>
 								<td>身份证号：</td>
-								<td><input type="text" maxlength="18" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
-									name="staffIdnumber" /></td>
+								<td><input type="text" maxlength="18" id="IDnumber"
+									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
+									name="staffIdnumber" onblur="checkIDnumber()" /></td>
 							</tr>
 							<tr>
 								<td>联系方式：</td>
-								<td><input type="text" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
-									name="staffPhone" /></td>
+								<td><input type="text" maxlength="11" id="phoneNumber"
+									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
+									name="staffPhone" onblur="checkPhoneNumber()" /></td>
 							</tr>
 							<tr>
 								<td>职位：</td>
-								<td><select id="position" class="form-control" name="staffPosition"></select></td>
+								<td><select id="position" class="form-control"
+									name="staffPosition"></select></td>
 							</tr>
 
 						</table>
@@ -201,5 +233,6 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 	<!-- Templatemo Script -->
+	
 </body>
 </html>
