@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.DTO.*;
-import com.VO.StaffVO;
+import com.VO.*;
 import com.google.gson.Gson;
 import com.pojo.*;
 import com.service.*;
@@ -82,7 +82,6 @@ public class StaffController {
 		session.setChoice("3");
 		model.addAttribute(session);
 
-		System.out.println(staffVO.getPosition());
 		staffVO.setPageIndex(page);
 		StaffVO getStaffVO = staffService.getAllStaffInfo(staffVO);
 		response.setContentType("text/html; charset=utf-8");
@@ -110,7 +109,6 @@ public class StaffController {
 	 */
 	@RequestMapping(value = "/getStaffInfo")
 	public void getStaffInfo(HttpServletRequest request, HttpServletResponse response, String id) throws IOException {
-		System.out.println("ID:" + id);
 		Staff staffInfo = staffService.getStaffInfoById(id);
 		response.setContentType("text/html; charset=utf-8");
 		Gson gson = new Gson();
@@ -161,5 +159,6 @@ public class StaffController {
 		Gson gson = new Gson();
 		response.getWriter().println(gson.toJson(check));
 	}
+	
 	
 }

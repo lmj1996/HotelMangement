@@ -4,6 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkRecordExample {
+	protected int startRow;
+	protected int pageSize;
+	
+    public int getStartRow() {
+		return startRow;
+	}
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
     protected String orderByClause;
 
     protected boolean distinct;
@@ -244,73 +262,73 @@ public class WorkRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffIsNull() {
-            addCriterion("work_record_nextstaff is null");
+        public Criteria andWorkRecordTypeIsNull() {
+            addCriterion("work_record_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffIsNotNull() {
-            addCriterion("work_record_nextstaff is not null");
+        public Criteria andWorkRecordTypeIsNotNull() {
+            addCriterion("work_record_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffEqualTo(String value) {
-            addCriterion("work_record_nextstaff =", value, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeEqualTo(String value) {
+            addCriterion("work_record_type =", value, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffNotEqualTo(String value) {
-            addCriterion("work_record_nextstaff <>", value, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeNotEqualTo(String value) {
+            addCriterion("work_record_type <>", value, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffGreaterThan(String value) {
-            addCriterion("work_record_nextstaff >", value, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeGreaterThan(String value) {
+            addCriterion("work_record_type >", value, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffGreaterThanOrEqualTo(String value) {
-            addCriterion("work_record_nextstaff >=", value, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("work_record_type >=", value, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffLessThan(String value) {
-            addCriterion("work_record_nextstaff <", value, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeLessThan(String value) {
+            addCriterion("work_record_type <", value, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffLessThanOrEqualTo(String value) {
-            addCriterion("work_record_nextstaff <=", value, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeLessThanOrEqualTo(String value) {
+            addCriterion("work_record_type <=", value, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffLike(String value) {
-            addCriterion("work_record_nextstaff like", value, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeLike(String value) {
+            addCriterion("work_record_type like", value, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffNotLike(String value) {
-            addCriterion("work_record_nextstaff not like", value, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeNotLike(String value) {
+            addCriterion("work_record_type not like", value, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffIn(List<String> values) {
-            addCriterion("work_record_nextstaff in", values, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeIn(List<String> values) {
+            addCriterion("work_record_type in", values, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffNotIn(List<String> values) {
-            addCriterion("work_record_nextstaff not in", values, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeNotIn(List<String> values) {
+            addCriterion("work_record_type not in", values, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffBetween(String value1, String value2) {
-            addCriterion("work_record_nextstaff between", value1, value2, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeBetween(String value1, String value2) {
+            addCriterion("work_record_type between", value1, value2, "workRecordType");
             return (Criteria) this;
         }
 
-        public Criteria andWorkRecordNextstaffNotBetween(String value1, String value2) {
-            addCriterion("work_record_nextstaff not between", value1, value2, "workRecordNextstaff");
+        public Criteria andWorkRecordTypeNotBetween(String value1, String value2) {
+            addCriterion("work_record_type not between", value1, value2, "workRecordType");
             return (Criteria) this;
         }
 

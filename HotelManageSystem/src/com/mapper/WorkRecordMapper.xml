@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.pojo.WorkRecord" >
     <id column="work_record_id" property="workRecordId" jdbcType="CHAR" />
     <result column="work_record_currentstaff" property="workRecordCurrentstaff" jdbcType="CHAR" />
-    <result column="work_record_nextstaff" property="workRecordNextstaff" jdbcType="CHAR" />
+    <result column="work_record_type" property="workRecordType" jdbcType="VARCHAR" />
     <result column="work_record_time" property="workRecordTime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    work_record_id, work_record_currentstaff, work_record_nextstaff, work_record_time
+    work_record_id, work_record_currentstaff, work_record_type, work_record_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.WorkRecordExample" >
     select
@@ -99,9 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pojo.WorkRecord" >
-    insert into work_record (work_record_id, work_record_currentstaff, work_record_nextstaff, 
+    insert into work_record (work_record_id, work_record_currentstaff, work_record_type, 
       work_record_time)
-    values (#{workRecordId,jdbcType=CHAR}, #{workRecordCurrentstaff,jdbcType=CHAR}, #{workRecordNextstaff,jdbcType=CHAR}, 
+    values (#{workRecordId,jdbcType=CHAR}, #{workRecordCurrentstaff,jdbcType=CHAR}, #{workRecordType,jdbcType=VARCHAR}, 
       #{workRecordTime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pojo.WorkRecord" >
@@ -113,8 +113,8 @@
       <if test="workRecordCurrentstaff != null" >
         work_record_currentstaff,
       </if>
-      <if test="workRecordNextstaff != null" >
-        work_record_nextstaff,
+      <if test="workRecordType != null" >
+        work_record_type,
       </if>
       <if test="workRecordTime != null" >
         work_record_time,
@@ -127,8 +127,8 @@
       <if test="workRecordCurrentstaff != null" >
         #{workRecordCurrentstaff,jdbcType=CHAR},
       </if>
-      <if test="workRecordNextstaff != null" >
-        #{workRecordNextstaff,jdbcType=CHAR},
+      <if test="workRecordType != null" >
+        #{workRecordType,jdbcType=VARCHAR},
       </if>
       <if test="workRecordTime != null" >
         #{workRecordTime,jdbcType=VARCHAR},
@@ -150,8 +150,8 @@
       <if test="record.workRecordCurrentstaff != null" >
         work_record_currentstaff = #{record.workRecordCurrentstaff,jdbcType=CHAR},
       </if>
-      <if test="record.workRecordNextstaff != null" >
-        work_record_nextstaff = #{record.workRecordNextstaff,jdbcType=CHAR},
+      <if test="record.workRecordType != null" >
+        work_record_type = #{record.workRecordType,jdbcType=VARCHAR},
       </if>
       <if test="record.workRecordTime != null" >
         work_record_time = #{record.workRecordTime,jdbcType=VARCHAR},
@@ -165,7 +165,7 @@
     update work_record
     set work_record_id = #{record.workRecordId,jdbcType=CHAR},
       work_record_currentstaff = #{record.workRecordCurrentstaff,jdbcType=CHAR},
-      work_record_nextstaff = #{record.workRecordNextstaff,jdbcType=CHAR},
+      work_record_type = #{record.workRecordType,jdbcType=VARCHAR},
       work_record_time = #{record.workRecordTime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,8 +177,8 @@
       <if test="workRecordCurrentstaff != null" >
         work_record_currentstaff = #{workRecordCurrentstaff,jdbcType=CHAR},
       </if>
-      <if test="workRecordNextstaff != null" >
-        work_record_nextstaff = #{workRecordNextstaff,jdbcType=CHAR},
+      <if test="workRecordType != null" >
+        work_record_type = #{workRecordType,jdbcType=VARCHAR},
       </if>
       <if test="workRecordTime != null" >
         work_record_time = #{workRecordTime,jdbcType=VARCHAR},
@@ -189,7 +189,7 @@
   <update id="updateByPrimaryKey" parameterType="com.pojo.WorkRecord" >
     update work_record
     set work_record_currentstaff = #{workRecordCurrentstaff,jdbcType=CHAR},
-      work_record_nextstaff = #{workRecordNextstaff,jdbcType=CHAR},
+      work_record_type = #{workRecordType,jdbcType=VARCHAR},
       work_record_time = #{workRecordTime,jdbcType=VARCHAR}
     where work_record_id = #{workRecordId,jdbcType=CHAR}
   </update>

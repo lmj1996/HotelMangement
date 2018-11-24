@@ -175,4 +175,32 @@ public class JumpController {
 		return modelAndView;
 
 	}
+	
+	@RequestMapping(value = "/jumpToStaffHome")
+	public ModelAndView jumpToStaffHome() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("user/index");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/jumpToCheckIn")
+	public ModelAndView jumpToCheckIn() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("user/check_in");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/jumpToRoom")
+	public ModelAndView jumpToRoom() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("user/room");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/jumpToCheckOut2")
+	public ModelAndView jumpToCheckOut2() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("user/check_out");
+		return modelAndView;
+	}
 }

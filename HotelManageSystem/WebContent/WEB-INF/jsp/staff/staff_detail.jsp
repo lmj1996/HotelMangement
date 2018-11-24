@@ -29,7 +29,7 @@
 <script src="${pageContext.request.contextPath}/js/toastr.js"></script>
 <link href="${pageContext.request.contextPath}/css/toastr.css"
 	rel="stylesheet">
-
+<script src="${pageContext.request.contextPath}/js/city.js"></script>
 
 </head>
 <body>
@@ -47,18 +47,19 @@
 							<li><a
 								href="${pageContext.request.contextPath}/jump/jumpToStaffList.do">查看员工</a></li>
 
-							<li><a href="#">工作记录</a></li>
+							
 						</ul>
 					</nav>
 				</div>
 
 			</div>
 			<div class="templatemo-content-container">
-				<div style="width: 40%; margin-left: 30%;">
+				<div style="width: 55%; margin-left: 22.5%;">
 					<form action="${pageContext.request.contextPath}/staff/updateStaff.do"
 						method="post">
 						<input type="hidden" id="staffId_hidden" name="staffId" value="${requestScope.id }" />
 						<input type="hidden" id="currentPosition" />
+						<input type="hidden" id="staffAddress" name="staffAddress" />
 						<table class="table" style="text-align: center;">
 							<tr>
 								<td>编号：</td>
@@ -96,6 +97,13 @@
 							</tr>
 							
 							<tr>
+								<td>联系地址：</td>
+								<td>
+									<p id="J-demo" style="width: 400px;height: 40px;border: 1px solid #ccc;box-sizing: border-box;"></p>
+								</td>
+							</tr>
+							
+							<tr>
 								<td>职位：</td>
 								<td><select id="position" class="form-control" name="staffPosition"></select></td>
 							</tr>
@@ -108,7 +116,7 @@
 							
 						</table>
 						<div style="text-align: center;">
-							<input type="submit" value="更新" class="form-control"
+							<input type="submit" value="更新" class="form-control" onclick="getStaffAddress()"
 								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';width:50%;margin-left: 25%;" />
 							<a href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><input type="button" value="返回列表" class="form-control"
 								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';width:50%;margin-left: 25%;" /></a> 
@@ -211,6 +219,8 @@
 			$("#staffEntrytime").val(staff.staffEntrytime);
 			$("#currentPosition").val(staff.staffPosition);
 			$("#staffSex").val(staff.staffSex);
+			$("#J-demo").html(staff.staffAddress);
+			$("#staffAddress").val(staff.staffAddress);
 		},"json");
 	}
 	
@@ -263,6 +273,21 @@
 	}
 	
 </script>
+
+	<script>
+		var ylc = yeluochenCity('J-demo', (city) => {
+			console.log(city)
+		}, null);
+		console.log(ylc);
+	</script>
+	<script type="text/javascript">
+			function getStaffAddress(){
+				var str = $('#J-demo').html()
+				console.log(str)
+				$("#staffAddress").val(str);
+			}
+			
+	</script>
 
 </body>
 </html>

@@ -5,7 +5,7 @@ public class WorkRecord {
 
     private String workRecordCurrentstaff;
 
-    private String workRecordNextstaff;
+    private String workRecordType;
 
     private String workRecordTime;
 
@@ -25,12 +25,12 @@ public class WorkRecord {
         this.workRecordCurrentstaff = workRecordCurrentstaff == null ? null : workRecordCurrentstaff.trim();
     }
 
-    public String getWorkRecordNextstaff() {
-        return workRecordNextstaff;
+    public String getWorkRecordType() {
+        return workRecordType;
     }
 
-    public void setWorkRecordNextstaff(String workRecordNextstaff) {
-        this.workRecordNextstaff = workRecordNextstaff == null ? null : workRecordNextstaff.trim();
+    public void setWorkRecordType(String workRecordType) {
+        this.workRecordType = workRecordType == null ? null : workRecordType.trim();
     }
 
     public String getWorkRecordTime() {
@@ -44,7 +44,7 @@ public class WorkRecord {
 	@Override
 	public String toString() {
 		return "WorkRecord [workRecordId=" + workRecordId + ", workRecordCurrentstaff=" + workRecordCurrentstaff
-				+ ", workRecordNextstaff=" + workRecordNextstaff + ", workRecordTime=" + workRecordTime + "]";
+				+ ", workRecordType=" + workRecordType + ", workRecordTime=" + workRecordTime + "]";
 	}
     
 }

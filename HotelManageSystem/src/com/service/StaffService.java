@@ -39,7 +39,6 @@ public class StaffService {
 		String n = "ltjd-";
 		Staff checkStaff = staffMapper.getStaffInfoByIDnum(staff.getStaffIdnumber());
 		if (checkStaff != null) {
-			System.out.println("身份证重复");
 			return null;
 		}
 		String maxNumber = staffMapper.getMaxNumber();
@@ -57,7 +56,6 @@ public class StaffService {
 		staff.setStaffCreatetime(TimeUtil.getStringSecond());
 		staff.setStaffModifytime(TimeUtil.getStringSecond());
 		staffMapper.insertSelective(staff);
-		System.out.println("添加成功");
 		return "success";
 
 	}
@@ -128,7 +126,6 @@ public class StaffService {
 				listStaffDTO.add(staffDTO);
 			}
 			staffVO.setListStaffDTO(listStaffDTO);
-			System.out.println(staffVO);
 			return staffVO;
 		}
 
@@ -139,7 +136,6 @@ public class StaffService {
 	public void addPosition(Position position) {
 		position.setPositionId(BuildUuid.getUuid());
 		positionMapper.insertSelective(position);
-		System.out.println("添加成功：" + position);
 	}
 
 	// 获得所有职位
@@ -149,7 +145,6 @@ public class StaffService {
 		com.pojo.PositionExample.Criteria criteria = positionExample.createCriteria();
 		criteria.andPositionIdNotEqualTo("1000001");
 		List<Position> list = positionMapper.selectByExample(positionExample);
-		System.out.println("结果" + list);
 		return list;
 	}
 
@@ -188,5 +183,7 @@ public class StaffService {
 		}
 		return null;
 	}
+
+	
 
 }

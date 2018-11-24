@@ -126,7 +126,7 @@
 								href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"
 								class="active">查看员工</a></li>
 
-							<li><a href="#">工作记录</a></li>
+							
 						</ul>
 					</nav>
 				</div>

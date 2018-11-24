@@ -55,7 +55,6 @@ public class HotelService {
 			room.setRoomCreatetime(TimeUtil.getStringSecond());
 			room.setRoomModifytime(TimeUtil.getStringSecond());
 			roomMapper.insertSelective(room);
-			System.out.println("添加成功");
 			return "success";
 
 		} else if (room.getRoomFloor().trim().length() == 2) {
@@ -81,7 +80,6 @@ public class HotelService {
 			room.setRoomCreatetime(TimeUtil.getStringSecond());
 			room.setRoomModifytime(TimeUtil.getStringSecond());
 			roomMapper.insertSelective(room);
-			System.out.println("添加成功");
 			return "success";
 		} else {
 			return "error";
@@ -249,9 +247,7 @@ public class HotelService {
 		// 余额
 		String settleMoney;
 		long count = TimeCount.getDay(hotelRegister.getHotelRegisterStarttime(), currentTime);
-		System.out.println("天数：" + count);
 		long base = Long.parseLong(room.getRoomPrice());
-		System.out.println("价格：" + base);
 		// 根据居住时间计算费用
 		int a = (int) count;
 		if (a == 0) {
@@ -270,8 +266,6 @@ public class HotelService {
 		}
 		totalPrice = total + "";
 		settleMoney = balance + "";
-		System.out.println("计算结果：" + totalPrice);
-		System.out.println("余额：" + settleMoney);
 		hotelRegister.setHotelRegisterTotalprice(totalPrice);
 		checkOutDTO.setCustomer(customer);
 		checkOutDTO.setHotelRegister(hotelRegister);

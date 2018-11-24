@@ -29,7 +29,7 @@
 <script src="${pageContext.request.contextPath}/js/toastr.js"></script>
 <link href="${pageContext.request.contextPath}/css/toastr.css"
 	rel="stylesheet">
-
+<script src="${pageContext.request.contextPath}/js/city.js"></script>
 <script>
 	function clear(){
 		$("#position").children().remove();
@@ -102,16 +102,17 @@
 							<li><a
 								href="${pageContext.request.contextPath}/jump/jumpToStaffList.do">查看员工</a></li>
 
-							<li><a href="#">工作记录</a></li>
+							
 						</ul>
 					</nav>
 				</div>
 
 			</div>
 			<div class="templatemo-content-container">
-				<div style="width: 40%; margin-left: 30%;">
+				<div style="width: 55%; margin-left: 22.5%;">
 					<form action="${pageContext.request.contextPath}/staff/addStaff.do"
 						method="post">
+						<input type="hidden" id="staffAddress" name="staffAddress" />
 						<table class="table" style="text-align: center;">
 							<tr>
 								<td>姓名：</td>
@@ -145,6 +146,12 @@
 									name="staffPhone" onblur="checkPhoneNumber()" /></td>
 							</tr>
 							<tr>
+								<td>联系地址：</td>
+								<td>
+									<p id="J-demo" style="width: 400px;height: 40px;border: 1px solid #ccc;box-sizing: border-box;"></p>
+								</td>
+							</tr>
+							<tr>
 								<td>职位：</td>
 								<td><select id="position" class="form-control"
 									name="staffPosition"></select></td>
@@ -152,7 +159,7 @@
 
 						</table>
 						<div style="text-align: center;">
-							<input type="submit" value="添加" class="form-control"
+							<input type="submit" value="添加" class="form-control" onclick="getStaffAddress()"
 								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
 						</div>
 					</form>
@@ -164,7 +171,20 @@
 
 
 
-
+	<script>
+		var ylc = yeluochenCity('J-demo', (city) => {
+			console.log(city)
+		}, null);
+		console.log(ylc);
+	</script>
+	<script type="text/javascript">
+			function getStaffAddress(){
+				var str = $('#J-demo').html()
+				console.log(str)
+				$("#staffAddress").val(str);
+			}
+			
+	</script>
 	<!-- JS -->
 	<script
 		src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
