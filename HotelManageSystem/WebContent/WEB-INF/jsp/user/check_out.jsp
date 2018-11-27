@@ -39,7 +39,7 @@ $(document).ready(function(c) {
 	<div class="hotel-right  vlcone" style="height: 740px;">
 		<div class="alert-close"> </div>
 		<div class="hotel-form">
-			<h3>Receipt Form</h3>
+			<h3>消费情况</h3>
 			<ul class="list_ins1">
 						<li>房间编号</li>
 						<li>房间消费</li>
@@ -60,7 +60,16 @@ $(document).ready(function(c) {
 		</div>
 		<div class="pay-form">
 			<form>
-				
+				<h3>客户信息</h3>
+				<h5>客户姓名</h5>
+				<input type="text" value="James Thompson"  required="">
+				<h5>证件号码</h5>
+				<input type="text" value="James Thompson"  required="">
+				<h3>成员组成</h3>
+				<h5>成人</h5>
+				<input type="text" value="2525 2525 2525 2525"  required="">
+				<h5>小孩</h5>
+				<input type="text" value="2525 2525 2525 2525"  required="">
 
 				<input type="submit" value="结账">
 			</form>
@@ -69,10 +78,10 @@ $(document).ready(function(c) {
 	</div>
 	<div class="hotel-left">
 		<div class="hotel-text">
-			<h2>ROYAL PALACE</h2>
+			<h2>房间价格</h2>
 			<h3> ￥250.00 / <span>night</span></h3>
-			<p>Entire Room for 5 members.</p>
-			<p>Thursday, Dec 10, 2014 to Thursday, Dec 12, 2014.</p>
+			<p>入住成员5人</p>
+			<p>起止时间：2018/11/20 - 2018/11/26</p>
 		</div>
 	</div>
 	<div class="clear"></div>

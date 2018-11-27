@@ -2,6 +2,7 @@ package com.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class TimeCount {
@@ -47,4 +48,19 @@ public class TimeCount {
 		
 	}
 	
+	/**
+	 * 时间加减法
+	 * @param 需要操作的时间dateTime
+	 * @param 加减数n(例如1,-1)
+	 * @return
+	 */
+	public static Date addAndSubtractDaysByCalendar(Date dateTime,int n){
+		//SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+		//SimpleDateFormat dd=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  System.out.println(df.format(calstart.getTime())); 
+		Calendar calstart = Calendar.getInstance();
+		calstart.setTime(dateTime); 
+		calstart.add(Calendar.DAY_OF_WEEK, n);  
+		return calstart.getTime(); 
+		
+	}
 }

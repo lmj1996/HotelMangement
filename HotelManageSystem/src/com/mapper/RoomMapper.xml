@@ -320,5 +320,11 @@
 		</if>
 
 	</select>
+	
+	<select id="getRoomIdByType" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select room_id from room where room_type = #{type,jdbcType=VARCHAR} and room_state = '空闲'
+		limit 1
+	</select>
 
 </mapper>

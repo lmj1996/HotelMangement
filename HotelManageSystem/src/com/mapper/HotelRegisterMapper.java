@@ -27,7 +27,7 @@ public interface HotelRegisterMapper {
     int updateByPrimaryKeySelective(HotelRegister record);
 
     int updateByPrimaryKey(HotelRegister record);
-
-	HotelRegister selectByRoomId(String roomId);
+    
+    HotelRegister selectByRoomId(String roomId);
 
 }

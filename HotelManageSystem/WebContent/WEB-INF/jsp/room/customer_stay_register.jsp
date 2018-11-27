@@ -91,19 +91,19 @@
 
 						<tr>
 							<td><label>身份证</label></td>
-							<td><input type="text" class="form-control"
+							<td><input type="text" class="form-control" maxlength="18" onkeyup="value=value.replace(/[^\d]/g,'')"
 								name="customerCustomerid" placeholder="身份证" /></td>
 						</tr>
 
 						<tr>
 							<td><label>联系电话</label></td>
-							<td><input type="text" class="form-control"
+							<td><input type="text" class="form-control" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')"
 								name="customerPhone" placeholder="联系电话" /></td>
 						</tr>
 
 						<tr>
 							<td><label>押金</label></td>
-							<td><input type="text" class="form-control"
+							<td><input type="text" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'')"
 								name="hotelRegisterSecurity" placeholder="押金" /></td>
 						</tr>
 
@@ -114,7 +114,7 @@
 								name="hotelRegisterEndtime" /></td>
 						</tr>
 
-						<tr>
+						<!-- <tr>
 							<td><label>计费类型</label></td>
 							<td><select class="form-control" id="chargingWay"
 								name="hotelRegisterChargingway">
@@ -123,11 +123,11 @@
 									<option>钟点房</option>
 
 							</select></td>
-						</tr>
+						</tr> -->
 
 						<tr>
 							<td><label>充值金额</label></td>
-							<td><input type="text" class="form-control"
+							<td><input type="text" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'')"
 								name="rechargeMoney" /></td>
 						</tr>
 

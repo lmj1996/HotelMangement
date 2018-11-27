@@ -28,12 +28,12 @@ public class TestFile {
 	@Test
 	public void addRoom() {
 		Room room = new Room();
-		
-		room.setRoomPrice("5600/天");
-		room.setRoomFloor("2");
+		for(int i=1;i<=10;i++) {
+		room.setRoomPrice("5000");
+		room.setRoomFloor("7");
 		room.setRoomType("总统套房");
 		hotelService.addRoom(room);
-		
+		}
 	}
 	
 	

@@ -114,6 +114,29 @@ public class HotelController {
 			return null;
 		}
 	}
+	
+	/**
+	 * 前台操作入住登记
+	 * @param room
+	 * @param customer
+	 * @param hotelRegister
+	 * @param recharge
+	 * @return
+	 */
+	@RequestMapping(value = "/checkIn")
+	public ModelAndView checkIn(Room room, Customer customer, HotelRegister hotelRegister,
+			Recharge recharge) {
+		String son = hotelService.customerStayOverNight(room, customer, hotelRegister, recharge);
+		ModelAndView modelAndView = new ModelAndView();
+		if (son.equals("success")) {
+			modelAndView.addObject("state", "check_in_success");
+			modelAndView.setViewName("user/index");
+			return modelAndView;
+		} else {
+			System.out.println("失败");
+			return null;
+		}
+	}
 
 	/**
 	 * 添加计费方式
@@ -236,4 +259,29 @@ public class HotelController {
 		return modelAndView;
 	}
 
+	/**
+	 * 根据房间类型随机获得一个房间ID
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/getRoomId")
+	public void getRoomId(String type,HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String roomId = hotelService.getRoomIdByType(type);
+		System.out.println(roomId);
+		response.setContentType("text/html; charset=utf-8");
+		Gson gson = new Gson();
+		response.getWriter().println(gson.toJson(roomId));
+	}
+	
+	/**
+	 * 根据房间类型随机获得一个房间ID
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/getIndexInfo")
+	public void getIndexInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		IndexInfoDTO indexInfoDTO = hotelService.getIndexInfo();
+		response.setContentType("text/html; charset=utf-8");
+		Gson gson = new Gson();
+		response.getWriter().println(gson.toJson(indexInfoDTO));
+	}
+	
 }

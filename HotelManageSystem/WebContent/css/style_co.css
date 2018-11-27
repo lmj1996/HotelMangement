@@ -114,8 +114,11 @@ label{
 	margin-bottom:15px;
 }
 .hotel-right ul li:nth-child(5) {
-    font-size: 25px;
-    color: #000;
+    list-style-type:none;
+	line-height:2em;
+	color:#A9A7A7;
+	font-size:14px;
+	font-weight:600;
 }
 .hotel-form{
     padding-bottom: 10px;

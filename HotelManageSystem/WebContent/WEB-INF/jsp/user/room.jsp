@@ -6,7 +6,11 @@
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+<link href="${pageContext.request.contextPath}/css/font-awesome.min.css"
+	rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/templatemo-style.css"
+	rel="stylesheet">
+	
 <link href="${pageContext.request.contextPath}/css/bootstrap_s.css" rel="stylesheet" type="text/css" media="all">
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
@@ -122,46 +126,64 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="content">
 <div class="sub1">
 <table class="tariff_table" summary="Sample Table" style="width:100%;">
+
+	<thead>
+      <tr>
+        <th scope="col">单人间</th>
+        <th scope="col">总数：80</th>
+        <th scope="col">已入住：40</th>
+        <th scope="col">剩余：40</th>
+      </tr>
+    </thead>
+    
+     <thead>
+      <tr>
+        <th scope="col">单人间</th>
+        <th scope="col">总数：80</th>
+        <th scope="col">已入住：40</th>
+        <th scope="col">剩余：40</th>
+      </tr>
+    </thead>
+    
+     <thead>
+      <tr>
+        <th scope="col">单人间</th>
+        <th scope="col">总数：80</th>
+        <th scope="col">已入住：40</th>
+        <th scope="col">剩余：40</th>
+      </tr>
+    </thead>
+    
+     <thead>
+      <tr>
+        <th scope="col">单人间</th>
+        <th scope="col">总数：80</th>
+        <th scope="col">已入住：40</th>
+        <th scope="col">剩余：40</th>
+      </tr>
+    </thead>
+
+</table>
+
+<div
+					style="width: 30%; margin-left: 72%;  position: relative;">
+					<div class="templatemo-search-form" role="search">
+						<div class="input-group">
+							<button type="submit" class="fa fa-search"></button>
+							<input type="text" class="form-control" placeholder="Search"
+								name="search" id="search" onchange="flush('1')">
+						</div>
+					</div>
+				</div>
+
+<table class="tariff_table" summary="Sample Table" style="width:100%;">
     
       
-       <thead>
-      <tr>
-        <th scope="col" colspan="2">单人间</th>
-        <th scope="col">总数：80</th>
-        <th scope="col">已入住：40</th>
-        <th scope="col">剩余：40</th>
-      </tr>
-    </thead>
-    
-     <thead>
-      <tr>
-        <th scope="col" colspan="2">单人间</th>
-        <th scope="col">总数：80</th>
-        <th scope="col">已入住：40</th>
-        <th scope="col">剩余：40</th>
-      </tr>
-    </thead>
-    
-     <thead>
-      <tr>
-        <th scope="col" colspan="2">单人间</th>
-        <th scope="col">总数：80</th>
-        <th scope="col">已入住：40</th>
-        <th scope="col">剩余：40</th>
-      </tr>
-    </thead>
-    
-     <thead>
-      <tr>
-        <th scope="col" colspan="2">单人间</th>
-        <th scope="col">总数：80</th>
-        <th scope="col">已入住：40</th>
-        <th scope="col">剩余：40</th>
-      </tr>
-    </thead>
+       
       
       <thead>
       <tr>
+      	<th scope="col">房间编号</th>
         <th scope="col">房间类型</th>
         <th scope="col">房间状态</th>
         <th scope="col">Double</th>
@@ -173,16 +195,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <tfoot>
       <tr>
         <th scope="row">Total</th>
-        <td colspan="7">4 types</td>
+        <td colspan="7">4</td>
       </tr>
     </tfoot>
     <tbody>
-      <tr >
+      <tr>
+      	<th>LT1990</th>
         <th scope="row">单人间</th>
         <td>已入住</td>
         <td>1000$</td>
         <td>4%</td>
-        <td><a href="check out.html">结账</a></td>
+        <td><a href="${pageContext.request.contextPath}/jump/jumpToCheckOut2.do">结账</a></td>
       </tr>
       
     </tbody>

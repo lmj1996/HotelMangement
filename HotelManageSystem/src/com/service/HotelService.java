@@ -1,6 +1,8 @@
 package com.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -177,6 +179,7 @@ public class HotelService {
 				customer.setCustomerId(BuildUuid.getUuid());
 				customer.setCustomerBalance(recharge.getRechargeMoney());
 				customer.setCustomerType("游客");
+				customer.setCustomerVipLevel("0");
 				customerMapper.insertSelective(customer);
 				recharge.setRechargeCustomer(customer.getCustomerId());
 				hotelRegister.setHotelRegisterCustomer(customer.getCustomerId());
@@ -187,12 +190,12 @@ public class HotelService {
 
 			hotelRegister.setHotelRegisterId(BuildUuid.getUuid());
 			hotelRegister.setHotelRegisterRoom(room.getRoomId());
-			hotelRegister.setHotelRegisterStarttime(TimeUtil.getStringSecond());
+			// hotelRegister.setHotelRegisterStarttime(TimeUtil.getStringSecond());
 			hotelRegister.setHotelRegisterCreatetime(TimeUtil.getStringSecond());
 			hotelRegister.setHotelRegisterModifytime(TimeUtil.getStringSecond());
 			hotelRegisterMapper.insertSelective(hotelRegister);
 
-			room.setRoomState("已租出");
+			room.setRoomState("已入住");
 			room.setRoomModifytime(TimeUtil.getStringSecond());
 			roomMapper.updateByPrimaryKeySelective(room);
 
@@ -290,6 +293,139 @@ public class HotelService {
 		hotelRegister1.setHotelRegisterModifytime(TimeUtil.getStringSecond());
 		hotelRegisterMapper.updateByPrimaryKeySelective(hotelRegister1);
 
+	}
+
+	// 获得房间ID
+	public String getRoomIdByType(String type) {
+		String id = roomMapper.getRoomIdByType(type);
+		return id;
+	}
+
+	// 获得首页信息
+	public IndexInfoDTO getIndexInfo() {
+		IndexInfoDTO indexInfoDTO = new IndexInfoDTO();
+		/**
+		 * 日期
+		 */
+		List<String> listDate = new ArrayList<>();
+		/**
+		 * 单人间
+		 */
+		List<Integer> listSingle = new ArrayList<>();
+		/**
+		 * 双人间
+		 */
+		List<Integer> listDouble = new ArrayList<>();
+		/**
+		 * 普通套房
+		 */
+		List<Integer> listOrdinary = new ArrayList<>();
+		/**
+		 * 豪华套房
+		 */
+		List<Integer> listLuxury = new ArrayList<>();
+		/**
+		 * 商务间
+		 */
+		List<Integer> listBusiness = new ArrayList<>();
+		/**
+		 * 公寓间
+		 */
+		List<Integer> listApartment = new ArrayList<>();
+		/**
+		 * 总统套房
+		 */
+		List<Integer> listPresident = new ArrayList<>();
+
+		Date currentDate = new Date();
+
+		// Date c1 = TimeCount.addAndSubtractDaysByCalendar(currentDate, 0);
+		// Date c2 = TimeCount.addAndSubtractDaysByCalendar(currentDate, -1);
+		// Date c3 = TimeCount.addAndSubtractDaysByCalendar(currentDate, -2);
+		// Date c4 = TimeCount.addAndSubtractDaysByCalendar(currentDate, -3);
+		// Date c5 = TimeCount.addAndSubtractDaysByCalendar(currentDate, -4);
+		// Date c6 = TimeCount.addAndSubtractDaysByCalendar(currentDate, -5);
+		// Date c7 = TimeCount.addAndSubtractDaysByCalendar(currentDate, -6);
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		// 循环获取每日各种房间的居住情况
+		for (int i = 1; i < 8; i++) {
+
+			Date date = TimeCount.addAndSubtractDaysByCalendar(currentDate, i - 7);
+			String day = df.format(date);
+			HotelRegisterExample hotelRegisterExample = new HotelRegisterExample();
+			com.pojo.HotelRegisterExample.Criteria criteria = hotelRegisterExample.createCriteria();
+			//criteria.andHotelRegisterCheckindayGreaterThanOrEqualTo(day);
+			//criteria.andHotelRegisterCheckoutdayLessThanOrEqualTo(day);
+			criteria.andHotelRegisterCheckindayEqualTo(day);
+
+			int countSingle = 0;
+			int countDouble = 0;
+			int countOrdinary = 0;
+			int countLuxury = 0;
+			int countBusiness = 0;
+			int countApartment = 0;
+			int countPresident = 0;
+
+			List<HotelRegister> listHotelRegister = hotelRegisterMapper.selectByExample(hotelRegisterExample);
+			if (listHotelRegister != null) {
+				for (HotelRegister hotelRegister : listHotelRegister) {
+					Room room = roomMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterRoom());
+					if (room.getRoomType().equals("单人间")) {
+						countSingle = countSingle + 1;
+					} else if (room.getRoomType().equals("双人间")) {
+						countDouble = countDouble + 1;
+					} else if (room.getRoomType().equals("普通套房")) {
+						countOrdinary = countOrdinary + 1;
+					} else if (room.getRoomType().equals("豪华套房")) {
+						countLuxury = countLuxury + 1;
+					} else if (room.getRoomType().equals("商务间")) {
+						countBusiness = countBusiness + 1;
+					} else if (room.getRoomType().equals("公寓间")) {
+						countApartment = countApartment + 1;
+					} else if (room.getRoomType().equals("总统套房")) {
+						countPresident = countPresident + 1;
+					}
+
+				}
+				
+			}
+			
+			listDate.add(day);
+			listSingle.add(countSingle);
+			listDouble.add(countDouble);
+			listOrdinary.add(countOrdinary);
+			listLuxury.add(countLuxury);
+			listBusiness.add(countBusiness);
+			listApartment.add(countApartment);
+			listPresident.add(countPresident);
+			
+			
+
+			// List<HotelRegister> list = hotelRegisterMapper.getInfoByDate(date);
+
+		}
+
+		// String d7 = df.format(c7);
+		// String d6 = df.format(c6);
+		// String d5 = df.format(c5);
+		// String d4 = df.format(c4);
+		// String d3 = df.format(c3);
+		// String d2 = df.format(c2);
+		// String d1 = df.format(c1);
+		
+		indexInfoDTO.setListDate(listDate);
+		indexInfoDTO.setListSingle(listSingle);
+		indexInfoDTO.setListDouble(listDouble);
+		indexInfoDTO.setListOrdinary(listOrdinary);
+		indexInfoDTO.setListLuxury(listLuxury);
+		indexInfoDTO.setListBusiness(listBusiness);
+		indexInfoDTO.setListApartment(listApartment);
+		indexInfoDTO.setListPresident(listPresident);
+		
+		System.out.println("内容："+indexInfoDTO);
+		
+		return indexInfoDTO;
 	}
 
 }

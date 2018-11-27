@@ -384,6 +384,146 @@ public class HotelRegisterExample {
             return (Criteria) this;
         }
 
+        public Criteria andHotelRegisterCheckindayIsNull() {
+            addCriterion("hotel_register_checkinday is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayIsNotNull() {
+            addCriterion("hotel_register_checkinday is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayEqualTo(String value) {
+            addCriterion("hotel_register_checkinday =", value, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayNotEqualTo(String value) {
+            addCriterion("hotel_register_checkinday <>", value, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayGreaterThan(String value) {
+            addCriterion("hotel_register_checkinday >", value, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel_register_checkinday >=", value, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayLessThan(String value) {
+            addCriterion("hotel_register_checkinday <", value, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayLessThanOrEqualTo(String value) {
+            addCriterion("hotel_register_checkinday <=", value, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayLike(String value) {
+            addCriterion("hotel_register_checkinday like", value, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayNotLike(String value) {
+            addCriterion("hotel_register_checkinday not like", value, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayIn(List<String> values) {
+            addCriterion("hotel_register_checkinday in", values, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayNotIn(List<String> values) {
+            addCriterion("hotel_register_checkinday not in", values, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayBetween(String value1, String value2) {
+            addCriterion("hotel_register_checkinday between", value1, value2, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckindayNotBetween(String value1, String value2) {
+            addCriterion("hotel_register_checkinday not between", value1, value2, "hotelRegisterCheckinday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayIsNull() {
+            addCriterion("hotel_register_checkoutday is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayIsNotNull() {
+            addCriterion("hotel_register_checkoutday is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayEqualTo(String value) {
+            addCriterion("hotel_register_checkoutday =", value, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayNotEqualTo(String value) {
+            addCriterion("hotel_register_checkoutday <>", value, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayGreaterThan(String value) {
+            addCriterion("hotel_register_checkoutday >", value, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel_register_checkoutday >=", value, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayLessThan(String value) {
+            addCriterion("hotel_register_checkoutday <", value, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayLessThanOrEqualTo(String value) {
+            addCriterion("hotel_register_checkoutday <=", value, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayLike(String value) {
+            addCriterion("hotel_register_checkoutday like", value, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayNotLike(String value) {
+            addCriterion("hotel_register_checkoutday not like", value, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayIn(List<String> values) {
+            addCriterion("hotel_register_checkoutday in", values, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayNotIn(List<String> values) {
+            addCriterion("hotel_register_checkoutday not in", values, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayBetween(String value1, String value2) {
+            addCriterion("hotel_register_checkoutday between", value1, value2, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterCheckoutdayNotBetween(String value1, String value2) {
+            addCriterion("hotel_register_checkoutday not between", value1, value2, "hotelRegisterCheckoutday");
+            return (Criteria) this;
+        }
+
         public Criteria andHotelRegisterStarttimeIsNull() {
             addCriterion("hotel_register_starttime is null");
             return (Criteria) this;
@@ -521,6 +661,146 @@ public class HotelRegisterExample {
 
         public Criteria andHotelRegisterEndtimeNotBetween(String value1, String value2) {
             addCriterion("hotel_register_endtime not between", value1, value2, "hotelRegisterEndtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsIsNull() {
+            addCriterion("hotel_register_adults is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsIsNotNull() {
+            addCriterion("hotel_register_adults is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsEqualTo(String value) {
+            addCriterion("hotel_register_adults =", value, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsNotEqualTo(String value) {
+            addCriterion("hotel_register_adults <>", value, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsGreaterThan(String value) {
+            addCriterion("hotel_register_adults >", value, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel_register_adults >=", value, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsLessThan(String value) {
+            addCriterion("hotel_register_adults <", value, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsLessThanOrEqualTo(String value) {
+            addCriterion("hotel_register_adults <=", value, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsLike(String value) {
+            addCriterion("hotel_register_adults like", value, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsNotLike(String value) {
+            addCriterion("hotel_register_adults not like", value, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsIn(List<String> values) {
+            addCriterion("hotel_register_adults in", values, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsNotIn(List<String> values) {
+            addCriterion("hotel_register_adults not in", values, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsBetween(String value1, String value2) {
+            addCriterion("hotel_register_adults between", value1, value2, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterAdultsNotBetween(String value1, String value2) {
+            addCriterion("hotel_register_adults not between", value1, value2, "hotelRegisterAdults");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenIsNull() {
+            addCriterion("hotel_register_children is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenIsNotNull() {
+            addCriterion("hotel_register_children is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenEqualTo(String value) {
+            addCriterion("hotel_register_children =", value, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenNotEqualTo(String value) {
+            addCriterion("hotel_register_children <>", value, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenGreaterThan(String value) {
+            addCriterion("hotel_register_children >", value, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenGreaterThanOrEqualTo(String value) {
+            addCriterion("hotel_register_children >=", value, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenLessThan(String value) {
+            addCriterion("hotel_register_children <", value, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenLessThanOrEqualTo(String value) {
+            addCriterion("hotel_register_children <=", value, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenLike(String value) {
+            addCriterion("hotel_register_children like", value, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenNotLike(String value) {
+            addCriterion("hotel_register_children not like", value, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenIn(List<String> values) {
+            addCriterion("hotel_register_children in", values, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenNotIn(List<String> values) {
+            addCriterion("hotel_register_children not in", values, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenBetween(String value1, String value2) {
+            addCriterion("hotel_register_children between", value1, value2, "hotelRegisterChildren");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelRegisterChildrenNotBetween(String value1, String value2) {
+            addCriterion("hotel_register_children not between", value1, value2, "hotelRegisterChildren");
             return (Criteria) this;
         }
 
