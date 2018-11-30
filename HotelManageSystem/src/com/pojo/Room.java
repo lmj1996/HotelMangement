@@ -17,7 +17,19 @@ public class Room {
 
     private String roomModifytime;
 
-    public String getRoomId() {
+    private String roomRemarks;
+    
+    
+    
+    public String getRoomRemarks() {
+		return roomRemarks;
+	}
+
+	public void setRoomRemarks(String roomRemarks) {
+		this.roomRemarks = roomRemarks;
+	}
+
+	public String getRoomId() {
         return roomId;
     }
 
@@ -80,4 +92,13 @@ public class Room {
     public void setRoomModifytime(String roomModifytime) {
         this.roomModifytime = roomModifytime == null ? null : roomModifytime.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Room [roomId=" + roomId + ", roomNum=" + roomNum + ", roomType=" + roomType + ", roomFloor=" + roomFloor
+				+ ", roomPrice=" + roomPrice + ", roomState=" + roomState + ", roomCreatetime=" + roomCreatetime
+				+ ", roomModifytime=" + roomModifytime + ", roomRemarks=" + roomRemarks + "]";
+	}
+    
+    
 }

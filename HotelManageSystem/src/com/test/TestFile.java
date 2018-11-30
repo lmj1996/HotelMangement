@@ -1,5 +1,7 @@
 package com.test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +14,7 @@ import com.DTO.RoomDTO;
 import com.mapper.PositionMapper;
 import com.pojo.*;
 import com.service.*;
+import com.util.TimeCount;
 import com.util.TimeUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -71,4 +74,20 @@ public class TestFile {
 		staffService.addPosition(position);
 	}
 	
+	@Test
+	public void time() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date d = new Date();
+		String d1 = formatter.format(d);
+		String d2 = "2018-12-01";
+		String d3="01 : 10";
+		d3=d3.replace(" ", "");
+		d2 =d2+" "+d3;
+		d2 = d2+":00";
+		long e = TimeCount.getHours(d1, d2);
+		System.out.println(e);
+		int a = -1;
+		a = (-a);
+		System.out.println(a);
+	}
 }

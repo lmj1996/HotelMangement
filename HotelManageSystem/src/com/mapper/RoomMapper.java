@@ -39,4 +39,6 @@ public interface RoomMapper {
 	List<Room> selectByExampleForPaging(RoomExample example);
 
 	String getRoomIdByType(String type);
+
+	List<String> getRoomType();
 }

@@ -273,7 +273,7 @@ public class HotelController {
 	}
 	
 	/**
-	 * 根据房间类型随机获得一个房间ID
+	 * 首页动态信息
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/getIndexInfo")
@@ -282,6 +282,36 @@ public class HotelController {
 		response.setContentType("text/html; charset=utf-8");
 		Gson gson = new Gson();
 		response.getWriter().println(gson.toJson(indexInfoDTO));
+	}
+	
+	/**
+	 * 前台接待员操作的房间信息
+	 * @param request
+	 * @param response
+	 * @param search
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/indexRoomInfo")
+	public void indexRoomInfo(HttpServletRequest request, HttpServletResponse response,String search) throws IOException {
+		List<Room> list = hotelService.getIndexRoomInfo(search);
+		response.setContentType("text/html; charset=utf-8");
+		Gson gson = new Gson();
+		response.getWriter().println(gson.toJson(list));
+	}
+	
+	/**
+	 * 房间统计信息
+	 * @param request
+	 * @param response
+	 * @param search
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/indexRoomTypeInfo")
+	public void indexRoomTypeInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		TotalRoomDTO totalRoomDTO = hotelService.getIndexRoomTypeInfo();
+		response.setContentType("text/html; charset=utf-8");
+		Gson gson = new Gson();
+		response.getWriter().println(gson.toJson(totalRoomDTO));
 	}
 	
 }

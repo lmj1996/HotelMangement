@@ -323,8 +323,11 @@
 	
 	<select id="getRoomIdByType" resultType="java.lang.String"
 		parameterType="java.lang.String">
-		select room_id from room where room_type = #{type,jdbcType=VARCHAR} and room_state = '空闲'
-		limit 1
+		select room_id from room where room_type = #{type,jdbcType=VARCHAR} and room_state = '空闲' ORDER BY RAND() LIMIT 1
 	</select>
-
+	
+	<select id="getRoomType" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		SELECT DISTINCT room_type FROM room
+	</select>
 </mapper>

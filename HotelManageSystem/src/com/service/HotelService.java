@@ -428,4 +428,117 @@ public class HotelService {
 		return indexInfoDTO;
 	}
 
+	// 员工操作页面的房间数据
+	public List<Room> getIndexRoomInfo(String search) {
+		List<Room> listRoom = new ArrayList<>();
+		if(search!=null&&search.trim().length()>0) {
+			RoomExample roomExample = new RoomExample();
+			Criteria criteria = roomExample.createCriteria();
+			criteria.andRoomNumLike("%"+search+"%");
+			criteria.andRoomStateEqualTo("已入住");
+			listRoom = roomMapper.selectByExample(roomExample);
+			for (Room room : listRoom) {
+				room.setRoomNum(room.getRoomNum().replaceAll(search,
+						"<span style='color: #ff5063;'>" + search + "</span>"));
+			}
+		}else {
+			Date current = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String current_day = formatter.format(current);
+			String current_time = formatter2.format(current);
+			HotelRegisterExample hotelRegisterExample = new HotelRegisterExample();
+			com.pojo.HotelRegisterExample.Criteria criteria = hotelRegisterExample.createCriteria();
+			criteria.andHotelRegisterCheckoutdayEqualTo(current_day);
+			List<HotelRegister> listHotelRegister = hotelRegisterMapper.selectByExample(hotelRegisterExample);
+			if(listHotelRegister!=null) {
+				for (HotelRegister hotelRegister : listHotelRegister) {
+					Room roomInfo = roomMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterRoom());
+					String d1 = hotelRegister.getHotelRegisterCheckoutday();
+					String d2 = hotelRegister.getHotelRegisterEndtime();
+					d2 = d2.replace(" ", "");
+					d1 = d1+" "+d2+":00";
+					long t = TimeCount.getHours(current_time, d1);
+					int a = (int)t;
+					if(a<=0) {
+						roomInfo.setRoomRemarks("居住超时"+(-a)+"小时，请<span style='color: #ff5063;'>立刻</span>通知客户结账或者续费！");
+						
+					}else if(a>0&&a<=3) {
+						roomInfo.setRoomRemarks("居住时间不足"+a+"小时，请及时提醒客户结账或者续费！");
+						
+					}
+					listRoom.add(roomInfo);
+				}
+				return listRoom;
+			}
+		}
+		return null;
+		
+	}
+
+	// 获得房间统计信息
+	public TotalRoomDTO getIndexRoomTypeInfo() {
+		TotalRoomDTO totalRoomDTO = new TotalRoomDTO();
+		List<RoomCountDTO> listRoomCountDTO = new ArrayList<>();
+		
+		RoomExample roomExample = new RoomExample();
+		Criteria criteriaRoom = roomExample.createCriteria();
+		
+		RoomExample roomExample2 = new RoomExample();
+		Criteria criteriaRoom2 = roomExample2.createCriteria();
+		/**
+		 * 房间总数
+		 */
+		int totalRooms = roomMapper.countByExample(null);
+		
+		criteriaRoom.andRoomStateEqualTo("已入住");
+		/**
+		 * 房间入住中总数
+		 */
+		int usedRooms=roomMapper.countByExample(roomExample);
+		
+		criteriaRoom2.andRoomStateEqualTo("清扫中");
+		/**
+		 * 房间打扫中总数
+		 */
+		int cleaningRooms=roomMapper.countByExample(roomExample2);
+		/**
+		 * 房间剩余总数
+		 */
+		int surplusRooms=totalRooms - usedRooms - cleaningRooms;
+		
+		totalRoomDTO.setTotalRooms(totalRooms);
+		totalRoomDTO.setUsedRooms(usedRooms);
+		totalRoomDTO.setCleaningRooms(cleaningRooms);
+		totalRoomDTO.setSurplusRooms(surplusRooms);
+		
+		List<String> listType = roomMapper.getRoomType();
+		for (String string : listType) {
+			RoomExample roomExample3 = new RoomExample();
+			Criteria criteriaRoom3 = roomExample3.createCriteria();
+			criteriaRoom3.andRoomStateEqualTo("已入住");
+			criteriaRoom3.andRoomTypeEqualTo(string);
+			RoomExample roomExample4 = new RoomExample();
+			Criteria criteriaRoom4 = roomExample4.createCriteria();
+			criteriaRoom4.andRoomStateEqualTo("清扫中");
+			criteriaRoom4.andRoomTypeEqualTo(string);
+			RoomExample roomExample5 = new RoomExample();
+			Criteria criteriaRoom5 = roomExample5.createCriteria();
+			criteriaRoom5.andRoomTypeEqualTo(string);
+			int total = roomMapper.countByExample(roomExample5);
+			int used = roomMapper.countByExample(roomExample3);
+			int cleaning = roomMapper.countByExample(roomExample4);
+			int surplus = total - used - cleaning;
+			RoomCountDTO roomCountDTO = new RoomCountDTO();
+			roomCountDTO.setRoomType(string);
+			roomCountDTO.setTotal(total);
+			roomCountDTO.setUsed(used);
+			roomCountDTO.setCleaning(cleaning);
+			roomCountDTO.setSurplus(surplus);
+			listRoomCountDTO.add(roomCountDTO);
+		}
+		totalRoomDTO.setListDTO(listRoomCountDTO);
+		return totalRoomDTO;
+	}
+
 }

@@ -74,6 +74,80 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
 			});
 		</script>
+		
+		<script type="text/javascript">
+		function clear(){
+			$("#typeInfo").children().remove();
+			$("#roomCount").children().remove();
+		}
+		function clearRoomList(){
+			$("#roomList").children().remove();
+		}
+		
+		
+		
+		typeInfo();
+		function typeInfo(){
+			$.post("${pageContext.request.contextPath}/hotel/indexRoomTypeInfo.do",function(data){
+				console.log(data)
+				clear();
+				if(null == data)
+					return
+					
+				$.each(data.listDTO,function(){
+					var t = '<tr>';
+					t = t + '<th scope=\"col\">'+this.roomType+'</th>';
+					t = t + '<th scope=\"col\">'+this.total+'</th>';
+					t = t + '<th scope=\"col\">'+this.used+'</th>';
+					t = t + '<th scope=\"col\">'+this.cleaning+'</th>';
+					t = t + '<th scope=\"col\">'+this.surplus+'</th>';
+					t = t + '</tr>';
+					$("#typeInfo").append(t);
+				});
+					
+				
+				var p = '<tr>';
+				p = p + '<th scope=\"col\">房间统计</th>';
+				p = p + '<th scope=\"col\">'+data.totalRooms+'</th>';
+				p = p + '<th scope=\"col\">'+data.usedRooms+'</th>';
+				p = p + '<th scope=\"col\">'+data.cleaningRooms+'</th>';
+				p = p + '<th scope=\"col\">'+data.surplusRooms+'</th>';
+				p = p + '</tr>';
+				$("#roomCount").append(p);
+			},"json");
+		}
+		
+		roomInfo();
+		function roomInfo(){
+			$.post("${pageContext.request.contextPath}/hotel/indexRoomInfo.do",{
+				"search" : $("#search").val()
+			},function(data){
+				console.log(data)
+				clearRoomList();
+				if(null == data){
+					var x = '<tr><th colspan=\"5\">暂无数据</th></tr>';
+					return $("#roomList").append(x);
+				}
+					/* <th scope="col">房间编号</th>
+			        <th scope="col">房间类型</th>
+			        <th scope="col">房间状态</th>
+			        <th scope="col">备注</th>
+			        <th scope="col">操作</th> */
+				$.each(data,function(){
+					var k = '<tr>';
+					k = k + '<th scope=\"col\">'+this.roomNum+'</th>';
+					k = k + '<th scope=\"col\">'+this.roomType+'</th>';
+					k = k + '<th scope=\"col\">'+this.roomState+'</th>';
+					k = k + '<th scope=\"col\">'+this.roomRemarks+'</th>';
+					k = k + '<th scope=\"col\"><a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do\">结账</a><a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do\">续费</a></th>';
+					k = k + '</tr>';
+					$("#roomList").append(k);
+				});
+				
+			},"json");
+		}
+		</script>
+		
 </head>
 <body>
 	
@@ -90,20 +164,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			                <span class="icon-bar"></span>
 			              </button>
 								<div class="logo wow slideInLeft" data-wow-delay="0.3s">
-									<a class="navbar-brand" href="staff index.html"><img src="${pageContext.request.contextPath}/images/logo1.png" style="width: 151px;height: 55px;margin-top: -50px;margin-bottom: 20px;" /></a>
+									<a class="navbar-brand" href="${pageContext.request.contextPath}/jump/jumpToStaffHome.do"><img src="${pageContext.request.contextPath}/images/logo1.png" style="width: 151px;height: 55px;margin-top: -50px;margin-bottom: 20px;" /></a>
 								</div>
 							</div>
 							<div id="navbar" class="navbar-collapse collapse">
 								<nav class="cl-effect-16" id="cl-effect-16">
 									<ul class="nav navbar-nav" style="padding-top: 15px;">
 										<li>
-											<a href="staff index.html" data-hover="首页">首页</a>
+											<a href="${pageContext.request.contextPath}/jump/jumpToStaffHome.do" data-hover="首页">首页</a>
 										</li>
 										<li>
-											<a href="check in.html" data-hover="住宿登记">住宿登记</a>
+											<a href="${pageContext.request.contextPath}/jump/jumpToCheckIn.do" data-hover="住宿登记">住宿登记</a>
 										</li>
 										<li>
-											<a class="active" href="tariff.html" data-hover="房间">房间</a>
+											<a class="active" href="${pageContext.request.contextPath}/jump/jumpToRoom.do" data-hover="房间">房间</a>
 										</li>
 
 									</ul>
@@ -129,39 +203,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	<thead>
       <tr>
-        <th scope="col">单人间</th>
-        <th scope="col">总数：80</th>
-        <th scope="col">已入住：40</th>
-        <th scope="col">剩余：40</th>
+        <th scope="col">房间类型</th>
+        <th scope="col">总数</th>
+        <th scope="col">入住中</th>
+        <th scope="col">打扫中</th>
+        <th scope="col">剩余</th>
       </tr>
     </thead>
     
-     <thead>
+     <tbody id="typeInfo">
       <tr>
         <th scope="col">单人间</th>
-        <th scope="col">总数：80</th>
-        <th scope="col">已入住：40</th>
-        <th scope="col">剩余：40</th>
+        <th scope="col">80</th>
+        <th scope="col">40</th>
+        <th scope="col">0</th>
+        <th scope="col">40</th>
       </tr>
-    </thead>
+      
+      
+    </tbody>
+   
     
-     <thead>
+     <tfoot id="roomCount">
       <tr>
-        <th scope="col">单人间</th>
-        <th scope="col">总数：80</th>
-        <th scope="col">已入住：40</th>
-        <th scope="col">剩余：40</th>
+        <th scope="col">房间统计</th>
+        <th scope="col" id="totalRooms">240</th>
+        <th scope="col" id="totalSellRooms">80</th>
+        <th scope="col" id="totalCleaningRooms">80</th>
+        <th scope="col" id="totalSurplusRooms">80</th>
       </tr>
-    </thead>
-    
-     <thead>
-      <tr>
-        <th scope="col">单人间</th>
-        <th scope="col">总数：80</th>
-        <th scope="col">已入住：40</th>
-        <th scope="col">剩余：40</th>
-      </tr>
-    </thead>
+    </tfoot>
 
 </table>
 
@@ -171,7 +242,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="input-group">
 							<button type="submit" class="fa fa-search"></button>
 							<input type="text" class="form-control" placeholder="Search"
-								name="search" id="search" onchange="flush('1')">
+								name="search" id="search" onchange="roomInfo()">
 						</div>
 					</div>
 				</div>
@@ -186,26 +257,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       	<th scope="col">房间编号</th>
         <th scope="col">房间类型</th>
         <th scope="col">房间状态</th>
-        <th scope="col">Double</th>
-        <th scope="col">Vat</th>
-        <th scope="col">...</th>
+        <th scope="col">备注</th>
+        <th scope="col">操作</th>
       </tr>
     </thead>
       
     <tfoot>
       <tr>
-        <th scope="row">Total</th>
-        <td colspan="7">4</td>
+       <th colspan="5"></th>
       </tr>
     </tfoot>
-    <tbody>
+    <tbody id="roomList">
       <tr>
       	<th>LT1990</th>
         <th scope="row">单人间</th>
         <td>已入住</td>
         <td>1000$</td>
-        <td>4%</td>
-        <td><a href="${pageContext.request.contextPath}/jump/jumpToCheckOut2.do">结账</a></td>
+        <td>
+        	<a href="${pageContext.request.contextPath}/jump/jumpToCheckOut2.do">结账</a>
+        </td>
       </tr>
       
     </tbody>
