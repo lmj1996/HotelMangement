@@ -126,11 +126,15 @@ public class HotelController {
 	@RequestMapping(value = "/checkIn")
 	public ModelAndView checkIn(Room room, Customer customer, HotelRegister hotelRegister,
 			Recharge recharge) {
+		Room getRoom = hotelService.getRoom(room);
 		String son = hotelService.customerStayOverNight(room, customer, hotelRegister, recharge);
 		ModelAndView modelAndView = new ModelAndView();
 		if (son.equals("success")) {
-			modelAndView.addObject("state", "check_in_success");
-			modelAndView.setViewName("user/index");
+			modelAndView.addObject("room", getRoom);
+			modelAndView.addObject("customer", customer);
+			modelAndView.addObject("hotelRegister", hotelRegister);
+			modelAndView.addObject("recharge", recharge);
+			modelAndView.setViewName("user/bill");
 			return modelAndView;
 		} else {
 			System.out.println("失败");
@@ -243,7 +247,7 @@ public class HotelController {
 	}
 
 	/**
-	 * 结账操作
+	 * 后台结账操作
 	 */
 	@RequestMapping(value = "/checkOut")
 	public ModelAndView checkOut(Room room, Customer customer, HotelRegister hotelRegister,
@@ -256,6 +260,19 @@ public class HotelController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("state", "checkSuccess");
 		modelAndView.setViewName("room/room_list");
+		return modelAndView;
+	}
+	
+	/**
+	 * 前台结账操作
+	 */
+	@RequestMapping(value = "/checkOut1")
+	public ModelAndView checkOut1(Room room, Customer customer, HotelRegister hotelRegister) {
+		
+		
+		hotelService.checkOut(room,customer,hotelRegister);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("user/room");
 		return modelAndView;
 	}
 

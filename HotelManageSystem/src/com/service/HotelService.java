@@ -32,6 +32,9 @@ public class HotelService {
 	@Resource
 	private ChargingWayMapper chargingWayMapper;
 
+	@Resource
+	private AddConsumptionMapper addConsumptionMapper;
+
 	// 添加房间
 	public String addRoom(Room room) {
 		String x = "LT-";
@@ -244,20 +247,64 @@ public class HotelService {
 		Room room = roomMapper.selectByPrimaryKey(roomId);
 		HotelRegister hotelRegister = hotelRegisterMapper.selectByRoomId(roomId);
 		Customer customer = customerMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterCustomer());
+		// 会员折扣情况
+		int discount = Integer.parseInt(customer.getCustomerVipLevel());
+		discount = 10 - discount;
+
+		// 服务消费
+		int service = 0;
+		AddConsumptionExample aConsumptionExample = new AddConsumptionExample();
+		com.pojo.AddConsumptionExample.Criteria criteria = aConsumptionExample.createCriteria();
+		criteria.andAddConsumptionCustomerEqualTo(customer.getCustomerId());
+		criteria.andAddConsumptionRoomEqualTo(roomId);
+		List<AddConsumption> listadd = addConsumptionMapper.selectByExample(aConsumptionExample);
+		if (listadd != null) {
+			for (AddConsumption addConsumption : listadd) {
+				String d = TimeUtil.getStringSecond();
+				String d1 = hotelRegister.getHotelRegisterCheckinday();
+				String d2 = hotelRegister.getHotelRegisterStarttime();
+				d2 = d2.replace(" ", "");
+				d1 = d1 + " " + d2 + ":00";
+				long a1 = TimeCount.getDay(d1, addConsumption.getAddConsumptionTime());
+				long a2 = TimeCount.getDay(addConsumption.getAddConsumptionTime(), d);
+				int aa = (int) a1;
+				int ab = (int) a2;
+				if (aa >= 0 && ab >= 0) {
+					int sc = Integer.parseInt(addConsumption.getAddConsumptionPrice());
+					service = service + sc;
+				}
+			}
+		}
+
 		String currentTime = TimeUtil.getStringSecond();
 		// 总消费
 		String totalPrice;
+		// 房间消费
+		String roomCost;
+		// 服务消费
+		String serviceCost;
 		// 余额
 		String settleMoney;
-		long count = TimeCount.getDay(hotelRegister.getHotelRegisterStarttime(), currentTime);
+		String d1 = hotelRegister.getHotelRegisterCheckinday();
+		String d2 = hotelRegister.getHotelRegisterStarttime();
+		d2 = d2.replace(" ", "");
+		d1 = d1 + " " + d2 + ":00";
+		long hour;
+		long count = TimeCount.getDay(d1, currentTime);
 		long base = Long.parseLong(room.getRoomPrice());
 		// 根据居住时间计算费用
 		int a = (int) count;
 		if (a == 0) {
-			a = a + 1;
+			hour = TimeCount.getHours(d1, currentTime);
+			int h = (int) hour;
+			if (h >= 6) {
+				a = a + 1;
+			}
 		}
 		int b = (int) base;
-		int total = a * b;
+		int total = a * b * discount / 10;
+		roomCost = total + "";
+		checkOutDTO.setRoomCost(roomCost);
 		long balance = Long.parseLong(customer.getCustomerBalance());
 		int security = Integer.parseInt(hotelRegister.getHotelRegisterSecurity());
 		balance = balance - total + security;
@@ -267,11 +314,14 @@ public class HotelService {
 			int c = (int) other;
 			total = total + c;
 		}
+		total = total + service;
 		totalPrice = total + "";
+		serviceCost = service + "";
 		settleMoney = balance + "";
 		hotelRegister.setHotelRegisterTotalprice(totalPrice);
 		checkOutDTO.setCustomer(customer);
 		checkOutDTO.setHotelRegister(hotelRegister);
+		checkOutDTO.setServiceCost(serviceCost);
 		checkOutDTO.setSettleMoney(settleMoney);
 
 		return checkOutDTO;
@@ -279,23 +329,55 @@ public class HotelService {
 
 	// 结账操作
 	public void checkOut(Room room, Customer customer, HotelRegister hotelRegister) {
+		// 房间操作
 		Room room1 = roomMapper.selectByPrimaryKey(room.getRoomId());
 		room1.setRoomState("清扫中");
+		room1.setRoomRemarks("脏");
 		room1.setRoomModifytime(TimeUtil.getStringSecond());
 		roomMapper.updateByPrimaryKeySelective(room1);
 
-		Customer customer1 = customerMapper.selectCustomerByIDnum(customer.getCustomerCustomerid());
-		customer1.setCustomerBalance("0");
-		customerMapper.updateByPrimaryKeySelective(customer1);
-
+		// 住宿表操作
 		HotelRegister hotelRegister1 = hotelRegisterMapper.selectByRoomId(room.getRoomId());
 		hotelRegister1.setHotelRegisterTotalprice(hotelRegister.getHotelRegisterTotalprice());
 		hotelRegister1.setHotelRegisterModifytime(TimeUtil.getStringSecond());
 		hotelRegisterMapper.updateByPrimaryKeySelective(hotelRegister1);
 
+		// 客户信息操作
+		Customer customer1 = customerMapper.selectCustomerByIDnum(customer.getCustomerCustomerid());
+		customer1.setCustomerBalance("0");
+		HotelRegisterExample hExample = new HotelRegisterExample();
+		com.pojo.HotelRegisterExample.Criteria criteria = hExample.createCriteria();
+		criteria.andHotelRegisterCustomerEqualTo(customer1.getCustomerId());
+		List<HotelRegister> list = hotelRegisterMapper.selectByExample(hExample);
+		// 总消费
+		int c = 0;
+		if (list != null) {
+			for (HotelRegister hotelRegister2 : list) {
+				String a = hotelRegister2.getHotelRegisterTotalprice();
+				int b = Integer.parseInt(a);
+				c = c + b;
+			}
+		}
+		if (c < 3000 && c >= 0) {
+			customer1.setCustomerType("普通会员");
+			customer1.setCustomerVipLevel("1");
+		} else if (c >= 3000 && c < 10000) {
+			customer1.setCustomerType("白银会员");
+			customer1.setCustomerVipLevel("2");
+		} else if (c >= 10000 && c < 30000) {
+			customer1.setCustomerType("黄金会员");
+			customer1.setCustomerVipLevel("3");
+		} else if (c >= 30000 && c < 100000) {
+			customer1.setCustomerType("铂金会员");
+			customer1.setCustomerVipLevel("4");
+		} else {
+			customer1.setCustomerType("钻石会员");
+			customer1.setCustomerVipLevel("5");
+		}
+		customerMapper.updateByPrimaryKeySelective(customer1);
 	}
 
-	// 获得房间ID
+	// 根据房间类型随机获得房间ID
 	public String getRoomIdByType(String type) {
 		String id = roomMapper.getRoomIdByType(type);
 		return id;
@@ -355,8 +437,8 @@ public class HotelService {
 			String day = df.format(date);
 			HotelRegisterExample hotelRegisterExample = new HotelRegisterExample();
 			com.pojo.HotelRegisterExample.Criteria criteria = hotelRegisterExample.createCriteria();
-			//criteria.andHotelRegisterCheckindayGreaterThanOrEqualTo(day);
-			//criteria.andHotelRegisterCheckoutdayLessThanOrEqualTo(day);
+			// criteria.andHotelRegisterCheckindayGreaterThanOrEqualTo(day);
+			// criteria.andHotelRegisterCheckoutdayLessThanOrEqualTo(day);
 			criteria.andHotelRegisterCheckindayEqualTo(day);
 
 			int countSingle = 0;
@@ -388,9 +470,9 @@ public class HotelService {
 					}
 
 				}
-				
+
 			}
-			
+
 			listDate.add(day);
 			listSingle.add(countSingle);
 			listDouble.add(countDouble);
@@ -399,8 +481,6 @@ public class HotelService {
 			listBusiness.add(countBusiness);
 			listApartment.add(countApartment);
 			listPresident.add(countPresident);
-			
-			
 
 			// List<HotelRegister> list = hotelRegisterMapper.getInfoByDate(date);
 
@@ -413,7 +493,7 @@ public class HotelService {
 		// String d3 = df.format(c3);
 		// String d2 = df.format(c2);
 		// String d1 = df.format(c1);
-		
+
 		indexInfoDTO.setListDate(listDate);
 		indexInfoDTO.setListSingle(listSingle);
 		indexInfoDTO.setListDouble(listDouble);
@@ -422,26 +502,27 @@ public class HotelService {
 		indexInfoDTO.setListBusiness(listBusiness);
 		indexInfoDTO.setListApartment(listApartment);
 		indexInfoDTO.setListPresident(listPresident);
-		
-		System.out.println("内容："+indexInfoDTO);
-		
+
+		System.out.println("内容：" + indexInfoDTO);
+
 		return indexInfoDTO;
 	}
 
 	// 员工操作页面的房间数据
 	public List<Room> getIndexRoomInfo(String search) {
 		List<Room> listRoom = new ArrayList<>();
-		if(search!=null&&search.trim().length()>0) {
+		if (search != null && search.trim().length() > 0) {
 			RoomExample roomExample = new RoomExample();
 			Criteria criteria = roomExample.createCriteria();
-			criteria.andRoomNumLike("%"+search+"%");
+			criteria.andRoomNumLike("%" + search + "%");
 			criteria.andRoomStateEqualTo("已入住");
 			listRoom = roomMapper.selectByExample(roomExample);
 			for (Room room : listRoom) {
-				room.setRoomNum(room.getRoomNum().replaceAll(search,
-						"<span style='color: #ff5063;'>" + search + "</span>"));
+				room.setRoomNum(
+						room.getRoomNum().replaceAll(search, "<span style='color: #ff5063;'>" + search + "</span>"));
+				room.setRoomRemarks("正常");
 			}
-		}else {
+		} else {
 			Date current = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -451,67 +532,72 @@ public class HotelService {
 			com.pojo.HotelRegisterExample.Criteria criteria = hotelRegisterExample.createCriteria();
 			criteria.andHotelRegisterCheckoutdayEqualTo(current_day);
 			List<HotelRegister> listHotelRegister = hotelRegisterMapper.selectByExample(hotelRegisterExample);
-			if(listHotelRegister!=null) {
+			if (listHotelRegister != null) {
 				for (HotelRegister hotelRegister : listHotelRegister) {
 					Room roomInfo = roomMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterRoom());
 					String d1 = hotelRegister.getHotelRegisterCheckoutday();
 					String d2 = hotelRegister.getHotelRegisterEndtime();
 					d2 = d2.replace(" ", "");
-					d1 = d1+" "+d2+":00";
+					d1 = d1 + " " + d2 + ":00";
 					long t = TimeCount.getHours(current_time, d1);
-					int a = (int)t;
-					if(a<=0) {
-						roomInfo.setRoomRemarks("居住超时"+(-a)+"小时，请<span style='color: #ff5063;'>立刻</span>通知客户结账或者续费！");
-						
-					}else if(a>0&&a<=3) {
-						roomInfo.setRoomRemarks("居住时间不足"+a+"小时，请及时提醒客户结账或者续费！");
-						
+					int a = (int) t;
+					if (a <= 0) {
+						roomInfo.setRoomRemarks(
+								"居住超时" + (-a) + "小时，请<span style='color: #ff5063;'>立刻</span>通知客户结账或者续费！");
+
+					} else if (a > 0 && a <= 3) {
+						roomInfo.setRoomRemarks("居住时间不足" + a + "小时，请及时提醒客户结账或者续费！");
+
 					}
+					
 					listRoom.add(roomInfo);
 				}
-				return listRoom;
 			}
 		}
-		return null;
-		
+		if (listRoom != null) {
+			return listRoom;
+		} else {
+			return null;
+		}
+
 	}
 
 	// 获得房间统计信息
 	public TotalRoomDTO getIndexRoomTypeInfo() {
 		TotalRoomDTO totalRoomDTO = new TotalRoomDTO();
 		List<RoomCountDTO> listRoomCountDTO = new ArrayList<>();
-		
+
 		RoomExample roomExample = new RoomExample();
 		Criteria criteriaRoom = roomExample.createCriteria();
-		
+
 		RoomExample roomExample2 = new RoomExample();
 		Criteria criteriaRoom2 = roomExample2.createCriteria();
 		/**
 		 * 房间总数
 		 */
 		int totalRooms = roomMapper.countByExample(null);
-		
+
 		criteriaRoom.andRoomStateEqualTo("已入住");
 		/**
 		 * 房间入住中总数
 		 */
-		int usedRooms=roomMapper.countByExample(roomExample);
-		
+		int usedRooms = roomMapper.countByExample(roomExample);
+
 		criteriaRoom2.andRoomStateEqualTo("清扫中");
 		/**
 		 * 房间打扫中总数
 		 */
-		int cleaningRooms=roomMapper.countByExample(roomExample2);
+		int cleaningRooms = roomMapper.countByExample(roomExample2);
 		/**
 		 * 房间剩余总数
 		 */
-		int surplusRooms=totalRooms - usedRooms - cleaningRooms;
-		
+		int surplusRooms = totalRooms - usedRooms - cleaningRooms;
+
 		totalRoomDTO.setTotalRooms(totalRooms);
 		totalRoomDTO.setUsedRooms(usedRooms);
 		totalRoomDTO.setCleaningRooms(cleaningRooms);
 		totalRoomDTO.setSurplusRooms(surplusRooms);
-		
+
 		List<String> listType = roomMapper.getRoomType();
 		for (String string : listType) {
 			RoomExample roomExample3 = new RoomExample();
@@ -539,6 +625,12 @@ public class HotelService {
 		}
 		totalRoomDTO.setListDTO(listRoomCountDTO);
 		return totalRoomDTO;
+	}
+
+	// 获得单个房间信息
+	public Room getRoom(Room room) {
+		Room getRoom = roomMapper.selectByPrimaryKey(room.getRoomId());
+		return getRoom;
 	}
 
 }

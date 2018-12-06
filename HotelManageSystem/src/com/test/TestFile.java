@@ -1,5 +1,6 @@
 package com.test;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,25 +23,23 @@ import com.util.TimeUtil;
 		"classpath:spring/applicationContext-service.xml" })
 
 public class TestFile {
-	@Resource(name="hotelService")
+	@Resource(name = "hotelService")
 	private HotelService hotelService;
-	
-	@Resource(name="staffService")
+
+	@Resource(name = "staffService")
 	private StaffService staffService;
-	
+
 	@Test
 	public void addRoom() {
 		Room room = new Room();
-		for(int i=1;i<=10;i++) {
-		room.setRoomPrice("5000");
-		room.setRoomFloor("7");
-		room.setRoomType("总统套房");
-		hotelService.addRoom(room);
+		for (int i = 1; i <= 10; i++) {
+			room.setRoomPrice("5000");
+			room.setRoomFloor("7");
+			room.setRoomType("总统套房");
+			hotelService.addRoom(room);
 		}
 	}
-	
-	
-	
+
 	@Test
 	public void updateRoom() {
 		String num = "ss002";
@@ -53,19 +52,19 @@ public class TestFile {
 		room.setRoomType("双人间");
 		hotelService.updateRoom(room);
 	}
-	
+
 	@Test
 	public void addStaff() {
-		for(int i=0;i<=10;i++) {
+		for (int i = 0; i <= 10; i++) {
 			Staff staff = new Staff();
-			staff.setStaffName("Andy"+i);
+			staff.setStaffName("Andy" + i);
 			staff.setStaffSex("男");
-			staff.setStaffIdnumber("65164"+i);
+			staff.setStaffIdnumber("65164" + i);
 			staffService.insertStaff(staff);
 		}
-		
+
 	}
-	
+
 	@Test
 	public void addPosition() {
 		Position position = new Position();
@@ -73,21 +72,35 @@ public class TestFile {
 		position.setPositionLevel("5");
 		staffService.addPosition(position);
 	}
-	
+
 	@Test
 	public void time() {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date d = new Date();
 		String d1 = formatter.format(d);
 		String d2 = "2018-12-01";
-		String d3="01 : 10";
-		d3=d3.replace(" ", "");
-		d2 =d2+" "+d3;
-		d2 = d2+":00";
+		String d3 = "01 : 10";
+		d3 = d3.replace(" ", "");
+		d2 = d2 + " " + d3;
+		d2 = d2 + ":00";
 		long e = TimeCount.getHours(d1, d2);
 		System.out.println(e);
 		int a = -1;
 		a = (-a);
 		System.out.println(a);
 	}
+
+	@Test
+	public void count() {
+		// double s = 0.3d;
+		// int a = 300;
+		// double count = Double.valueOf(s * a);
+		// a = (int) count;
+		int a = 1500;
+		int b = 2;
+		b = 10 - b;
+		a = a * b / 10;
+		System.out.println(a);
+	}
+
 }

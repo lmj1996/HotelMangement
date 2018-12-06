@@ -1,9 +1,3 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -42,36 +36,32 @@ $(document).ready(function(c) {
 			<h3>消费情况</h3>
 			<ul class="list_ins1">
 						<li>房间编号</li>
-						<li>房间消费</li>
-						<li>服务消费</li>
-						<li>总共消费</li>
 						<li>预缴押金</li>
-						<li>费用结算</li>
+						<li>充值金额</li>
 			</ul>
 			<ul class="list_ins2">
-						<li>: 201</li>
-						<li>: ￥500.00</li>
-						<li>: ￥10.00</li>
-						<li>: ￥510.00</li>
-						<li>: ￥200.00</li>
-						<li>: ￥-310.00</li>
+						<li>: ${room.roomNum }</li>
+						<li>: ￥${hotelRegister.hotelRegisterSecurity }</li>
+						<li>: ￥${recharge.rechargeMoney }</li>
 			</ul>
 			<div class="clear"></div>
 		</div>
 		<div class="pay-form">
-			<form>
+			<form action="${pageContext.request.contextPath}/jump/jumpToRoom.do" method="post">
 				<h3>客户信息</h3>
 				<h5>客户姓名</h5>
-				<input type="text" value="James Thompson"  required="">
+				<input type="text" value="${customer.customerName }" style="color:#000000" required="" disabled="disabled">
 				<h5>证件号码</h5>
-				<input type="text" value="James Thompson"  required="">
+				<input type="text" value="${customer.customerCustomerid }" style="color:#000000" required="" disabled="disabled">
+				<h5>联系方式</h5>
+				<input type="text" value="${customer.customerPhone }" style="color:#000000" required="" disabled="disabled">
 				<h3>成员组成</h3>
 				<h5>成人</h5>
-				<input type="text" value="2525 2525 2525 2525"  required="">
+				<input type="text" value="${hotelRegister.hotelRegisterAdults }" style="color:#000000" required="" disabled="disabled">
 				<h5>小孩</h5>
-				<input type="text" value="2525 2525 2525 2525"  required="">
+				<input type="text" value="${hotelRegister.hotelRegisterChildren }" style="color:#000000" required="" disabled="disabled">
 
-				<input type="submit" value="结账">
+				<input type="submit" value="返回房间列表">
 			</form>
 			
 		</div>
@@ -79,9 +69,8 @@ $(document).ready(function(c) {
 	<div class="hotel-left">
 		<div class="hotel-text">
 			<h2>房间价格</h2>
-			<h3> ￥250.00 / <span>night</span></h3>
-			<p>入住成员5人</p>
-			<p>起止时间：2018/11/20 - 2018/11/26</p>
+			<h3> ￥${room.roomPrice } / <span>night</span></h3>
+			<p>起止时间：${hotelRegister.hotelRegisterCheckinday } - ${hotelRegister.hotelRegisterCheckoutday }</p>
 		</div>
 	</div>
 	<div class="clear"></div>

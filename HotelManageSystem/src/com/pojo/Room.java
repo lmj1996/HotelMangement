@@ -11,25 +11,15 @@ public class Room {
 
     private String roomPrice;
 
+    private String roomRemarks;
+
     private String roomState;
 
     private String roomCreatetime;
 
     private String roomModifytime;
 
-    private String roomRemarks;
-    
-    
-    
-    public String getRoomRemarks() {
-		return roomRemarks;
-	}
-
-	public void setRoomRemarks(String roomRemarks) {
-		this.roomRemarks = roomRemarks;
-	}
-
-	public String getRoomId() {
+    public String getRoomId() {
         return roomId;
     }
 
@@ -69,6 +59,14 @@ public class Room {
         this.roomPrice = roomPrice == null ? null : roomPrice.trim();
     }
 
+    public String getRoomRemarks() {
+        return roomRemarks;
+    }
+
+    public void setRoomRemarks(String roomRemarks) {
+        this.roomRemarks = roomRemarks == null ? null : roomRemarks.trim();
+    }
+
     public String getRoomState() {
         return roomState;
     }
@@ -96,9 +94,8 @@ public class Room {
 	@Override
 	public String toString() {
 		return "Room [roomId=" + roomId + ", roomNum=" + roomNum + ", roomType=" + roomType + ", roomFloor=" + roomFloor
-				+ ", roomPrice=" + roomPrice + ", roomState=" + roomState + ", roomCreatetime=" + roomCreatetime
-				+ ", roomModifytime=" + roomModifytime + ", roomRemarks=" + roomRemarks + "]";
+				+ ", roomPrice=" + roomPrice + ", roomRemarks=" + roomRemarks + ", roomState=" + roomState
+				+ ", roomCreatetime=" + roomCreatetime + ", roomModifytime=" + roomModifytime + "]";
 	}
-    
     
 }

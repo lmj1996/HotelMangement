@@ -71,7 +71,7 @@
 						<p>用户姓名</p>
 					</div>
 					<div class="bnr-right">
-						<input class="form-control" name="customerName" type="text">
+						<input class="form-control" name="customerName" type="text" onkeyup="value=value.replace(/[\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))" maxlength="10">
 					</div>
 					<div class="clearfix"></div>
 				</div>

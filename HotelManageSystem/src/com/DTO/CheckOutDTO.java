@@ -7,6 +7,14 @@ public class CheckOutDTO {
 	private Customer customer;
 	private HotelRegister hotelRegister;
 	/**
+	 * 房间消费
+	 */
+	private String roomCost;
+	/**
+	 * 服务消费
+	 */
+	private String serviceCost;
+	/**
 	 * 结算金额
 	 */
 	private String settleMoney;
@@ -28,6 +36,18 @@ public class CheckOutDTO {
 	public void setHotelRegister(HotelRegister hotelRegister) {
 		this.hotelRegister = hotelRegister;
 	}
+	public String getRoomCost() {
+		return roomCost;
+	}
+	public void setRoomCost(String roomCost) {
+		this.roomCost = roomCost;
+	}
+	public String getServiceCost() {
+		return serviceCost;
+	}
+	public void setServiceCost(String serviceCost) {
+		this.serviceCost = serviceCost;
+	}
 	public String getSettleMoney() {
 		return settleMoney;
 	}
@@ -37,7 +57,8 @@ public class CheckOutDTO {
 	@Override
 	public String toString() {
 		return "CheckOutDTO [room=" + room + ", customer=" + customer + ", hotelRegister=" + hotelRegister
-				+ ", settleMoney=" + settleMoney + "]";
+				+ ", roomCost=" + roomCost + ", serviceCost=" + serviceCost + ", settleMoney=" + settleMoney + "]";
 	}
+	
 	
 }

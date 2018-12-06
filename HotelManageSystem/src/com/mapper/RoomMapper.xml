@@ -1,283 +1,280 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mapper.RoomMapper">
-	<resultMap id="BaseResultMap" type="com.pojo.Room">
-		<id column="room_id" property="roomId" jdbcType="CHAR" />
-		<result column="room_num" property="roomNum" jdbcType="VARCHAR" />
-		<result column="room_type" property="roomType"
-			jdbcType="VARCHAR" />
-		<result column="room_floor" property="roomFloor"
-			jdbcType="VARCHAR" />
-		<result column="room_price" property="roomPrice"
-			jdbcType="VARCHAR" />
-		<result column="room_state" property="roomState"
-			jdbcType="VARCHAR" />
-		<result column="room_createtime" property="roomCreatetime"
-			jdbcType="VARCHAR" />
-		<result column="room_modifytime" property="roomModifytime"
-			jdbcType="VARCHAR" />
-	</resultMap>
-	<sql id="Example_Where_Clause">
-		<where>
-			<foreach collection="oredCriteria" item="criteria"
-				separator="or">
-				<if test="criteria.valid">
-					<trim prefix="(" suffix=")" prefixOverrides="and">
-						<foreach collection="criteria.criteria" item="criterion">
-							<choose>
-								<when test="criterion.noValue">
-									and ${criterion.condition}
-								</when>
-								<when test="criterion.singleValue">
-									and ${criterion.condition} #{criterion.value}
-								</when>
-								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
-									#{criterion.secondValue}
-								</when>
-								<when test="criterion.listValue">
-									and ${criterion.condition}
-									<foreach collection="criterion.value" item="listItem"
-										open="(" close=")" separator=",">
-										#{listItem}
-									</foreach>
-								</when>
-							</choose>
-						</foreach>
-					</trim>
-				</if>
-			</foreach>
-		</where>
-	</sql>
-	<sql id="Update_By_Example_Where_Clause">
-		<where>
-			<foreach collection="example.oredCriteria" item="criteria"
-				separator="or">
-				<if test="criteria.valid">
-					<trim prefix="(" suffix=")" prefixOverrides="and">
-						<foreach collection="criteria.criteria" item="criterion">
-							<choose>
-								<when test="criterion.noValue">
-									and ${criterion.condition}
-								</when>
-								<when test="criterion.singleValue">
-									and ${criterion.condition} #{criterion.value}
-								</when>
-								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
-									#{criterion.secondValue}
-								</when>
-								<when test="criterion.listValue">
-									and ${criterion.condition}
-									<foreach collection="criterion.value" item="listItem"
-										open="(" close=")" separator=",">
-										#{listItem}
-									</foreach>
-								</when>
-							</choose>
-						</foreach>
-					</trim>
-				</if>
-			</foreach>
-		</where>
-	</sql>
-	<sql id="Base_Column_List">
-		room_id, room_num, room_type, room_floor, room_price, room_state,
-		room_createtime,
-		room_modifytime
-	</sql>
-	<select id="selectByExample" resultMap="BaseResultMap"
-		parameterType="com.pojo.RoomExample">
-		select
-		<if test="distinct">
-			distinct
-		</if>
-		<include refid="Base_Column_List" />
-		from room
-		<if test="_parameter != null">
-			<include refid="Example_Where_Clause" />
-		</if>
-		<if test="orderByClause != null">
-			order by ${orderByClause}
-		</if>
-	</select>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
-		select
-		<include refid="Base_Column_List" />
-		from room
-		where room_id = #{roomId,jdbcType=CHAR}
-	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from room
-		where room_id = #{roomId,jdbcType=CHAR}
-	</delete>
-	<delete id="deleteByExample"
-		parameterType="com.pojo.RoomExample">
-		delete from room
-		<if test="_parameter != null">
-			<include refid="Example_Where_Clause" />
-		</if>
-	</delete>
-	<insert id="insert" parameterType="com.pojo.Room">
-		insert into room (room_id, room_num, room_type,
-		room_floor, room_price, room_state,
-		room_createtime, room_modifytime)
-		values (#{roomId,jdbcType=CHAR}, #{roomNum,jdbcType=VARCHAR},
-		#{roomType,jdbcType=VARCHAR},
-		#{roomFloor,jdbcType=VARCHAR}, #{roomPrice,jdbcType=VARCHAR}, #{roomState,jdbcType=VARCHAR},
-		#{roomCreatetime,jdbcType=VARCHAR},
-		#{roomModifytime,jdbcType=VARCHAR})
-	</insert>
-	<insert id="insertSelective" parameterType="com.pojo.Room">
-		insert into room
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="roomId != null">
-				room_id,
-			</if>
-			<if test="roomNum != null">
-				room_num,
-			</if>
-			<if test="roomType != null">
-				room_type,
-			</if>
-			<if test="roomFloor != null">
-				room_floor,
-			</if>
-			<if test="roomPrice != null">
-				room_price,
-			</if>
-			<if test="roomState != null">
-				room_state,
-			</if>
-			<if test="roomCreatetime != null">
-				room_createtime,
-			</if>
-			<if test="roomModifytime != null">
-				room_modifytime,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="roomId != null">
-				#{roomId,jdbcType=CHAR},
-			</if>
-			<if test="roomNum != null">
-				#{roomNum,jdbcType=VARCHAR},
-			</if>
-			<if test="roomType != null">
-				#{roomType,jdbcType=VARCHAR},
-			</if>
-			<if test="roomFloor != null">
-				#{roomFloor,jdbcType=VARCHAR},
-			</if>
-			<if test="roomPrice != null">
-				#{roomPrice,jdbcType=VARCHAR},
-			</if>
-			<if test="roomState != null">
-				#{roomState,jdbcType=VARCHAR},
-			</if>
-			<if test="roomCreatetime != null">
-				#{roomCreatetime,jdbcType=VARCHAR},
-			</if>
-			<if test="roomModifytime != null">
-				#{roomModifytime,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
-	<select id="countByExample" parameterType="com.pojo.RoomExample"
-		resultType="java.lang.Integer">
-		select count(*) from room
-		<if test="_parameter != null">
-			<include refid="Example_Where_Clause" />
-		</if>
-	</select>
-	<update id="updateByExampleSelective" parameterType="map">
-		update room
-		<set>
-			<if test="record.roomId != null">
-				room_id = #{record.roomId,jdbcType=CHAR},
-			</if>
-			<if test="record.roomNum != null">
-				room_num = #{record.roomNum,jdbcType=VARCHAR},
-			</if>
-			<if test="record.roomType != null">
-				room_type = #{record.roomType,jdbcType=VARCHAR},
-			</if>
-			<if test="record.roomFloor != null">
-				room_floor = #{record.roomFloor,jdbcType=VARCHAR},
-			</if>
-			<if test="record.roomPrice != null">
-				room_price = #{record.roomPrice,jdbcType=VARCHAR},
-			</if>
-			<if test="record.roomState != null">
-				room_state = #{record.roomState,jdbcType=VARCHAR},
-			</if>
-			<if test="record.roomCreatetime != null">
-				room_createtime = #{record.roomCreatetime,jdbcType=VARCHAR},
-			</if>
-			<if test="record.roomModifytime != null">
-				room_modifytime = #{record.roomModifytime,jdbcType=VARCHAR},
-			</if>
-		</set>
-		<if test="_parameter != null">
-			<include refid="Update_By_Example_Where_Clause" />
-		</if>
-	</update>
-	<update id="updateByExample" parameterType="map">
-		update room
-		set room_id = #{record.roomId,jdbcType=CHAR},
-		room_num = #{record.roomNum,jdbcType=VARCHAR},
-		room_type = #{record.roomType,jdbcType=VARCHAR},
-		room_floor = #{record.roomFloor,jdbcType=VARCHAR},
-		room_price = #{record.roomPrice,jdbcType=VARCHAR},
-		room_state = #{record.roomState,jdbcType=VARCHAR},
-		room_createtime = #{record.roomCreatetime,jdbcType=VARCHAR},
-		room_modifytime = #{record.roomModifytime,jdbcType=VARCHAR}
-		<if test="_parameter != null">
-			<include refid="Update_By_Example_Where_Clause" />
-		</if>
-	</update>
-	<update id="updateByPrimaryKeySelective"
-		parameterType="com.pojo.Room">
-		update room
-		<set>
-			<if test="roomNum != null">
-				room_num = #{roomNum,jdbcType=VARCHAR},
-			</if>
-			<if test="roomType != null">
-				room_type = #{roomType,jdbcType=VARCHAR},
-			</if>
-			<if test="roomFloor != null">
-				room_floor = #{roomFloor,jdbcType=VARCHAR},
-			</if>
-			<if test="roomPrice != null">
-				room_price = #{roomPrice,jdbcType=VARCHAR},
-			</if>
-			<if test="roomState != null">
-				room_state = #{roomState,jdbcType=VARCHAR},
-			</if>
-			<if test="roomCreatetime != null">
-				room_createtime = #{roomCreatetime,jdbcType=VARCHAR},
-			</if>
-			<if test="roomModifytime != null">
-				room_modifytime = #{roomModifytime,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where room_id = #{roomId,jdbcType=CHAR}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.pojo.Room">
-		update room
-		set room_num = #{roomNum,jdbcType=VARCHAR},
-		room_type = #{roomType,jdbcType=VARCHAR},
-		room_floor = #{roomFloor,jdbcType=VARCHAR},
-		room_price = #{roomPrice,jdbcType=VARCHAR},
-		room_state = #{roomState,jdbcType=VARCHAR},
-		room_createtime = #{roomCreatetime,jdbcType=VARCHAR},
-		room_modifytime = #{roomModifytime,jdbcType=VARCHAR}
-		where room_id = #{roomId,jdbcType=CHAR}
-	</update>
-
-	<select id="selectByNum" resultMap="BaseResultMap"
+<mapper namespace="com.mapper.RoomMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.Room" >
+    <id column="room_id" property="roomId" jdbcType="CHAR" />
+    <result column="room_num" property="roomNum" jdbcType="VARCHAR" />
+    <result column="room_type" property="roomType" jdbcType="VARCHAR" />
+    <result column="room_floor" property="roomFloor" jdbcType="VARCHAR" />
+    <result column="room_price" property="roomPrice" jdbcType="VARCHAR" />
+    <result column="room_remarks" property="roomRemarks" jdbcType="VARCHAR" />
+    <result column="room_state" property="roomState" jdbcType="VARCHAR" />
+    <result column="room_createtime" property="roomCreatetime" jdbcType="VARCHAR" />
+    <result column="room_modifytime" property="roomModifytime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    room_id, room_num, room_type, room_floor, room_price, room_remarks, room_state, room_createtime, 
+    room_modifytime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.RoomExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from room
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from room
+    where room_id = #{roomId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from room
+    where room_id = #{roomId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.RoomExample" >
+    delete from room
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.Room" >
+    insert into room (room_id, room_num, room_type, 
+      room_floor, room_price, room_remarks, 
+      room_state, room_createtime, room_modifytime
+      )
+    values (#{roomId,jdbcType=CHAR}, #{roomNum,jdbcType=VARCHAR}, #{roomType,jdbcType=VARCHAR}, 
+      #{roomFloor,jdbcType=VARCHAR}, #{roomPrice,jdbcType=VARCHAR}, #{roomRemarks,jdbcType=VARCHAR}, 
+      #{roomState,jdbcType=VARCHAR}, #{roomCreatetime,jdbcType=VARCHAR}, #{roomModifytime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.Room" >
+    insert into room
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="roomNum != null" >
+        room_num,
+      </if>
+      <if test="roomType != null" >
+        room_type,
+      </if>
+      <if test="roomFloor != null" >
+        room_floor,
+      </if>
+      <if test="roomPrice != null" >
+        room_price,
+      </if>
+      <if test="roomRemarks != null" >
+        room_remarks,
+      </if>
+      <if test="roomState != null" >
+        room_state,
+      </if>
+      <if test="roomCreatetime != null" >
+        room_createtime,
+      </if>
+      <if test="roomModifytime != null" >
+        room_modifytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roomId != null" >
+        #{roomId,jdbcType=CHAR},
+      </if>
+      <if test="roomNum != null" >
+        #{roomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null" >
+        #{roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomFloor != null" >
+        #{roomFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPrice != null" >
+        #{roomPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="roomRemarks != null" >
+        #{roomRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="roomState != null" >
+        #{roomState,jdbcType=VARCHAR},
+      </if>
+      <if test="roomCreatetime != null" >
+        #{roomCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="roomModifytime != null" >
+        #{roomModifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.RoomExample" resultType="java.lang.Integer" >
+    select count(*) from room
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update room
+    <set >
+      <if test="record.roomId != null" >
+        room_id = #{record.roomId,jdbcType=CHAR},
+      </if>
+      <if test="record.roomNum != null" >
+        room_num = #{record.roomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomType != null" >
+        room_type = #{record.roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomFloor != null" >
+        room_floor = #{record.roomFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomPrice != null" >
+        room_price = #{record.roomPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomRemarks != null" >
+        room_remarks = #{record.roomRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomState != null" >
+        room_state = #{record.roomState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomCreatetime != null" >
+        room_createtime = #{record.roomCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomModifytime != null" >
+        room_modifytime = #{record.roomModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update room
+    set room_id = #{record.roomId,jdbcType=CHAR},
+      room_num = #{record.roomNum,jdbcType=VARCHAR},
+      room_type = #{record.roomType,jdbcType=VARCHAR},
+      room_floor = #{record.roomFloor,jdbcType=VARCHAR},
+      room_price = #{record.roomPrice,jdbcType=VARCHAR},
+      room_remarks = #{record.roomRemarks,jdbcType=VARCHAR},
+      room_state = #{record.roomState,jdbcType=VARCHAR},
+      room_createtime = #{record.roomCreatetime,jdbcType=VARCHAR},
+      room_modifytime = #{record.roomModifytime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Room" >
+    update room
+    <set >
+      <if test="roomNum != null" >
+        room_num = #{roomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null" >
+        room_type = #{roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomFloor != null" >
+        room_floor = #{roomFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPrice != null" >
+        room_price = #{roomPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="roomRemarks != null" >
+        room_remarks = #{roomRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="roomState != null" >
+        room_state = #{roomState,jdbcType=VARCHAR},
+      </if>
+      <if test="roomCreatetime != null" >
+        room_createtime = #{roomCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="roomModifytime != null" >
+        room_modifytime = #{roomModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where room_id = #{roomId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Room" >
+    update room
+    set room_num = #{roomNum,jdbcType=VARCHAR},
+      room_type = #{roomType,jdbcType=VARCHAR},
+      room_floor = #{roomFloor,jdbcType=VARCHAR},
+      room_price = #{roomPrice,jdbcType=VARCHAR},
+      room_remarks = #{roomRemarks,jdbcType=VARCHAR},
+      room_state = #{roomState,jdbcType=VARCHAR},
+      room_createtime = #{roomCreatetime,jdbcType=VARCHAR},
+      room_modifytime = #{roomModifytime,jdbcType=VARCHAR}
+    where room_id = #{roomId,jdbcType=CHAR}
+  </update>
+  
+  <select id="selectByNum" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select * from room where room_num = #{roomNum,jdbcType=VARCHAR}
 	</select>
@@ -330,4 +327,5 @@
 		parameterType="java.lang.String">
 		SELECT DISTINCT room_type FROM room
 	</select>
+  
 </mapper>

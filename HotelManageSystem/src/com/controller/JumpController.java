@@ -198,9 +198,11 @@ public class JumpController {
 	}
 	
 	@RequestMapping(value = "/jumpToCheckOut2")
-	public ModelAndView jumpToCheckOut2() {
+	public ModelAndView jumpToCheckOut2(String room_Id) {
+		System.out.println("1111111111111111"+room_Id);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("user/check_out");
+		//modelAndView.addObject("roomId", roomId);
+		modelAndView.setViewName("user/checkout");
 		return modelAndView;
 	}
 }

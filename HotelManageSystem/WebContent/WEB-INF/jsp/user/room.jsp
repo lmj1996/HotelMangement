@@ -124,7 +124,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			},function(data){
 				console.log(data)
 				clearRoomList();
-				if(null == data){
+				if(null == data || '' == data){
 					var x = '<tr><th colspan=\"5\">暂无数据</th></tr>';
 					return $("#roomList").append(x);
 				}
@@ -139,7 +139,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					k = k + '<th scope=\"col\">'+this.roomType+'</th>';
 					k = k + '<th scope=\"col\">'+this.roomState+'</th>';
 					k = k + '<th scope=\"col\">'+this.roomRemarks+'</th>';
-					k = k + '<th scope=\"col\"><a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do\">结账</a><a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do\">续费</a></th>';
+					k = k + '<th scope=\"col\"><a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do?room_Id='+this.roomId+'\">结账</a>';
+					k = k + '<a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do\">续费</a>';
+					k = k + '<a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do\">服务</a>';
+					k = k + '</th>'
 					k = k + '</tr>';
 					$("#roomList").append(k);
 				});
@@ -242,7 +245,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="input-group">
 							<button type="submit" class="fa fa-search"></button>
 							<input type="text" class="form-control" placeholder="Search"
-								name="search" id="search" onchange="roomInfo()">
+								name="search" id="search" onkeyup="roomInfo()">
 						</div>
 					</div>
 				</div>
