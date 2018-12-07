@@ -323,7 +323,7 @@ public class HotelService {
 		checkOutDTO.setHotelRegister(hotelRegister);
 		checkOutDTO.setServiceCost(serviceCost);
 		checkOutDTO.setSettleMoney(settleMoney);
-
+		checkOutDTO.setRoom(room);
 		return checkOutDTO;
 	}
 

@@ -54,7 +54,7 @@
 				if("空闲" == this.room.roomState)	{
 					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToStayRegister.do?roomId='+this.room.roomId+'\">住宿登记</a></li>';
 				}
-				if("已租出" == this.room.roomState){
+				if("已入住" == this.room.roomState){
 					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToCheckOut.do?roomId='+this.room.roomId+'\">结账</a></li>';
 				}
 				if("清扫中" == this.room.roomState){
@@ -166,6 +166,7 @@
 										<option value="4">4</option>
 										<option value="5">5</option>
 										<option value="6">6</option>
+										<option value="7">7</option>
 								</select></td>
 
 								<td><select id="type" onchange="flush('1')"

@@ -37,6 +37,12 @@ public class StaffController {
 		ModelAndView modelAndView = new ModelAndView();
 		Staff staffInfo = staffService.getStaffInfo(staff.getStaffNum(), staff.getStaffPassword());
 		if (staffInfo != null) {
+			if(staffInfo.getStaffPosition().equals("98fa7253-2a2a-48f7-8aa4-c4cef91ef991")) {
+				session.setStaff(staffInfo);
+				model.addAttribute("session", session);
+				modelAndView.setViewName("user/index");
+				return modelAndView;
+			}
 			session.setStaff(staffInfo);
 			session.setChoice("1");
 			model.addAttribute("session", session);

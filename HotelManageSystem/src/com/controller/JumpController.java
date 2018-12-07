@@ -199,9 +199,8 @@ public class JumpController {
 	
 	@RequestMapping(value = "/jumpToCheckOut2")
 	public ModelAndView jumpToCheckOut2(String room_Id) {
-		System.out.println("1111111111111111"+room_Id);
 		ModelAndView modelAndView = new ModelAndView();
-		//modelAndView.addObject("roomId", roomId);
+		modelAndView.addObject("roomId", room_Id);
 		modelAndView.setViewName("user/checkout");
 		return modelAndView;
 	}

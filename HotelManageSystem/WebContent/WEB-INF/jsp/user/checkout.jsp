@@ -35,7 +35,7 @@ $(document).ready(function(c) {
 		<h1>账单</h1>
 
 		<div class="hotel-right  vlcone" style="height: 740px;">
-			<div class="alert-close"></div>
+			<%-- <div class="alert-close"><a href="${pageContext.request.contextPath}/jump/jumpToRoom.do"></a></div> --%>
 			<div class="hotel-form">
 				<h3>消费情况</h3>
 				<ul class="list_ins1">
@@ -118,19 +118,19 @@ $(document).ready(function(c) {
 				$("#adults").val(data.hotelRegister.hotelRegisterAdults);
 				$("#children").val(data.hotelRegister.hotelRegisterChildren);
 				
-				var a = '';
-				a = a + '<li>'+data.room.roomNum+'</li>';
-				a = a + '<li>￥'+data.roomCost+'</li>';
-				a = a + '<li>￥'+data.serviceCost+'</li>';
-				a = a + '<li>￥'+data.hotelRegister.hotelRegisterTotalprice+'</li>';
-				a = a + '<li>￥'+data.hotelRegister.hotelRegisterSecurity+'</li>';
-				a = a + '<li>￥'+data.settleMoney+'</li>';
+				var a = '<li>'+data.room.roomNum+'</li>';
+				a = a + '<li>'+'￥'+data.roomCost+'</li>';
+				a = a + '<li>'+'￥'+data.serviceCost+'</li>';
+				a = a + '<li>'+'￥'+data.hotelRegister.hotelRegisterTotalprice+'</li>';
+				a = a + '<li>'+'￥'+data.hotelRegister.hotelRegisterSecurity+'</li>';
+				a = a + '<li>'+'￥'+data.settleMoney+'</li>';
 				$("#checkoutinfo").append(a);
 				
 				var b = '';
 				b = b + '<h2>'+data.room.roomType+'</h2>';
-				b = b + '<h3>￥'+data.room.roomPrice+' / <span>night</span></h3>';
+				b = b + '<h3>'+'￥'+data.room.roomPrice+' / <span>night</span></h3>';
 				b = b + '<p>'+data.hotelRegister.hotelRegisterCheckinday+' - '+data.hotelRegister.hotelRegisterCheckoutday+'</p>';
+				
 				$("#roominfo").append(b);
 				
 			},"json");
