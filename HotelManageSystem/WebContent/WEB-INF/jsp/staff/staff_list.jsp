@@ -148,7 +148,7 @@
 						<div class="input-group">
 							<button type="submit" class="fa fa-search"></button>
 							<input type="text" class="form-control" placeholder="Search"
-								name="search" id="search" onchange="flush('1')">
+								name="search" id="search" onkeyup="flush('1')">
 						</div>
 					</div>
 				</div>

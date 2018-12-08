@@ -140,8 +140,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					k = k + '<th scope=\"col\">'+this.roomState+'</th>';
 					k = k + '<th scope=\"col\">'+this.roomRemarks+'</th>';
 					k = k + '<th scope=\"col\"><a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do?room_Id='+this.roomId+'\">结账</a>';
-					k = k + '<a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do\">续费</a>';
-					k = k + '<a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do\">服务</a>';
+					/* k = k + '<a href=\"${pageContext.request.contextPath}/jump/jumpToCheckOut2.do\">续费</a>'; */
+					k = k + '<a href=\"${pageContext.request.contextPath}/jump/jumpToAddCost.do?roomId='+this.roomId+'\">服务</a>';
 					k = k + '</th>'
 					k = k + '</tr>';
 					$("#roomList").append(k);

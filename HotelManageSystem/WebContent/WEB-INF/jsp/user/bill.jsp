@@ -31,7 +31,6 @@ $(document).ready(function(c) {
 	<h1>账单</h1>
 	
 	<div class="hotel-right  vlcone" style="height: 740px;">
-		<div class="alert-close"> </div>
 		<div class="hotel-form">
 			<h3>消费情况</h3>
 			<ul class="list_ins1">

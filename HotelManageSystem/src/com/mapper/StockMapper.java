@@ -27,4 +27,8 @@ public interface StockMapper {
     int updateByPrimaryKeySelective(Stock record);
 
     int updateByPrimaryKey(Stock record);
+
+	String getMaxNumber();
+
+	List<Stock> selectByExampleForPaging(StockExample stockExample);
 }

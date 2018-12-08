@@ -4,6 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StockExample {
+	protected int startRow;
+	protected int pageSize;
+	
+    public int getStartRow() {
+		return startRow;
+	}
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	
     protected String orderByClause;
 
     protected boolean distinct;

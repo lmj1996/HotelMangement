@@ -204,4 +204,37 @@ public class JumpController {
 		modelAndView.setViewName("user/checkout");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/jumpToStockList")
+	public ModelAndView jumpToStockList(@ModelAttribute("session") SessionDTO session, Model model) {
+		session.setChoice("4");
+		model.addAttribute(session);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("stock/stock_list");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/jumpToStockDetail")
+	public ModelAndView jumpToStockDetail(String stockId) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("roomId", stockId);
+		modelAndView.setViewName("stock/stock_detail");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/jumpToStockAdd")
+	public ModelAndView jumpToStockAdd() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("stock/add_stock");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/jumpToAddCost")
+	public ModelAndView jumpToAddCost(String roomId) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("roomId",roomId);
+		modelAndView.setViewName("user/add_cost");
+		return modelAndView;
+	}
 }

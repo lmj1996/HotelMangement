@@ -35,10 +35,8 @@
 	flush(1);
 	
 	function flush(page) {
-		$.post("${pageContext.request.contextPath}/hotel/getAllRoom.do", {
+		$.post("${pageContext.request.contextPath}/stock/getStockList.do", {
 			"page" : page,
-			"state" : $("#state").val(),
-			"floor" : $("#floor").val(),
 			"type" : $("#type").val(),
 			"search" : $("#search").val()
 			
@@ -46,23 +44,22 @@
 			//清空
 			clearTable();
 			
-			if(null == data)
-				return
-			$.each(data.listRoomDTO, function() {
-				var k = '<tr>' + '<td>' + this.room.roomNum + '</td>' + '<td>' + this.room.roomState + '</td>' + '<td>' + this.room.roomFloor + '</td>' + '<td>' + this.room.roomType + '</td>' + '<td>' +this.room.roomPrice + '元/天</td>';
+			if(null == data.listStockDTO||'' == data.listStockDTO){
+				var x = '<tr><td colspan=\"7\">暂无数据</td></tr>';
+				return $("#roomList").append(x);
+			}
+				
+			$.each(data.listStockDTO, function() {
+				var k = '<tr>' + '<td>' + this.stock.stockNum + '</td>' + '<td>' + this.stock.stockName + '</td>' + '<td>' + this.stockType.stockTypeName + '</td>' + '<td>' + this.stock.stockRetailprice + '</td>' + '<td>' +this.stock.stockNumber + '</td>';
 				k = k + '<td><div class=\"dropdown\"><button type=\"button\" class=\"btn dropdown-toggle\" id=\"dropdownMenu1\" data-toggle=\"dropdown\">操作 <span class=\"caret\"></span></button><ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dropdownMenu1\">';
-				if("空闲" == this.room.roomState)	{
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToStayRegister.do?roomId='+this.room.roomId+'\">住宿登记</a></li>';
-				}
-				if("已入住" == this.room.roomState){
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToCheckOut.do?roomId='+this.room.roomId+'\">结账</a></li>';
-				}
-				if("清扫中" == this.room.roomState){
-					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_clean\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomClean(this.id)\">完成清扫</a></li>';
-				}
+				
+				k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToStockDetail.do?stockId='+this.stock.stockId+'\">查看详情</a></li>';
+				k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/stock/deleteStock.do?stockId='+this.stock.stockId+'\">删除该库存</a></li>';
+				
 				k = k + "</ul></div></td></tr>";
 				$("#roomList").append(k);
 			});
+			
 			var paging = '<tr>'+'<td colspan="4">';
 			if(1 == data.pageIndex){
 				paging = paging + '第一页\&nbsp;\&nbsp;\&nbsp;\&nbsp;上一页\&nbsp;\&nbsp;\&nbsp;\&nbsp;';
@@ -89,9 +86,7 @@
 		
 	}
 	
-	function sendIdToRoomClean(id){
-		$("#roomId_clean").val(id);
-	}
+	
 </script>
 
 
@@ -111,11 +106,8 @@
 					<nav class="templatemo-top-nav col-lg-12 col-md-12">
 						<ul class="text-uppercase">
 							<li><a
-								href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"
-								class="active">查看房间</a></li>
-
-							<li><a
-								href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
+								href="${pageContext.request.contextPath}/jump/jumpToStockList.do"
+								class="active">查看库存</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -124,7 +116,7 @@
 			<div class="templatemo-content-container">
 
 				<div>
-					<a href="${pageContext.request.contextPath }/jump/jumpToRoomAdd.do">
+					<a href="${pageContext.request.contextPath }/jump/jumpToStockAdd.do">
 						<input type="button" value="添加" class="form-control"
 						style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
 					</a>
@@ -149,40 +141,22 @@
 							<tr>
 								<td>编号</td>
 
-								<td><select id="state" onchange="flush('1')"
-									class="form-control" style="text-align: center;" name="state">
-										<option value="">所有</option>
-										<option value="空闲">空闲</option>
-										<option value="已入住">已入住</option>
-										<option value="清洁中">清洁中</option>
-								</select></td>
-
-								<td><select id="floor" onchange="flush('1')"
-									class="form-control" style="text-align: center;" name="floor">
-										<option value="">所有</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
-								</select></td>
+								<td>名称</td>
 
 								<td><select id="type" onchange="flush('1')"
-									class="form-control" style="text-align: center;" name="type">
-										<option value="">所有</option>
-										<option value="单人间">单人间</option>
-										<option value="双人间">双人间</option>
-										<option value="普通套房">普通套房</option>
-										<option value="高级套房">高级套房</option>
-										<option value="商务间">商务间</option>
-										<option value="公寓间">公寓间</option>
-										<option value="总统套房">总统套房</option>
+									class="form-control" style="text-align: center;">
+										<option value="">种类</option>
+										<option value="s001">小吃</option>
+										<option value="s002">饮料</option>
+										<option value="s003">熟食</option>
+										<option value="s004">食材</option>
+										<option value="s005">清洁道具</option>
 								</select></td>
 
-								<td>价格</td>
+								<td>单价(元)</td>
 
+								<td>剩余数量</td>
+								
 								<td>操作</td>
 
 							</tr>
@@ -199,42 +173,6 @@
 
 					</table>
 
-				</div>
-
-
-
-
-				<!--
-			    	作者：LMJ
-			    	时间：2018-11-02
-			    	描述：完成清扫模态框
-			    -->
-				<div class="modal fade" id="myModal_clean" tabindex="-1"
-					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h4 class="modal-title" id="myModalLabel">清扫完成确认</h4>
-							</div>
-							<form
-								action="${pageContext.request.contextPath}/hotel/updateRoom.do"
-								method="post">
-								<input type="hidden" id="roomId_clean" name="roomId" />
-								<div class="modal-body" style="text-align: center;">是否清扫完成？</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">关闭</button>
-									<button type="submit" class="btn btn-primary">确认清扫完成</button>
-								</div>
-
-							</form>
-
-						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
 				</div>
 
 
@@ -315,17 +253,14 @@
 		;
 		(function toastrSuccess() {
 			var s = '${requestScope.state}';
-			if (s == "addRoom") {
-				toastr.success("添加房间成功!")
+			if (s == "addStock") {
+				toastr.success("添加库存成功!")
 			}
-			if (s == "updateRoom") {
-				toastr.success("更新房间成功!")
+			if (s == "delete") {
+				toastr.success("删除库存成功!")
 			}
-			if (s == "stayOverNight") {
-				toastr.success("住宿登记成功!")
-			}
-			if (s == "checkSuccess") {
-				toastr.success("结账成功!")
+			if (s == "updateStock") {
+				toastr.success("更改库存成功!")
 			}
 		})();
 	</script>

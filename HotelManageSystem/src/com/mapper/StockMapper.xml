@@ -1,228 +1,271 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mapper.StockMapper" >
-  <resultMap id="BaseResultMap" type="com.pojo.Stock" >
-    <id column="stock_id" property="stockId" jdbcType="CHAR" />
-    <result column="stock_num" property="stockNum" jdbcType="VARCHAR" />
-    <result column="stock_type" property="stockType" jdbcType="CHAR" />
-    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
-    <result column="stock_retailprice" property="stockRetailprice" jdbcType="VARCHAR" />
-    <result column="stock_number" property="stockNumber" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    stock_id, stock_num, stock_type, stock_name, stock_retailprice, stock_number
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.StockExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from stock
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from stock
-    where stock_id = #{stockId,jdbcType=CHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from stock
-    where stock_id = #{stockId,jdbcType=CHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.pojo.StockExample" >
-    delete from stock
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.pojo.Stock" >
-    insert into stock (stock_id, stock_num, stock_type, 
-      stock_name, stock_retailprice, stock_number
-      )
-    values (#{stockId,jdbcType=CHAR}, #{stockNum,jdbcType=VARCHAR}, #{stockType,jdbcType=CHAR}, 
-      #{stockName,jdbcType=VARCHAR}, #{stockRetailprice,jdbcType=VARCHAR}, #{stockNumber,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.pojo.Stock" >
-    insert into stock
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="stockId != null" >
-        stock_id,
-      </if>
-      <if test="stockNum != null" >
-        stock_num,
-      </if>
-      <if test="stockType != null" >
-        stock_type,
-      </if>
-      <if test="stockName != null" >
-        stock_name,
-      </if>
-      <if test="stockRetailprice != null" >
-        stock_retailprice,
-      </if>
-      <if test="stockNumber != null" >
-        stock_number,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="stockId != null" >
-        #{stockId,jdbcType=CHAR},
-      </if>
-      <if test="stockNum != null" >
-        #{stockNum,jdbcType=VARCHAR},
-      </if>
-      <if test="stockType != null" >
-        #{stockType,jdbcType=CHAR},
-      </if>
-      <if test="stockName != null" >
-        #{stockName,jdbcType=VARCHAR},
-      </if>
-      <if test="stockRetailprice != null" >
-        #{stockRetailprice,jdbcType=VARCHAR},
-      </if>
-      <if test="stockNumber != null" >
-        #{stockNumber,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.pojo.StockExample" resultType="java.lang.Integer" >
-    select count(*) from stock
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update stock
-    <set >
-      <if test="record.stockId != null" >
-        stock_id = #{record.stockId,jdbcType=CHAR},
-      </if>
-      <if test="record.stockNum != null" >
-        stock_num = #{record.stockNum,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stockType != null" >
-        stock_type = #{record.stockType,jdbcType=CHAR},
-      </if>
-      <if test="record.stockName != null" >
-        stock_name = #{record.stockName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stockRetailprice != null" >
-        stock_retailprice = #{record.stockRetailprice,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stockNumber != null" >
-        stock_number = #{record.stockNumber,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update stock
-    set stock_id = #{record.stockId,jdbcType=CHAR},
-      stock_num = #{record.stockNum,jdbcType=VARCHAR},
-      stock_type = #{record.stockType,jdbcType=CHAR},
-      stock_name = #{record.stockName,jdbcType=VARCHAR},
-      stock_retailprice = #{record.stockRetailprice,jdbcType=VARCHAR},
-      stock_number = #{record.stockNumber,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Stock" >
-    update stock
-    <set >
-      <if test="stockNum != null" >
-        stock_num = #{stockNum,jdbcType=VARCHAR},
-      </if>
-      <if test="stockType != null" >
-        stock_type = #{stockType,jdbcType=CHAR},
-      </if>
-      <if test="stockName != null" >
-        stock_name = #{stockName,jdbcType=VARCHAR},
-      </if>
-      <if test="stockRetailprice != null" >
-        stock_retailprice = #{stockRetailprice,jdbcType=VARCHAR},
-      </if>
-      <if test="stockNumber != null" >
-        stock_number = #{stockNumber,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where stock_id = #{stockId,jdbcType=CHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.pojo.Stock" >
-    update stock
-    set stock_num = #{stockNum,jdbcType=VARCHAR},
-      stock_type = #{stockType,jdbcType=CHAR},
-      stock_name = #{stockName,jdbcType=VARCHAR},
-      stock_retailprice = #{stockRetailprice,jdbcType=VARCHAR},
-      stock_number = #{stockNumber,jdbcType=VARCHAR}
-    where stock_id = #{stockId,jdbcType=CHAR}
-  </update>
+<mapper namespace="com.mapper.StockMapper">
+	<resultMap id="BaseResultMap" type="com.pojo.Stock">
+		<id column="stock_id" property="stockId" jdbcType="CHAR" />
+		<result column="stock_num" property="stockNum"
+			jdbcType="VARCHAR" />
+		<result column="stock_type" property="stockType"
+			jdbcType="CHAR" />
+		<result column="stock_name" property="stockName"
+			jdbcType="VARCHAR" />
+		<result column="stock_retailprice" property="stockRetailprice"
+			jdbcType="VARCHAR" />
+		<result column="stock_number" property="stockNumber"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		stock_id, stock_num, stock_type, stock_name, stock_retailprice, stock_number
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.pojo.StockExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from stock
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from stock
+		where stock_id = #{stockId,jdbcType=CHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from stock
+		where stock_id = #{stockId,jdbcType=CHAR}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="com.pojo.StockExample">
+		delete from stock
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.pojo.Stock">
+		insert into stock (stock_id, stock_num, stock_type,
+		stock_name, stock_retailprice, stock_number
+		)
+		values (#{stockId,jdbcType=CHAR}, #{stockNum,jdbcType=VARCHAR},
+		#{stockType,jdbcType=CHAR},
+		#{stockName,jdbcType=VARCHAR}, #{stockRetailprice,jdbcType=VARCHAR}, #{stockNumber,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.pojo.Stock">
+		insert into stock
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="stockId != null">
+				stock_id,
+			</if>
+			<if test="stockNum != null">
+				stock_num,
+			</if>
+			<if test="stockType != null">
+				stock_type,
+			</if>
+			<if test="stockName != null">
+				stock_name,
+			</if>
+			<if test="stockRetailprice != null">
+				stock_retailprice,
+			</if>
+			<if test="stockNumber != null">
+				stock_number,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="stockId != null">
+				#{stockId,jdbcType=CHAR},
+			</if>
+			<if test="stockNum != null">
+				#{stockNum,jdbcType=VARCHAR},
+			</if>
+			<if test="stockType != null">
+				#{stockType,jdbcType=CHAR},
+			</if>
+			<if test="stockName != null">
+				#{stockName,jdbcType=VARCHAR},
+			</if>
+			<if test="stockRetailprice != null">
+				#{stockRetailprice,jdbcType=VARCHAR},
+			</if>
+			<if test="stockNumber != null">
+				#{stockNumber,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.pojo.StockExample" resultType="java.lang.Integer">
+		select count(*) from stock
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update stock
+		<set>
+			<if test="record.stockId != null">
+				stock_id = #{record.stockId,jdbcType=CHAR},
+			</if>
+			<if test="record.stockNum != null">
+				stock_num = #{record.stockNum,jdbcType=VARCHAR},
+			</if>
+			<if test="record.stockType != null">
+				stock_type = #{record.stockType,jdbcType=CHAR},
+			</if>
+			<if test="record.stockName != null">
+				stock_name = #{record.stockName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.stockRetailprice != null">
+				stock_retailprice = #{record.stockRetailprice,jdbcType=VARCHAR},
+			</if>
+			<if test="record.stockNumber != null">
+				stock_number = #{record.stockNumber,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update stock
+		set stock_id = #{record.stockId,jdbcType=CHAR},
+		stock_num = #{record.stockNum,jdbcType=VARCHAR},
+		stock_type = #{record.stockType,jdbcType=CHAR},
+		stock_name = #{record.stockName,jdbcType=VARCHAR},
+		stock_retailprice = #{record.stockRetailprice,jdbcType=VARCHAR},
+		stock_number = #{record.stockNumber,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.pojo.Stock">
+		update stock
+		<set>
+			<if test="stockNum != null">
+				stock_num = #{stockNum,jdbcType=VARCHAR},
+			</if>
+			<if test="stockType != null">
+				stock_type = #{stockType,jdbcType=CHAR},
+			</if>
+			<if test="stockName != null">
+				stock_name = #{stockName,jdbcType=VARCHAR},
+			</if>
+			<if test="stockRetailprice != null">
+				stock_retailprice = #{stockRetailprice,jdbcType=VARCHAR},
+			</if>
+			<if test="stockNumber != null">
+				stock_number = #{stockNumber,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where stock_id = #{stockId,jdbcType=CHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pojo.Stock">
+		update stock
+		set stock_num = #{stockNum,jdbcType=VARCHAR},
+		stock_type = #{stockType,jdbcType=CHAR},
+		stock_name = #{stockName,jdbcType=VARCHAR},
+		stock_retailprice = #{stockRetailprice,jdbcType=VARCHAR},
+		stock_number = #{stockNumber,jdbcType=VARCHAR}
+		where stock_id = #{stockId,jdbcType=CHAR}
+	</update>
+
+	<select id="getMaxNumber" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select substring(stock_num,4) from stock order by
+		substring(stock_num,4) desc limit 1
+	</select>
+
+	<select id="selectByExampleForPaging" resultMap="BaseResultMap"
+		parameterType="com.pojo.StockExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from stock
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="startRow != null and pageSize != null and pageSize != 0">
+			limit #{startRow},#{pageSize}
+		</if>
+	</select>
+
 </mapper>

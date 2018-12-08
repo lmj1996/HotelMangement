@@ -360,7 +360,7 @@
   </update>
   
   <select id="selectByRoomId" resultMap="BaseResultMap" parameterType="com.pojo.HotelRegister" >
-  	select * from hotel_register where hotel_register_room = #{roomId,jdbcType=CHAR}
+  	select * from hotel_register where hotel_register_room = #{roomId,jdbcType=CHAR} order by hotel_register_modifytime desc limit 1
   </select>
   
 </mapper>
