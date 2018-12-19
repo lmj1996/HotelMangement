@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -21,6 +22,7 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript">
 	
+	
 			addEventListener("load", function() {
 				setTimeout(hideURLbar, 0);
 			}, false);
@@ -29,6 +31,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				window.scrollTo(0, 1);
 			}
 		
+
 </script>
 <!--Google Fonts-->
 
@@ -108,9 +111,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										href="${pageContext.request.contextPath}/jump/jumpToStaffHome.do"
 										data-hover="首页">首页</a></li>
 
-									<li><a href="${pageContext.request.contextPath}/jump/jumpToCheckIn.do" data-hover="住宿登记">住宿登记</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/jump/jumpToCheckIn.do"
+										data-hover="住宿登记">住宿登记</a></li>
 
-									<li><a href="${pageContext.request.contextPath}/jump/jumpToRoom.do" data-hover="房间">房间</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/jump/jumpToRoom.do"
+										data-hover="房间">房间</a></li>
+									
+									<shiro:lacksRole name="room-manager-user">
+										<li><a
+										href="${pageContext.request.contextPath}/jump/jumpToHome.do"
+										data-hover="回到后台">回到后台</a></li>
+									</shiro:lacksRole>
+									
+									<li><a
+										href="${pageContext.request.contextPath}/staff/logout.do"
+										data-hover="注销">注销</a></li>
 
 								</ul>
 							</nav>

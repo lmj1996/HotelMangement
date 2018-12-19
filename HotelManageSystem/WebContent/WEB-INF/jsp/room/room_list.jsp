@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,8 +115,8 @@
 								href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"
 								class="active">查看房间</a></li>
 
-							<li><a
-								href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
+							<%-- <li><a
+								href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li> --%>
 						</ul>
 					</nav>
 				</div>
@@ -123,19 +124,21 @@
 			</div>
 			<div class="templatemo-content-container">
 
-				<div>
-					<a href="${pageContext.request.contextPath }/jump/jumpToRoomAdd.do">
-						<input type="button" value="添加" class="form-control"
-						style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
-					</a>
-				</div>
+				<shiro:hasPermission name="room-manager:add">
+					<div>
+						<a href="${pageContext.request.contextPath }/jump/jumpToRoomAdd.do">
+							<input type="button" value="添加" class="form-control"
+							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
+						</a>
+					</div>
+				</shiro:hasPermission>
 
 				<div
 					style="width: 30%; margin-left: 72%; margin-top: -9%; position: relative;">
 					<div class="templatemo-search-form" role="search">
 						<div class="input-group">
 							<button type="submit" class="fa fa-search"></button>
-							<input type="text" class="form-control" placeholder="Search"
+							<input type="text" class="form-control" placeholder="搜索房间编号"
 								name="search" id="search" onkeyup="flush('1')">
 						</div>
 					</div>

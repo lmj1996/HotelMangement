@@ -39,7 +39,7 @@
 						<div class="agile-row">
 							<h1>龙腾酒店管理系统</h1>
 							<div class="login-agileits-top">
-								<form action="${pageContext.request.contextPath}/staff/login.do"
+								<form action="${pageContext.request.contextPath}/staff/login2.do"
 									method="post">
 									<p>账号</p>
 									<input type="text" class="name" name="staffNum" required=""

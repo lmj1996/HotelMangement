@@ -7,16 +7,30 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
+	<mvc:annotation-driven />
+	
 	<!-- 扫描controller -->
 	<context:component-scan base-package="com.controller" />
+	<context:component-scan base-package="com.realm" />
 	
 	<!-- Spring 来扫描指定包下的类，并注册被@Component，@Controller，@Service，@Repository等注解标记的组件 -->
-	<mvc:annotation-driven />
+	
 	<mvc:default-servlet-handler />
+	
+	
 	<!-- 配置SpringMVC的视图解析器-->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- shiro注解 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" />
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
 	</bean>
 </beans>

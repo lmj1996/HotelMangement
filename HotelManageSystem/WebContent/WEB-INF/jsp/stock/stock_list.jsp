@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,7 +128,7 @@
 					<div class="templatemo-search-form" role="search">
 						<div class="input-group">
 							<button type="submit" class="fa fa-search"></button>
-							<input type="text" class="form-control" placeholder="Search"
+							<input type="text" class="form-control" placeholder="搜索库存名称/编号"
 								name="search" id="search" onkeyup="flush('1')">
 						</div>
 					</div>

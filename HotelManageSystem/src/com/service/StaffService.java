@@ -184,6 +184,12 @@ public class StaffService {
 		return null;
 	}
 
+	// 根据编号获取员工信息
+	public Staff getStaffInfoByNum(String currentUsername) {
+		Staff staffInfo = staffMapper.getStaffInfo(currentUsername);
+		return staffInfo;
+	}
+
 	
 
 }

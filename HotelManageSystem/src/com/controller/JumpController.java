@@ -12,7 +12,7 @@ import com.DTO.SessionDTO;
 @Controller
 
 @RequestMapping("/jump")
-@SessionAttributes("session")
+@SessionAttributes("sc")
 public class JumpController {
 
 	/**
@@ -35,7 +35,7 @@ public class JumpController {
 	 * @return
 	 */
 	@RequestMapping(value = "/jumpToHome")
-	public ModelAndView jumpToHome(@ModelAttribute("session") SessionDTO session, Model model) {
+	public ModelAndView jumpToHome(@ModelAttribute("sc") SessionDTO session, Model model) {
 		// 修改部分session内容
 		session.setChoice("1");
 		model.addAttribute(session);
@@ -64,7 +64,7 @@ public class JumpController {
 	 * @return
 	 */
 	@RequestMapping(value = "/jumpToRoomList")
-	public ModelAndView jumpToRoomList(@ModelAttribute("session") SessionDTO session, Model model) {
+	public ModelAndView jumpToRoomList(@ModelAttribute("sc") SessionDTO session, Model model) {
 		// 修改部分session内容
 		session.setChoice("2");
 		model.addAttribute(session);
@@ -81,11 +81,8 @@ public class JumpController {
 	 * @return
 	 */
 	@RequestMapping(value = "/jumpToRoomAdd")
-	public ModelAndView jumpToRoomAdd(@ModelAttribute("session") SessionDTO session, Model model) {
-		// 修改部分session内容
-		session.setChoice("2");
-		model.addAttribute(session);
-
+	public ModelAndView jumpToRoomAdd() {
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("room/add_room");
 		return modelAndView;
@@ -134,7 +131,7 @@ public class JumpController {
 	 * 员工列表
 	 */
 	@RequestMapping(value = "/jumpToStaffList")
-	public ModelAndView jumpToStaffList(@ModelAttribute("session") SessionDTO session, Model model) {
+	public ModelAndView jumpToStaffList(@ModelAttribute("sc") SessionDTO session, Model model) {
 		// 修改部分session内容
 		session.setChoice("3");
 		model.addAttribute(session);
@@ -149,10 +146,8 @@ public class JumpController {
 	 * 添加员工
 	 */
 	@RequestMapping(value = "/jumpToAddStaff")
-	public ModelAndView jumpToAddStaff(@ModelAttribute("session") SessionDTO session, Model model) {
-		// 修改部分session内容
-		session.setChoice("3");
-		model.addAttribute(session);
+	public ModelAndView jumpToAddStaff() {
+		
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("staff/staff_add");
@@ -164,10 +159,8 @@ public class JumpController {
 	 * 员工详细信息
 	 */
 	@RequestMapping(value = "/jumpToStaffDetail")
-	public ModelAndView jumpToStaffDetail(@ModelAttribute("session") SessionDTO session, Model model,String staffId) {
-		// 修改部分session内容
-		session.setChoice("3");
-		model.addAttribute(session);
+	public ModelAndView jumpToStaffDetail(String staffId) {
+		
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("id", staffId);
@@ -176,6 +169,7 @@ public class JumpController {
 
 	}
 	
+	// 前台接待员操作
 	@RequestMapping(value = "/jumpToStaffHome")
 	public ModelAndView jumpToStaffHome() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -183,6 +177,7 @@ public class JumpController {
 		return modelAndView;
 	}
 	
+	// 住宿登记
 	@RequestMapping(value = "/jumpToCheckIn")
 	public ModelAndView jumpToCheckIn() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -190,6 +185,7 @@ public class JumpController {
 		return modelAndView;
 	}
 	
+	// 房间信息
 	@RequestMapping(value = "/jumpToRoom")
 	public ModelAndView jumpToRoom() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -197,6 +193,7 @@ public class JumpController {
 		return modelAndView;
 	}
 	
+	// 结账信息
 	@RequestMapping(value = "/jumpToCheckOut2")
 	public ModelAndView jumpToCheckOut2(String room_Id) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -205,8 +202,9 @@ public class JumpController {
 		return modelAndView;
 	}
 	
+	// 库存列表
 	@RequestMapping(value = "/jumpToStockList")
-	public ModelAndView jumpToStockList(@ModelAttribute("session") SessionDTO session, Model model) {
+	public ModelAndView jumpToStockList(@ModelAttribute("sc") SessionDTO session, Model model) {
 		session.setChoice("4");
 		model.addAttribute(session);
 		
@@ -215,6 +213,7 @@ public class JumpController {
 		return modelAndView;
 	}
 	
+	// 库存详情
 	@RequestMapping(value = "/jumpToStockDetail")
 	public ModelAndView jumpToStockDetail(String stockId) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -223,6 +222,7 @@ public class JumpController {
 		return modelAndView;
 	}
 	
+	// 添加库存
 	@RequestMapping(value = "/jumpToStockAdd")
 	public ModelAndView jumpToStockAdd() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -230,6 +230,7 @@ public class JumpController {
 		return modelAndView;
 	}
 	
+	// 客户消费
 	@RequestMapping(value = "/jumpToAddCost")
 	public ModelAndView jumpToAddCost(String roomId) {
 		ModelAndView modelAndView = new ModelAndView();

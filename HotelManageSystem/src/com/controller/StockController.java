@@ -21,7 +21,7 @@ import com.service.StockService;
 @Controller
 
 @RequestMapping("/stock")
-@SessionAttributes("session")
+@SessionAttributes("sc")
 public class StockController {
 	
 	@Resource(name = "stockService")

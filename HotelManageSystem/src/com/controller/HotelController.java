@@ -24,7 +24,7 @@ import com.service.HotelService;
 @Controller
 
 @RequestMapping("/hotel")
-@SessionAttributes("session")
+@SessionAttributes("sc")
 public class HotelController {
 	@Resource(name = "hotelService")
 	private HotelService hotelService;
@@ -39,12 +39,8 @@ public class HotelController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/getAllRoom")
-	public void getAllRoom(RoomVO roomVO, int page, HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("session") SessionDTO session, Model model) throws IOException {
-		// 修改部分session内容
-		session.setChoice("2");
-		model.addAttribute(session);
-
+	public void getAllRoom(RoomVO roomVO, int page, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
 		roomVO.setPageIndex(page);
 		RoomVO getRoomVO = hotelService.queryAllRoom(roomVO);
 		response.setContentType("text/html; charset=utf-8");
@@ -110,7 +106,6 @@ public class HotelController {
 			modelAndView.setViewName("room/room_list");
 			return modelAndView;
 		} else {
-			System.out.println("失败");
 			return null;
 		}
 	}
@@ -137,7 +132,6 @@ public class HotelController {
 			modelAndView.setViewName("user/bill");
 			return modelAndView;
 		} else {
-			System.out.println("失败");
 			return null;
 		}
 	}
@@ -157,7 +151,6 @@ public class HotelController {
 			modelAndView.setViewName("room/room_charge");
 			return modelAndView;
 		} else {
-			System.out.println("添加失败");
 			return null;
 		}
 	}
@@ -236,7 +229,6 @@ public class HotelController {
 		session.setChoice("2");
 		model.addAttribute(session);
 
-		System.out.println("结账：" + roomId);
 		CheckOutDTO checkOutDTO = new CheckOutDTO();
 		response.setContentType("text/html; charset=utf-8");
 		Gson gson = new Gson();

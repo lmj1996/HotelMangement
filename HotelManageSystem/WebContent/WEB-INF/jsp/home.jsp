@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -37,7 +38,7 @@
 			<div class="row">
 				<nav class="templatemo-top-nav col-lg-12 col-md-12">
 					<ul class="text-uppercase">
-						<li>${sessionScope.session.staff.staffName },欢迎使用本系统</li>
+						<li><shiro:principal property="staffName"></shiro:principal>,欢迎使用本系统</li>
 					</ul>
 				</nav>
 			</div>

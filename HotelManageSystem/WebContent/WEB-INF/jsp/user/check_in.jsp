@@ -215,13 +215,13 @@
 				<div class="bnr-btn">
 
 					<input type="submit" value="登记">
-
+					<a href="${pageContext.request.contextPath}/jump/jumpToRoom.do" style="width:280px;background-color: #00ff00;"><input type="button" value="返回列表" class="form-control"
+								style="border-radius: 1px; background-color: #0000f0; color: #FFFFFF; font-family: '宋体';width:100%;margin-top: 3px;" /></a>
 				</div>
 			</form>
 		</div>
 		<!---start-date-piker---->
-		<link rel="stylesheet"
-			href="${pageContext.request.contextPath}/css/jquery-ui.css" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.css" />
 		<script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
 		<script>
 			$(function() {
