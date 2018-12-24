@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -13,6 +13,14 @@
 <meta name="description" content="">
 <meta name="author" content="templatemo">
 
+<link href="${pageContext.request.contextPath}/css/bootstrap_s.css"
+	rel="stylesheet" type="text/css" media="all">
+<script src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/style2.css"
+	rel="stylesheet" type="text/css" media="all" />
+<link href="${pageContext.request.contextPath}/css/style1.css"
+	rel="stylesheet" type="text/css" media="all" />
+
 <link href="${pageContext.request.contextPath}/css/css_google.css"
 	rel='stylesheet' type='text/css'>
 <link href="${pageContext.request.contextPath}/css/font-awesome.min.css"
@@ -21,7 +29,7 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/templatemo-style.css"
 	rel="stylesheet">
-
+<script src="${pageContext.request.contextPath}/js/echarts.js"></script>
 </head>
 
 <body>
@@ -44,14 +52,140 @@
 			</div>
 		</div>
 		<div class="templatemo-content-container">
-			<img src="${pageContext.request.contextPath}/images/banner3.jpg"
-				style="width: 82%; height: 65%;" />
+		<div id="chart1" style="width:950px;height: 400px;"></div>
+			<%-- <img src="${pageContext.request.contextPath}/images/banner3.jpg"
+				style="width: 82%; height: 65%;" /> --%>
 		</div>
 	</div>
 </div>
 
 
 	<!-- JS -->
+
+	<script type="text/javascript">
+		indexInfo();
+		function indexInfo() {
+			$.post("${pageContext.request.contextPath}/hotel/getIndexInfo.do",
+					function(indexInfo) {
+						console.log(indexInfo)
+
+						var listDate = indexInfo.listDate;
+						var listSingle = indexInfo.listSingle;
+						var listDouble = indexInfo.listDouble;
+						var listOrdinary = indexInfo.listOrdinary;
+						var listLuxury = indexInfo.listLuxury;
+						var listBusiness = indexInfo.listBusiness;
+						var listApartment = indexInfo.listApartment;
+						var listPresident = indexInfo.listPresident;
+
+						// 基于准备好的dom，初始化echarts图表
+						var myChart = echarts.init(document
+								.getElementById('chart1'));
+
+						/*	var _data = null;
+							each(function(n.i){
+								
+								_data.push({
+									name:n.String,
+									value:n.Integer
+								})
+								
+							})*/
+
+						option = {
+
+							title : {
+								text : '最近7日入住情况',
+								x : 'center',
+								y : 'top',
+								padding : 375,
+								textStyle : {
+									fontSize : 25
+								}
+							},
+							tooltip : {
+								trigger : 'axis'
+							},
+							legend : {
+								data : [ '单人间', '双人间', '普通套房', '豪华套房', '商务间',
+										'公寓间', '总统套房' ]
+							},
+							toolbox : {
+								show : false,
+								feature : {
+									mark : {
+										show : true
+									},
+									dataView : {
+										show : true,
+										readOnly : false
+									},
+									magicType : {
+										show : true,
+										type : [ 'line', 'bar', 'stack',
+												'tiled' ]
+									},
+									restore : {
+										show : true
+									},
+									saveAsImage : {
+										show : true
+									}
+								}
+							},
+							calculable : true,
+							xAxis : [ {
+								type : 'category',
+								boundaryGap : false,
+								data : listDate
+							} ],
+							yAxis : [ {
+								type : 'value'
+							} ],
+							series : [ {
+								name : '单人间',
+								type : 'line',
+								stack : '1',
+								data : listSingle
+							}, {
+								name : '双人间',
+								type : 'line',
+								stack : '2',
+								data : listDouble
+							}, {
+								name : '普通套房',
+								type : 'line',
+								stack : '3',
+								data : listOrdinary
+							}, {
+								name : '豪华套房',
+								type : 'line',
+								stack : '4',
+								data : listLuxury
+							}, {
+								name : '商务间',
+								type : 'line',
+								stack : '5',
+								data : listBusiness
+							}, {
+								name : '公寓间',
+								type : 'line',
+								stack : '6',
+								data : listApartment
+							}, {
+								name : '总统套房',
+								type : 'line',
+								stack : '7',
+								data : listPresident
+							} ]
+						};
+
+						// 为echarts对象加载数据 
+						myChart.setOption(option);
+
+					}, "json");
+		}
+	</script>
 
 	<script
 		src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
@@ -118,6 +252,8 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 	<!-- Templatemo Script -->
+
+	
 
 </body>
 

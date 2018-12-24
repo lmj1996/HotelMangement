@@ -83,9 +83,9 @@
 						<ul class="text-uppercase">
 							<li><a
 								href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
-							<li><a
+							<%-- <li><a
 								href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do"
-								class="active">房间计费规则</a></li>
+								class="active">房间计费规则</a></li> --%>
 						</ul>
 					</nav>
 				</div>

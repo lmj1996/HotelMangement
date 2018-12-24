@@ -166,6 +166,7 @@ public class HotelService {
 
 	// 更新房间信息
 	public String updateRoom(Room room) {
+		room.setRoomRemarks("无");
 		room.setRoomState("空闲");
 		roomMapper.updateByPrimaryKeySelective(room);
 		return "success";
@@ -318,6 +319,9 @@ public class HotelService {
 		totalPrice = total + "";
 		serviceCost = service + "";
 		settleMoney = balance + "";
+		
+		String cd = TimeUtil.getStringDay();
+		hotelRegister.setHotelRegisterCheckoutday(cd);
 		hotelRegister.setHotelRegisterTotalprice(totalPrice);
 		checkOutDTO.setCustomer(customer);
 		checkOutDTO.setHotelRegister(hotelRegister);
@@ -503,7 +507,6 @@ public class HotelService {
 		indexInfoDTO.setListApartment(listApartment);
 		indexInfoDTO.setListPresident(listPresident);
 
-		System.out.println("内容：" + indexInfoDTO);
 
 		return indexInfoDTO;
 	}
@@ -535,6 +538,9 @@ public class HotelService {
 			if (listHotelRegister != null) {
 				for (HotelRegister hotelRegister : listHotelRegister) {
 					Room roomInfo = roomMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterRoom());
+					
+					if(roomInfo.getRoomState().equals("已入住")) {
+					
 					String d1 = hotelRegister.getHotelRegisterCheckoutday();
 					String d2 = hotelRegister.getHotelRegisterEndtime();
 					d2 = d2.replace(" ", "");
@@ -551,6 +557,8 @@ public class HotelService {
 					}
 					
 					listRoom.add(roomInfo);
+					}
+					
 				}
 			}
 		}

@@ -67,8 +67,8 @@
 						<li><a
 							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do">查看房间</a></li>
 
-						<li><a
-							href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li>
+						<%-- <li><a
+							href="${pageContext.request.contextPath}/jump/jumpToChargeWay.do">房间计费规则</a></li> --%>
 					</ul>
 				</nav>
 			</div>

@@ -27,7 +27,7 @@ public class MyRealm extends AuthorizingRealm {
 	@Resource(name = "staffService")
 	private StaffService staffService;
 
-	
+	// 认证
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
 			throws AuthenticationException {
@@ -39,7 +39,7 @@ public class MyRealm extends AuthorizingRealm {
 		// System.out.println("验证当前Subject时获取到token为" +
 		// ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
 		Staff staff = staffService.getStaffInfoByNum((String) authcToken.getPrincipal());
-
+		// 验证成功之后SimpleAuthenticationInfo的第一个参数可以将实体类对象或者String对象传到授权方法里
 		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(staff,
 				staff.getStaffPassword(), ByteSource.Util.bytes(staff.getStaffName()), getName());
 		this.setSession(staff);
@@ -57,7 +57,7 @@ public class MyRealm extends AuthorizingRealm {
 		// return authcInfo;
 
 	}
-	
+	// 授权
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
@@ -65,6 +65,8 @@ public class MyRealm extends AuthorizingRealm {
 		//String currentUsername = (String) super.getAvailablePrincipal(principals);
 		
 		//String key = (String) principals.getPrimaryPrincipal();
+		
+		// 若是实体类对象则如下接收，若是String则String key = (String) principals.getPrimaryPrincipal();
 		Staff staff = (Staff) principals.getPrimaryPrincipal();
 		List<String> roleList = new ArrayList<String>();
 		List<String> permissionList = new ArrayList<String>();

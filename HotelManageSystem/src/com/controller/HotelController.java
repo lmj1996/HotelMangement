@@ -261,7 +261,7 @@ public class HotelController {
 	@RequestMapping(value = "/checkOut1")
 	public ModelAndView checkOut1(Room room, Customer customer, HotelRegister hotelRegister) {
 		
-		
+		System.out.println(customer);
 		hotelService.checkOut(room,customer,hotelRegister);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("user/room");
@@ -275,7 +275,6 @@ public class HotelController {
 	@RequestMapping(value = "/getRoomId")
 	public void getRoomId(String type,HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String roomId = hotelService.getRoomIdByType(type);
-		System.out.println(roomId);
 		response.setContentType("text/html; charset=utf-8");
 		Gson gson = new Gson();
 		response.getWriter().println(gson.toJson(roomId));

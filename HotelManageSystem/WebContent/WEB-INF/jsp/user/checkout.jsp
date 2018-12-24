@@ -64,10 +64,10 @@ $(document).ready(function(c) {
 
 					<h3>客户信息</h3>
 					<h5>客户姓名</h5>
-					<input type="text" id="customerName" style="color:#000000" disabled="disabled">
+					<input type="text" id="customerName" name="customerName" style="color:#000000" disabled="disabled">
 					<h5>证件号码</h5>
-					<input type="text" id="customerID" style="color:#000000" name="customerCustomerid"
-						disabled="disabled">
+					<input type="text" id="customerID" name="customerCustomerid" style="color:#000000"
+						>
 					<h3>成员组成</h3>
 					<h5>成人</h5>
 					<input type="text" id="adults" style="color:#000000" disabled="disabled">

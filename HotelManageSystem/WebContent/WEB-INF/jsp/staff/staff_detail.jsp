@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +48,7 @@
 							<li><a
 								href="${pageContext.request.contextPath}/jump/jumpToStaffList.do">查看员工</a></li>
 
-							
+
 						</ul>
 					</nav>
 				</div>
@@ -55,71 +56,88 @@
 			</div>
 			<div class="templatemo-content-container">
 				<div style="width: 55%; margin-left: 22.5%;">
-					<form action="${pageContext.request.contextPath}/staff/updateStaff.do"
+					<form
+						action="${pageContext.request.contextPath}/staff/updateStaff.do"
 						method="post">
-						<input type="hidden" id="staffId_hidden" name="staffId" value="${requestScope.id }" />
-						<input type="hidden" id="currentPosition" />
-						<input type="hidden" id="staffAddress" name="staffAddress" />
+						<input type="hidden" id="staffId_hidden" name="staffId"
+							value="${requestScope.id }" /> <input type="hidden"
+							id="currentPosition" /> <input type="hidden" id="staffAddress"
+							name="staffAddress" />
 						<table class="table" style="text-align: center;">
 							<tr>
 								<td>编号：</td>
-								<td><input id="staffNum" disabled="disabled" type="text" maxlength="10" class="form-control"
-									name="staffNum" /></td>
+								<td><input id="staffNum" disabled="disabled" type="text"
+									maxlength="10" class="form-control" name="staffNum" /></td>
 							</tr>
-							
+
 							<tr>
 								<td>姓名：</td>
-								<td><input id="staffName" type="text" maxlength="10" class="form-control"
-									name="staffName" /></td>
+								<td><input id="staffName" type="text" maxlength="10"
+									class="form-control" name="staffName" /></td>
 							</tr>
-							
+
 							<tr>
 								<td>密码：</td>
-								<td><input id="staffPassword" type="text" maxlength="10" class="form-control"
-									name="staffPassword" /></td>
+								<td><input id="staffPassword" type="text" maxlength="10"
+									class="form-control" name="staffPassword" /></td>
 							</tr>
-							
+
 							<tr>
 								<td>性别：</td>
-								<td><input id="staffSex" type="text" disabled="disabled" class="form-control" /></td>
+								<td><input id="staffSex" type="text" disabled="disabled"
+									class="form-control" /></td>
 							</tr>
-							
+
 							<tr>
 								<td>身份证号：</td>
-								<td><input id="staffIdnumber" type="text" disabled="disabled" maxlength="18" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
+								<td><input id="staffIdnumber" type="text"
+									disabled="disabled" maxlength="18"
+									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
 									name="staffIdnumber" onblur="checkIDnumber()" /></td>
 							</tr>
-							
+
 							<tr>
 								<td>联系方式：</td>
-								<td><input id="staffPhone" type="text" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
+								<td><input id="staffPhone" type="text" maxlength="11"
+									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
 									name="staffPhone" onblur="checkPhoneNumber()" /></td>
 							</tr>
-							
+
 							<tr>
 								<td>联系地址：</td>
 								<td>
-									<p id="J-demo" style="width: 400px;height: 40px;border: 1px solid #ccc;box-sizing: border-box;"></p>
+									<p id="J-demo"
+										style="width: 400px; height: 40px; border: 1px solid #ccc; box-sizing: border-box;"></p>
 								</td>
 							</tr>
-							
+
 							<tr>
 								<td>职位：</td>
-								<td><select id="position" class="form-control" name="staffPosition"></select></td>
+								<td><select id="position" class="form-control"
+									name="staffPosition"></select></td>
 							</tr>
 
 							<tr>
 								<td>入职时间：</td>
-								<td><input id="staffEntrytime" disabled="disabled" type="text" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
+								<td><input id="staffEntrytime" disabled="disabled"
+									type="text" maxlength="11"
+									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
 									name="staffEntrytime" /></td>
 							</tr>
-							
+
 						</table>
 						<div style="text-align: center;">
-							<input type="submit" value="更新" class="form-control" onclick="getStaffAddress()"
-								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';width:50%;margin-left: 25%;" />
-							<a href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><input type="button" value="返回列表" class="form-control"
-								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';width:50%;margin-left: 25%;" /></a> 
+
+							<shiro:hasPermission name="staff-manager:update">
+								<input type="submit" value="更新" class="form-control"
+									onclick="getStaffAddress()"
+									style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 50%; margin-left: 25%;" />
+							</shiro:hasPermission>
+
+							<a
+								href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><input
+								type="button" value="返回列表" class="form-control"
+								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 50%; margin-left: 25%;" /></a>
 						</div>
 					</form>
 				</div>
@@ -199,7 +217,7 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 	<!-- Templatemo Script -->
-	
+
 	<script>
 	function clear(){
 		$("#position").children().remove();
@@ -249,8 +267,8 @@
 	}
 	
 </script>
-	
-<script type="text/javascript">
+
+	<script type="text/javascript">
 	function checkIDnumber(){
 		$.post("${pageContext.request.contextPath}/staff/checkIDnumber.do",{
 			"id" : $("#staffId_hidden").val(),
