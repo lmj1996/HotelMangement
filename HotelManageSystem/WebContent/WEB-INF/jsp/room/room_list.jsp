@@ -123,16 +123,17 @@
 
 			</div>
 			<div class="templatemo-content-container">
+				<div>
+					<shiro:hasPermission name="room-manager:add">
 
-				<shiro:hasPermission name="room-manager:add">
-					<div>
-						<a href="${pageContext.request.contextPath }/jump/jumpToRoomAdd.do">
+						<a
+							href="${pageContext.request.contextPath }/jump/jumpToRoomAdd.do">
 							<input type="button" value="添加" class="form-control"
 							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
 						</a>
-					</div>
-				</shiro:hasPermission>
 
+					</shiro:hasPermission>
+				</div>
 				<div
 					style="width: 30%; margin-left: 72%; margin-top: -9%; position: relative;">
 					<div class="templatemo-search-form" role="search">
@@ -313,7 +314,7 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 	<!-- Templatemo Script -->
-	
+
 	<script type="text/javascript">
 		;
 		(function toastrSuccess() {

@@ -71,11 +71,11 @@
 			if(null == data)
 				return
 			$.each(data.listStaffDTO, function() {
-				var k = '<tr>' + '<td>' + this.staff.staffNum + '</td>' + '<td>' + this.staff.staffName + '</td>' + '<td>' + this.staff.staffSex + '</td>' + '<td>' + this.position.positionName + '</td>' + '<td>' +this.staff.staffEntrytime + '</td>';
+				var k = '<tr>' + '<td>' + this.staff.staffNum + '</td>' + '<td>' + this.staff.staffName + '</td>' + '<td>' + this.staff.staffSex + '</td>' + '<td>' + this.position.positionName + '</td>' + '<td>' +this.staff.staffEntrytime + '</td>'+'<td>' +this.workCount + '</td>';
 				k = k + '<td><div class=\"dropdown\"><button type=\"button\" class=\"btn dropdown-toggle\" id=\"dropdownMenu1\" data-toggle=\"dropdown\">操作 <span class=\"caret\"></span></button><ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dropdownMenu1\">';
-				
+				<shiro:hasPermission name="staff-manager:query">
 					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToStaffDetail.do?staffId='+this.staff.staffId+'\">查看详细信息</a></li>';
-				
+				</shiro:hasPermission>
 				k = k + "</ul></div></td></tr>";
 				$("#staffList").append(k);
 			});
@@ -127,24 +127,24 @@
 								href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"
 								class="active">查看员工</a></li>
 
-							
+
 						</ul>
 					</nav>
 				</div>
 
 			</div>
 			<div class="templatemo-content-container">
-				
-				<shiro:hasPermission name="staff-manager:add">
-					<div>
+				<div>
+					<shiro:hasPermission name="staff-manager:add">
+
 						<a
 							href="${pageContext.request.contextPath }/jump/jumpToAddStaff.do">
 							<input type="button" value="添加" class="form-control"
 							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
 						</a>
-					</div>
-				</shiro:hasPermission>
 
+					</shiro:hasPermission>
+				</div>
 				<div
 					style="width: 30%; margin-left: 72%; margin-top: -9%; position: relative;">
 					<div class="templatemo-search-form" role="search">
@@ -180,6 +180,7 @@
 										<option value="">保洁员</option>
 								</select></td>
 								<td>员工入职时间</td>
+								<td>本月出勤次数</td>
 								<td>操作</td>
 							</tr>
 						</thead>
@@ -267,7 +268,7 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 	<!-- Templatemo Script -->
-	
+
 	<script type="text/javascript">
 		;
 		(function toastrSuccess() {
@@ -281,6 +282,6 @@
 			
 		})();
 	</script>
-	
+
 </body>
 </html>

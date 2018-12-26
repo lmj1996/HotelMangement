@@ -2,6 +2,7 @@ package com.test;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,13 +32,9 @@ public class TestFile {
 
 	@Test
 	public void addRoom() {
-		Room room = new Room();
-		for (int i = 1; i <= 10; i++) {
-			room.setRoomPrice("5000");
-			room.setRoomFloor("7");
-			room.setRoomType("总统套房");
-			hotelService.addRoom(room);
-		}
+		String staffId = "1";
+		String s = staffService.signin(staffId);
+		System.out.println(s);
 	}
 
 	@Test
@@ -75,19 +72,19 @@ public class TestFile {
 
 	@Test
 	public void time() {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
 		Date d = new Date();
 		String d1 = formatter.format(d);
-		String d2 = "2018-12-01";
-		String d3 = "01 : 10";
-		d3 = d3.replace(" ", "");
-		d2 = d2 + " " + d3;
-		d2 = d2 + ":00";
-		long e = TimeCount.getHours(d1, d2);
-		System.out.println(e);
-		int a = -1;
-		a = (-a);
-		System.out.println(a);
+//		String d2 = "2018-12-01";
+//		String d3 = "01 : 10";
+//		d3 = d3.replace(" ", "");
+//		d2 = d2 + " " + d3;
+//		d2 = d2 + ":00";
+//		long e = TimeCount.getHours(d1, d2);
+//		System.out.println(e);
+//		int a = -1;
+//		a = (-a);
+		System.out.println(d1);
 	}
 
 	@Test

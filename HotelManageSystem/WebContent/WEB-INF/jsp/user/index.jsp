@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -14,6 +14,11 @@
 	rel="stylesheet" type="text/css" media="all" />
 <link href="${pageContext.request.contextPath}/css/style1.css"
 	rel="stylesheet" type="text/css" media="all" />
+
+<script src="${pageContext.request.contextPath}/js/toastr.js"></script>
+<link href="${pageContext.request.contextPath}/css/toastr.css"
+	rel="stylesheet">
+
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -21,6 +26,8 @@
 	content="Mr Hotel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript">
+	
+	
 	
 	
 			addEventListener("load", function() {
@@ -31,6 +38,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				window.scrollTo(0, 1);
 			}
 		
+
+
 
 </script>
 <!--Google Fonts-->
@@ -118,13 +127,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<li><a
 										href="${pageContext.request.contextPath}/jump/jumpToRoom.do"
 										data-hover="房间">房间</a></li>
-									
+
 									<shiro:lacksRole name="room-manager-user">
 										<li><a
-										href="${pageContext.request.contextPath}/jump/jumpToHome.do"
-										data-hover="回到后台">回到后台</a></li>
+											href="${pageContext.request.contextPath}/jump/jumpToHome.do"
+											data-hover="回到后台">回到后台</a></li>
 									</shiro:lacksRole>
-									
+									<shiro:lacksRole name="s-administrator">
+										<li><a onclick="signin()" data-hover="打卡" style="cursor: pointer;">打卡</a></li>
+									</shiro:lacksRole>
 									<li><a
 										href="${pageContext.request.contextPath}/staff/logout.do"
 										data-hover="注销">注销</a></li>
@@ -280,6 +291,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		}
 	</script>
 
+	<script type="text/javascript">
+		function signin() {
+			$.post("${pageContext.request.contextPath}/staff/signin.do",
+					function(data) {
+						if (data == "signinsuccess") {
+							toastr.success("打卡成功!")
+						}
+						if (data == "signinerror") {
+							toastr.error("今日已打卡，打卡失败!")
+						}
+					});
+		}
+		/* ;
+		(function toastrSuccess() {
+			var s = '${requestScope.state}';
+			if (s == "signinsuccess") {
+				toastr.success("打卡成功!")
+			}
+			if (s == "signinerror") {
+				toastr.error("今日已打卡，打卡失败!")
+			}
+			
+		})(); */
+	</script>
 </body>
 
 </html>

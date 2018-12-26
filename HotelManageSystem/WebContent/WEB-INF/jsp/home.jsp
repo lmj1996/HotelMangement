@@ -30,6 +30,11 @@
 <link href="${pageContext.request.contextPath}/css/templatemo-style.css"
 	rel="stylesheet">
 <script src="${pageContext.request.contextPath}/js/echarts.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/toastr.js"></script>
+<link href="${pageContext.request.contextPath}/css/toastr.css"
+	rel="stylesheet">
+
 </head>
 
 <body>
@@ -46,8 +51,11 @@
 			<div class="row">
 				<nav class="templatemo-top-nav col-lg-12 col-md-12">
 					<ul class="text-uppercase">
-						<li><shiro:principal property="staffName"></shiro:principal>,欢迎使用本系统</li>
+						<li><shiro:principal property="staffName"></shiro:principal>,欢迎使用本系统!</li>
 					</ul>
+					<shiro:lacksRole name="s-administrator">
+					<div style="margin-left: 800px;"><a onclick="signin()" style="cursor: pointer;">打卡</a></div>
+					</shiro:lacksRole>
 				</nav>
 			</div>
 		</div>
@@ -253,7 +261,31 @@
 		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
 	<!-- Templatemo Script -->
 
+	<script type="text/javascript">
+	function signin(){
+		$.post("${pageContext.request.contextPath}/staff/signin.do",function(data){
+		/* 	var dd = JSON.parse(data); */
+			if (data == "signinsuccess") {
+				toastr.success("打卡成功!")
+			}
+			if (data == "signinerror") {
+				toastr.error("今日已打卡，打卡失败!")
+			}
+		});
+	}
 	
+		/* ;
+		(function toastrSuccess() {
+			var s = '${requestScope.state}';
+			if (s == "signinsuccess") {
+				toastr.success("打卡成功!")
+			}
+			if (s == "signinerror") {
+				toastr.error("今日已打卡，打卡失败!")
+			}
+			
+		})(); */
+	</script>
 
 </body>
 

@@ -1,6 +1,8 @@
 package com.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,6 +24,9 @@ public class StaffService {
 
 	@Resource
 	private PositionMapper positionMapper;
+	
+	@Resource
+	private WorkRecordMapper workRecordMapper;
 
 	// 登录判断
 	public Staff getStaffInfo(String staffNum, String staffPassword) {
@@ -64,7 +69,11 @@ public class StaffService {
 	public StaffVO getAllStaffInfo(StaffVO staffVO) {
 		List<StaffDTO> listStaffDTO = new ArrayList<>();
 		List<Staff> listStaff = new ArrayList<>();
-
+		// 格式化时间
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
+		Date current = new Date();
+		String day = formatter.format(current);
+		
 		StaffExample staffExample = new StaffExample();
 		staffExample.setOrderByClause("staff_modifytime desc");
 		staffExample.setStartRow((staffVO.getPageIndex() - 1) * staffVO.getPageSize());
@@ -116,7 +125,15 @@ public class StaffService {
 				Position position = positionMapper.selectByPrimaryKey(staff.getStaffPosition());
 				staffDTO.setPosition(position);
 				staffDTO.setStaff(staff);
-
+				
+				// 计算本月出勤次数
+				WorkRecordExample workRecordExample = new WorkRecordExample();
+				com.pojo.WorkRecordExample.Criteria criteria3 = workRecordExample.createCriteria();
+				criteria3.andWorkRecordCurrentstaffEqualTo(staff.getStaffId());
+				criteria3.andWorkRecordTimeLike("%"+day+"%");
+				List<WorkRecord> listWR = workRecordMapper.selectByExample(workRecordExample);
+				staffDTO.setWorkCount(listWR.size());
+				
 				if (staffVO.getSearch() != null && staffVO.getSearch().trim().length() > 0) {
 					staff.setStaffNum(staff.getStaffNum().replaceAll(staffVO.getSearch(),
 							"<span style='color: #ff5063;'>" + staffVO.getSearch() + "</span>"));
@@ -188,6 +205,25 @@ public class StaffService {
 	public Staff getStaffInfoByNum(String currentUsername) {
 		Staff staffInfo = staffMapper.getStaffInfo(currentUsername);
 		return staffInfo;
+	}
+
+	// 打卡（工作记录）
+	public String signin(String staffId) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date secondDate = new Date();
+		String date = formatter.format(secondDate);
+		date = "%"+date+"%";
+		WorkRecord w = workRecordMapper.selectByStaffId(staffId,date);
+		if(w!=null) {
+			return "signinerror";
+		}
+		WorkRecord record = new WorkRecord();
+		record.setWorkRecordId(BuildUuid.getUuid());
+		record.setWorkRecordCurrentstaff(staffId);
+		record.setWorkRecordType("上班");
+		record.setWorkRecordTime(TimeUtil.getStringSecond());
+		workRecordMapper.insertSelective(record);
+		return "signinsuccess";
 	}
 
 	

@@ -27,4 +27,6 @@ public interface WorkRecordMapper {
     int updateByPrimaryKeySelective(WorkRecord record);
 
     int updateByPrimaryKey(WorkRecord record);
+
+	WorkRecord selectByStaffId(@Param("staffId") String staffId,@Param("date") String date);
 }

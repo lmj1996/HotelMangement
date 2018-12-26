@@ -15,6 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -207,4 +208,18 @@ public class StaffController {
 		currentUser.logout();
 		return "login";
 	}
+	
+	/**
+	 * 打卡（工作记录）
+	 */
+	@RequestMapping(value = "/signin")
+	@ResponseBody
+	public String  signin() {
+		Subject currentUser = SecurityUtils.getSubject();
+		Staff st = (Staff) currentUser.getPrincipal();
+		String state = staffService.signin(st.getStaffId());
+		//model.addAttribute("state",state);
+		return state;
+	}
+	
 }

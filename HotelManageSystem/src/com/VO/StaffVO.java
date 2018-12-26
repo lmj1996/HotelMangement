@@ -39,6 +39,7 @@ public class StaffVO {
 	 * 根据职位筛选
 	 */
 	private String position;
+	
 	public List<StaffDTO> getListStaffDTO() {
 		return listStaffDTO;
 	}
@@ -99,6 +100,5 @@ public class StaffVO {
 				+ ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", HavePrePage=" + HavePrePage
 				+ ", HaveNextPage=" + HaveNextPage + ", search=" + search + ", position=" + position + "]";
 	}
-	
 	
 }

@@ -193,4 +193,10 @@
       work_record_time = #{workRecordTime,jdbcType=VARCHAR}
     where work_record_id = #{workRecordId,jdbcType=CHAR}
   </update>
+  
+  <select id="selectByStaffId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from work_record where work_record_currentstaff = #{staffId,jdbcType=CHAR} and work_record_time like #{date,jdbcType=VARCHAR}
+	</select>
+  
 </mapper>
