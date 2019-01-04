@@ -24,7 +24,7 @@ public class StaffService {
 
 	@Resource
 	private PositionMapper positionMapper;
-	
+
 	@Resource
 	private WorkRecordMapper workRecordMapper;
 
@@ -73,7 +73,7 @@ public class StaffService {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
 		Date current = new Date();
 		String day = formatter.format(current);
-		
+
 		StaffExample staffExample = new StaffExample();
 		staffExample.setOrderByClause("staff_modifytime desc");
 		staffExample.setStartRow((staffVO.getPageIndex() - 1) * staffVO.getPageSize());
@@ -125,15 +125,15 @@ public class StaffService {
 				Position position = positionMapper.selectByPrimaryKey(staff.getStaffPosition());
 				staffDTO.setPosition(position);
 				staffDTO.setStaff(staff);
-				
+
 				// 计算本月出勤次数
 				WorkRecordExample workRecordExample = new WorkRecordExample();
 				com.pojo.WorkRecordExample.Criteria criteria3 = workRecordExample.createCriteria();
 				criteria3.andWorkRecordCurrentstaffEqualTo(staff.getStaffId());
-				criteria3.andWorkRecordTimeLike("%"+day+"%");
+				criteria3.andWorkRecordTimeLike("%" + day + "%");
 				List<WorkRecord> listWR = workRecordMapper.selectByExample(workRecordExample);
 				staffDTO.setWorkCount(listWR.size());
-				
+
 				if (staffVO.getSearch() != null && staffVO.getSearch().trim().length() > 0) {
 					staff.setStaffNum(staff.getStaffNum().replaceAll(staffVO.getSearch(),
 							"<span style='color: #ff5063;'>" + staffVO.getSearch() + "</span>"));
@@ -174,7 +174,7 @@ public class StaffService {
 	// 更新员工信息
 	public String updateStaffInfo(Staff staff) {
 		Staff staffInfo = staffMapper.getStaffInfoByPhoneNumberExceptId(staff.getStaffPhone(), staff.getStaffId());
-		if(staffInfo!=null) {
+		if (staffInfo != null) {
 			return "phoneRepeat";
 		}
 		staff.setStaffModifytime(TimeUtil.getStringSecond());
@@ -184,7 +184,7 @@ public class StaffService {
 
 	// 验证身份证号是否重复
 	public String checkIDnumberIsRepeat(String iDnumber, String id) {
-		Staff staffInfo = staffMapper.getStaffInfoByIDnumExceptId(iDnumber,id);
+		Staff staffInfo = staffMapper.getStaffInfoByIDnumExceptId(iDnumber, id);
 		if (staffInfo != null) {
 			return "repeat";
 		} else {
@@ -212,9 +212,9 @@ public class StaffService {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date secondDate = new Date();
 		String date = formatter.format(secondDate);
-		date = "%"+date+"%";
-		WorkRecord w = workRecordMapper.selectByStaffId(staffId,date);
-		if(w!=null) {
+		date = "%" + date + "%";
+		WorkRecord w = workRecordMapper.selectByStaffId(staffId, date);
+		if (w != null) {
 			return "signinerror";
 		}
 		WorkRecord record = new WorkRecord();
@@ -226,6 +226,13 @@ public class StaffService {
 		return "signinsuccess";
 	}
 
-	
+	// 删除员工
+	public String deleteStaff(String staffId) {
+		if (staffId != null && staffId.trim().length() > 0) {
+			staffMapper.deleteByPrimaryKey(staffId);
+			return "deleteStaffSuccess";
+		}
+		return "deleteStaffError";
+	}
 
 }

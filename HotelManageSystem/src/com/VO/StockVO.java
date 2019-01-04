@@ -17,7 +17,7 @@ public class StockVO {
 	/**
 	 * 每页记录数
 	 */
-	private int pageSize = 6;
+	private int pageSize = 8;
 	/**
 	 * 总页数
 	 */

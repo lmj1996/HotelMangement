@@ -61,6 +61,7 @@
 				if("清扫中" == this.room.roomState){
 					k = k + '<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" data-toggle=\"modal\" data-target=\"#myModal_clean\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"sendIdToRoomClean(this.id)\">完成清扫</a></li>';
 				}
+				k = k + '<li role=\"presentation\"><a role=\"menuitem\" style=\"cursor: pointer;\" id=\"'+this.room.roomId+'\" onclick=\"deleteRoom(this.id)\">删除房间</a></li>';
 				k = k + "</ul></div></td></tr>";
 				$("#roomList").append(k);
 			});
@@ -332,6 +333,24 @@
 				toastr.success("结账成功!")
 			}
 		})();
+	</script>
+
+	<script type="text/javascript">
+	
+	function deleteRoom(id){
+		$.post("${pageContext.request.contextPath}/hotel/deleteRoom.do",{
+			"roomId" : id
+		},function(data){
+			/* 	var dd = JSON.parse(data); */
+			flush(1);
+				if (data == "deleteRoomSuccess") {
+					toastr.success("删除成功!")
+				}
+				if (data == "deleteRoomError") {
+					toastr.error("该房间有人入住，删除失败!")
+				}
+			});
+		}
 	</script>
 
 </body>

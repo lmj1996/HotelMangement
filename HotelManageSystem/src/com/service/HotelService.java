@@ -319,7 +319,7 @@ public class HotelService {
 		totalPrice = total + "";
 		serviceCost = service + "";
 		settleMoney = balance + "";
-		
+
 		String cd = TimeUtil.getStringDay();
 		hotelRegister.setHotelRegisterCheckoutday(cd);
 		hotelRegister.setHotelRegisterTotalprice(totalPrice);
@@ -507,7 +507,6 @@ public class HotelService {
 		indexInfoDTO.setListApartment(listApartment);
 		indexInfoDTO.setListPresident(listPresident);
 
-
 		return indexInfoDTO;
 	}
 
@@ -538,27 +537,27 @@ public class HotelService {
 			if (listHotelRegister != null) {
 				for (HotelRegister hotelRegister : listHotelRegister) {
 					Room roomInfo = roomMapper.selectByPrimaryKey(hotelRegister.getHotelRegisterRoom());
-					
-					if(roomInfo.getRoomState().equals("已入住")) {
-					
-					String d1 = hotelRegister.getHotelRegisterCheckoutday();
-					String d2 = hotelRegister.getHotelRegisterEndtime();
-					d2 = d2.replace(" ", "");
-					d1 = d1 + " " + d2 + ":00";
-					long t = TimeCount.getHours(current_time, d1);
-					int a = (int) t;
-					if (a <= 0) {
-						roomInfo.setRoomRemarks(
-								"居住超时" + (-a) + "小时，请<span style='color: #ff5063;'>立刻</span>通知客户结账或者续费！");
 
-					} else if (a > 0 && a <= 3) {
-						roomInfo.setRoomRemarks("居住时间不足" + a + "小时，请及时提醒客户结账或者续费！");
+					if (roomInfo.getRoomState().equals("已入住")) {
 
+						String d1 = hotelRegister.getHotelRegisterCheckoutday();
+						String d2 = hotelRegister.getHotelRegisterEndtime();
+						d2 = d2.replace(" ", "");
+						d1 = d1 + " " + d2 + ":00";
+						long t = TimeCount.getHours(current_time, d1);
+						int a = (int) t;
+						if (a <= 0) {
+							roomInfo.setRoomRemarks(
+									"居住超时" + (-a) + "小时，请<span style='color: #ff5063;'>立刻</span>通知客户结账或者续费！");
+
+						} else if (a > 0 && a <= 3) {
+							roomInfo.setRoomRemarks("居住时间不足" + a + "小时，请及时提醒客户结账或者续费！");
+
+						}
+
+						listRoom.add(roomInfo);
 					}
-					
-					listRoom.add(roomInfo);
-					}
-					
+
 				}
 			}
 		}
@@ -639,6 +638,18 @@ public class HotelService {
 	public Room getRoom(Room room) {
 		Room getRoom = roomMapper.selectByPrimaryKey(room.getRoomId());
 		return getRoom;
+	}
+
+	// 删除房间
+	public String deleteRoomById(String roomId) {
+		if (roomId != null && roomId.trim().length() > 0) {
+			Room r = roomMapper.selectByPrimaryKey(roomId);
+			if (!r.getRoomState().equals("已入住")) {
+				roomMapper.deleteByPrimaryKey(roomId);
+				return "deleteRoomSuccess";
+			}
+		}
+		return "deleteRoomError";
 	}
 
 }

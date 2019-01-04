@@ -222,4 +222,13 @@ public class StaffController {
 		return state;
 	}
 	
+	/**
+	 * 删除员工
+	 */
+	@RequestMapping(value = "/deleteStaff")
+	@ResponseBody
+	public String deleteStaff(String staffId) {
+		String state = staffService.deleteStaff(staffId);
+		return state;
+	}
 }

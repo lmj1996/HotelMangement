@@ -76,6 +76,7 @@
 				<shiro:hasPermission name="staff-manager:query">
 					k = k + '<li role=\"presentation\"><a role=\"menuitem\" href=\"${pageContext.request.contextPath }/jump/jumpToStaffDetail.do?staffId='+this.staff.staffId+'\">查看详细信息</a></li>';
 				</shiro:hasPermission>
+				k = k + '<li role=\"presentation\"><a role=\"menuitem\" style=\"cursor: pointer;\" id=\"'+this.staff.staffId+'\" onclick=\"deleteStaff(this.id)\">删除员工</a></li>';
 				k = k + "</ul></div></td></tr>";
 				$("#staffList").append(k);
 			});
@@ -282,6 +283,21 @@
 			
 		})();
 	</script>
-
+	<script type="text/javascript">
+	function deleteStaff(id){
+		$.post("${pageContext.request.contextPath}/staff/deleteStaff.do",{
+			"staffId" : id
+		},function(data){
+			/* 	var dd = JSON.parse(data); */
+			flush(1);
+				if (data == "deleteStaffSuccess") {
+					toastr.success("删除成功!")
+				}
+				if (data == "deleteStaffError") {
+					toastr.error("删除失败!")
+				}
+			});
+		}
+	</script>
 </body>
 </html>

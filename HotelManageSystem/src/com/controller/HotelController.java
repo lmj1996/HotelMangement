@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -322,4 +323,14 @@ public class HotelController {
 		response.getWriter().println(gson.toJson(totalRoomDTO));
 	}
 	
+	
+	/**
+	 * 删除房间
+	 */
+	@RequestMapping(value = "/deleteRoom")
+	@ResponseBody
+	public String deleteRoom(String roomId) {
+		String state = hotelService.deleteRoomById(roomId);
+		return state;
+	}
 }
