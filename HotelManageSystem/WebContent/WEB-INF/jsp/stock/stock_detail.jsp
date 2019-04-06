@@ -89,7 +89,7 @@
 						<input type="submit" name="" value="更改信息" class="form-control"
 							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';width:50%;margin-left: 25%;" />
 						
-						<a href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><input type="button" name="" value="返回列表" class="form-control"
+						<a href="${pageContext.request.contextPath}/jump/jumpToStockList.do"><input type="button" name="" value="返回列表" class="form-control"
 							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';width:50%;margin-left: 25%;" /></a>
 							
 					</div>
