@@ -41,13 +41,24 @@
 <!-- /js files -->
 
 <script type="text/javascript">
+	getRoom();
 	function getRoom() {
+		var type = $('#roomType').val();
+		if(type == null || type == ''){
+			$.post("${pageContext.request.contextPath}/hotel/getRoomId.do", {
+			"type" : "单人间"
+		}, function(data) {
+			console.log(data)
+			$('#hidden_id').val(data);
+		}, "json");
+			}else{
 		$.post("${pageContext.request.contextPath}/hotel/getRoomId.do", {
 			"type" : $('#roomType').val()
 		}, function(data) {
 			console.log(data)
 			$('#hidden_id').val(data);
 		}, "json");
+			}
 	}
 </script>
 
@@ -176,8 +187,7 @@
 						<p>选择房间类型</p>
 					</div>
 					<div class="bnr-right">
-						<select id="roomType" onchange="getRoom()">
-							<option value="">请选择</option>
+						<select id="roomType" onchange="getRoom()" >
 							<option value="单人间">单人间</option>
 							<option value="双人间">双人间</option>
 							<option value="普通套房">普通套房</option>
