@@ -82,7 +82,7 @@
 						<p>用户姓名</p>
 					</div>
 					<div class="bnr-right">
-						<input class="form-control" name="customerName" type="text" onkeyup="value=value.replace(/[\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))" maxlength="10">
+						<input class="form-control" name="customerName" type="text" onkeyup="value=value.replace(/[\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))" maxlength="10" required="required">
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -93,7 +93,7 @@
 					</div>
 					<div class="bnr-right">
 						<input class="form-control" name="customerCustomerid" type="text"
-							onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="18">
+							onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="18" required="required">
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -104,7 +104,7 @@
 					</div>
 					<div class="bnr-right">
 						<input class="form-control" name="customerPhone" type="text"
-							onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="11">
+							onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="11" required="required">
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -206,7 +206,7 @@
 					</div>
 					<div class="bnr-right">
 						<input class="form-control" type="text" name="hotelRegisterSecurity"
-							onkeyup="value=value.replace(/[^\d]/g,'')">
+							onkeyup="value=value.replace(/[^\d]/g,'')" required="required">
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -217,7 +217,7 @@
 					</div>
 					<div class="bnr-right">
 						<input class="form-control" type="text" name="rechargeMoney"
-							onkeyup="value=value.replace(/[^\d]/g,'')">
+							onkeyup="value=value.replace(/[^\d]/g,'')" required="required">
 					</div>
 					<div class="clearfix"></div>
 				</div>
