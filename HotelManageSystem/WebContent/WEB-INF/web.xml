@@ -116,7 +116,10 @@
 			<taglib-location>/WEB-INF/x-rt.tld</taglib-location>
 		</taglib>
 	</jsp-config>
-
+	
+	<session-config>
+		<session-timeout>480</session-timeout>
+	</session-config>
 	
 
 

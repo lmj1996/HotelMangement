@@ -159,7 +159,7 @@
 										<option value="">所有</option>
 										<option value="空闲">空闲</option>
 										<option value="已入住">已入住</option>
-										<option value="清洁中">清洁中</option>
+										<option value="清扫中">清扫中</option>
 								</select></td>
 
 								<td><select id="floor" onchange="flush('1')"

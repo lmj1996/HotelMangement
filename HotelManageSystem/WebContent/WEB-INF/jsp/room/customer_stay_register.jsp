@@ -86,32 +86,32 @@
 						<tr>
 							<td><label>用户名</label></td>
 							<td><input type="text" class="form-control"
-								name="customerName" placeholder="用户名" /></td>
+								name="customerName" placeholder="用户名" required="required" /></td>
 						</tr>
 
 						<tr>
 							<td><label>身份证</label></td>
 							<td><input type="text" class="form-control" maxlength="18" onkeyup="value=value.replace(/[^\d]/g,'')"
-								name="customerCustomerid" placeholder="身份证" /></td>
+								name="customerCustomerid" placeholder="身份证" required="required" /></td>
 						</tr>
 
 						<tr>
 							<td><label>联系电话</label></td>
 							<td><input type="text" class="form-control" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')"
-								name="customerPhone" placeholder="联系电话" /></td>
+								name="customerPhone" placeholder="联系电话" required="required" /></td>
 						</tr>
 
 						<tr>
 							<td><label>押金</label></td>
 							<td><input type="text" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'')"
-								name="hotelRegisterSecurity" placeholder="押金" /></td>
+								name="hotelRegisterSecurity" placeholder="押金" required="required" /></td>
 						</tr>
 
 						<tr>
 							<td><label>预计离开时间</label></td>
 							<td><input type="text" readonly="readonly" class="form-control" id="start_time"
 								onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')"
-								name="hotelRegisterEndtime" /></td>
+								name="hotelRegisterEndtime" required="required" /></td>
 						</tr>
 
 						<!-- <tr>

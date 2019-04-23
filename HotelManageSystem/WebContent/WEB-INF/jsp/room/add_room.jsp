@@ -69,7 +69,7 @@
 						<tr>
 							<td><label>房间价格</label></td>
 							<td><input type="text" class="form-control" name="roomPrice"
-								placeholder="房价" /></td>
+								placeholder="房价" required="required" /></td>
 						</tr>
 
 						<tr>

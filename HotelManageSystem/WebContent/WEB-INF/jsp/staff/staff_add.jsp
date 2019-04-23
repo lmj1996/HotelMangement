@@ -117,7 +117,7 @@
 							<tr>
 								<td>姓名：</td>
 								<td><input type="text" maxlength="10" class="form-control"
-									name="staffName" /></td>
+									name="staffName" required="required" /></td>
 							</tr>
 							<tr>
 								<td>性别：</td>
@@ -137,13 +137,13 @@
 								<td>身份证号：</td>
 								<td><input type="text" maxlength="18" id="IDnumber"
 									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
-									name="staffIdnumber" onblur="checkIDnumber()" /></td>
+									name="staffIdnumber" onblur="checkIDnumber()" required="required" /></td>
 							</tr>
 							<tr>
-								<td>联系方式：</td>
+								<td>联系电话：</td>
 								<td><input type="text" maxlength="11" id="phoneNumber"
 									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
-									name="staffPhone" onblur="checkPhoneNumber()" /></td>
+									name="staffPhone" onblur="checkPhoneNumber()" required="required" /></td>
 							</tr>
 							<tr>
 								<td>联系地址：</td>

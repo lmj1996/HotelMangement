@@ -36,6 +36,7 @@ public class JumpController {
 	 */
 	@RequestMapping(value = "/jumpToHome")
 	public ModelAndView jumpToHome(@ModelAttribute("sc") SessionDTO session, Model model) {
+		
 		// 修改部分session内容
 		session.setChoice("1");
 		model.addAttribute(session);
@@ -96,10 +97,8 @@ public class JumpController {
 	 * @return
 	 */
 	@RequestMapping(value = "/jumpToStayRegister")
-	public ModelAndView jumpToStayRegister(@ModelAttribute("session") SessionDTO session, Model model, String roomId) {
-		// 修改部分session内容
-		session.setChoice("2");
-		model.addAttribute(session);
+	public ModelAndView jumpToStayRegister(Model model, String roomId) {
+		
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("roomId", roomId);
@@ -115,12 +114,8 @@ public class JumpController {
 	 * @return
 	 */
 	@RequestMapping(value = "/jumpToCheckOut")
-	public ModelAndView jumpToCheckOut(@ModelAttribute("session") SessionDTO session, Model model, String roomId) {
-		// 修改部分session内容
-		session.setChoice("2");
-		model.addAttribute(session);
-
-		System.out.println("跳转：" + roomId);
+	public ModelAndView jumpToCheckOut(Model model, String roomId) {
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("roomId", roomId);
 		modelAndView.setViewName("room/check_out");

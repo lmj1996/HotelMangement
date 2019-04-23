@@ -54,7 +54,7 @@
 						<tr>
 							<td><label>名称</label></td>
 							<td><input type="text" class="form-control" name="stockName"
-								placeholder="名称" /></td>
+								placeholder="名称" required="required" /></td>
 						</tr>
 						
 						<tr>
@@ -77,7 +77,7 @@
 						<tr>
 							<td><label>库存数量</label></td>
 							<td><input type="text" class="form-control" name="stockNumber"
-								placeholder="库存数量" /></td>
+								placeholder="库存数量" required="required" /></td>
 						</tr>
 
 
