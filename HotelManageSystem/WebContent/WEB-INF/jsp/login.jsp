@@ -75,6 +75,18 @@
 				toastr.error("用户名或密码错误!")
 			}
 		})();
+		
+		;
+		(function testError() {
+			var un = '${requestScope.userName}';
+			if (un != null && un != '') {
+				toastr.error("用户名不存在!")
+			}
+			var up = '${requestScope.passwd}';
+			if(up != null && up != ''){
+				toastr.error("密码错误")
+			}
+		})();
 	</script>
 
 </body>

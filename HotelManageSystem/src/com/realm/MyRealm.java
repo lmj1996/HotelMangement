@@ -10,6 +10,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -39,6 +40,7 @@ public class MyRealm extends AuthorizingRealm {
 		// System.out.println("验证当前Subject时获取到token为" +
 		// ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
 		Staff staff = staffService.getStaffInfoByNum((String) authcToken.getPrincipal());
+		if(staff != null && staff != null) {
 		// 验证成功之后SimpleAuthenticationInfo的第一个参数可以将实体类对象或者String对象传到授权方法里
 		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(staff,
 				staff.getStaffPassword(), ByteSource.Util.bytes(staff.getStaffName()), getName());
@@ -46,6 +48,9 @@ public class MyRealm extends AuthorizingRealm {
 		
 		
 		return simpleAuthenticationInfo;
+		}else {
+			throw new UnknownAccountException();
+		}
 
 		// 此处无需比对,比对的逻辑Shiro会做,我们只需返回一个和令牌相关的正确的验证信息
 		// 说白了就是第一个参数填登录用户名,第二个参数填合法的登录密码(可以是从数据库中取到的,本例中为了演示就硬编码了)
