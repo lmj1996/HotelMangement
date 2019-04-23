@@ -57,8 +57,7 @@
 					</div>
 				</div>
 				<div class="w3lsfooteragileits">
-					<p>&copy;<a href="${pageContext.request.contextPath}/jump/jumpToStaffHome.do">@</a> 2017 <a href="${pageContext.request.contextPath}/jump/jumpToCheckIn.do">@</a> Shadow <a href="${pageContext.request.contextPath}/jump/jumpToRoom.do">@</a> Login <a href="${pageContext.request.contextPath}/jump/jumpToCheckOut2.do">@</a> Form. All Rights Reserved | Design
-						by W3layouts</p>
+					<p>&copy; 龙腾酒店登录系统  2019</p>
 				</div>
 			</div>
 		</div>
