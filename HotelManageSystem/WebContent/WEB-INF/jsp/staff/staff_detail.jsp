@@ -32,6 +32,50 @@
 	rel="stylesheet">
 <script src="${pageContext.request.contextPath}/js/city.js"></script>
 
+<script type="text/javascript">
+		;
+		(function toastrError() {
+			var s = '${requestScope.state}';
+			if (s != '' && s !=null) {
+				toastr.error("更新失败，请检查!")
+			}
+		})();
+</script>
+<script type="text/javascript">
+	function check(){
+		if(!checkPhoneNumber()){
+			return false;
+		}
+		if(!checkIDnumber()){
+			return false;
+		}
+		
+	}
+	
+	function checkIDnumber(){
+		$.post("${pageContext.request.contextPath}/staff/checkIDnumber.do",{
+			"id" : $("#staffId_hidden").val(),
+			"IDnumber" : $("#staffIdnumber").val()
+		},function(data){
+			if(data == "repeat"){
+				toastr.error("身份证号重复！");
+				return false;
+			}
+		},"json");
+	}
+	function checkPhoneNumber(){
+		$.post("${pageContext.request.contextPath}/staff/checkPhoneNumber.do",{
+			"id" : $("#staffId_hidden").val(),
+			"phoneNumber" : $("#staffPhone").val()
+		},function(data){
+			if(data == "phoneRepeat"){
+				toastr.error("电话号码重复！");
+				return false;
+			}
+		},"json");
+	}
+	
+</script>
 </head>
 <body>
 	<div class="templatemo-flex-row">
@@ -58,7 +102,7 @@
 				<div style="width: 55%; margin-left: 22.5%;">
 					<form
 						action="${pageContext.request.contextPath}/staff/updateStaff.do"
-						method="post">
+						method="post" onsubmit="return check()">
 						<input type="hidden" id="staffId_hidden" name="staffId"
 							value="${requestScope.id }" /> <input type="hidden"
 							id="currentPosition" /> <input type="hidden" id="staffAddress"
@@ -79,7 +123,7 @@
 							<tr>
 								<td>密码：</td>
 								<td><input id="staffPassword" type="text" maxlength="10"
-									class="form-control" name="staffPassword" /></td>
+									class="form-control" name="staffPassword" required="required" /></td>
 							</tr>
 
 							<tr>
@@ -100,7 +144,7 @@
 								<td>联系方式：</td>
 								<td><input id="staffPhone" type="text" maxlength="11"
 									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
-									name="staffPhone" onblur="checkPhoneNumber()" /></td>
+									name="staffPhone" onblur="checkPhoneNumber()" required="required" /></td>
 							</tr>
 
 							<tr>
@@ -268,29 +312,7 @@
 	
 </script>
 
-	<script type="text/javascript">
-	function checkIDnumber(){
-		$.post("${pageContext.request.contextPath}/staff/checkIDnumber.do",{
-			"id" : $("#staffId_hidden").val(),
-			"IDnumber" : $("#staffIdnumber").val()
-		},function(data){
-			if(data == "repeat"){
-				toastr.error("身份证号重复！");
-			}
-		},"json");
-	}
-	function checkPhoneNumber(){
-		$.post("${pageContext.request.contextPath}/staff/checkPhoneNumber.do",{
-			"id" : $("#staffId_hidden").val(),
-			"phoneNumber" : $("#staffPhone").val()
-		},function(data){
-			if(data == "phoneRepeat"){
-				toastr.error("电话号码重复！");
-			}
-		},"json");
-	}
 	
-</script>
 
 	<script>
 		var ylc = yeluochenCity('J-demo', (city) => {
