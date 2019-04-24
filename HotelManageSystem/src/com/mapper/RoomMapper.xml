@@ -281,6 +281,13 @@
 
 	<select id="getMaxNumber" resultType="java.lang.String"
 		parameterType="java.lang.String">
+		select REVERSE(substring(REVERSE(room_num),1,3)) from room where room_floor =
+		#{roomFloor,jdbcType=VARCHAR} order by --REVERSE(substring(REVERSE(room_num),1,3)) desc
+		limit 1
+	</select>
+
+	<select id="getOneMaxNumber" resultType="java.lang.String"
+		parameterType="java.lang.String">
 		select substring(room_num,6) from room where room_floor =
 		#{roomFloor,jdbcType=VARCHAR} order by --substring(room_num,6) desc
 		limit 1

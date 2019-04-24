@@ -38,57 +38,27 @@ public class HotelService {
 	// 添加房间
 	public String addRoom(Room room) {
 		String x = "LT-";
-		if (room.getRoomFloor().trim().length() == 1) {
-			List<Room> room_1 = new ArrayList<>();
-			room_1 = roomMapper.getRoomByFloor(room.getRoomFloor());
-			if (room_1 != null) {
-				String maxNumber = roomMapper.getMaxNumber(room.getRoomFloor());
-				if (maxNumber != null && maxNumber.trim().length() > 0) {
-					int nextNumber = Integer.parseInt(maxNumber);
-					nextNumber = nextNumber + 1;
-					String num = String.format("%03d", nextNumber);
-					room.setRoomNum(x + room.getRoomFloor() + "-" + num);
-				} else {
-					room.setRoomNum(x + room.getRoomFloor() + "-" + "001");
-				}
-
-			} else {
-				room.setRoomNum(x + room.getRoomFloor() + "-" + "001");
+		List<Room> listRoom = new ArrayList<>();
+		listRoom = roomMapper.getRoomByFloor(room.getRoomFloor());
+		if(listRoom != null) {
+			String maxNumber = roomMapper.getMaxNumber(room.getRoomFloor());
+			if(maxNumber != null) {
+			int nextNumber = Integer.parseInt(maxNumber);
+			nextNumber = nextNumber + 1;
+			String number = String.format("%03d", nextNumber);
+			room.setRoomNum(x+room.getRoomFloor()+"-"+number);
+			}else {
+				room.setRoomNum(x+room.getRoomFloor()+"-"+"001");
 			}
-			room.setRoomId(BuildUuid.getUuid());
-			room.setRoomState("空闲");
-			room.setRoomCreatetime(TimeUtil.getStringSecond());
-			room.setRoomModifytime(TimeUtil.getStringSecond());
-			roomMapper.insertSelective(room);
-			return "success";
-
-		} else if (room.getRoomFloor().trim().length() == 2) {
-			List<Room> room_2 = new ArrayList<>();
-			room_2 = roomMapper.getRoomByFloor(room.getRoomFloor());
-			System.out.println("room:" + room_2);
-			if (room_2 != null) {
-				String maxNumber2 = roomMapper.getTwoMaxNumber(room.getRoomFloor());
-				if (maxNumber2 != null && maxNumber2.trim().length() > 0) {
-					int nextNumber2 = Integer.parseInt(maxNumber2);
-					nextNumber2 = nextNumber2 + 1;
-					String num2 = String.format("%03d", nextNumber2);
-					room.setRoomNum(x + room.getRoomFloor() + "-" + num2);
-				} else {
-					room.setRoomNum(x + room.getRoomFloor() + "-" + "001");
-				}
-
-			} else {
-				room.setRoomNum(x + room.getRoomFloor() + "-" + "001");
-			}
-			room.setRoomId(BuildUuid.getUuid());
-			room.setRoomState("空闲");
-			room.setRoomCreatetime(TimeUtil.getStringSecond());
-			room.setRoomModifytime(TimeUtil.getStringSecond());
-			roomMapper.insertSelective(room);
-			return "success";
-		} else {
-			return "error";
+		}else {
+			room.setRoomNum(x+room.getRoomFloor()+"-"+"001");
 		}
+		room.setRoomId(BuildUuid.getUuid());
+		room.setRoomState("空闲");
+		room.setRoomCreatetime(TimeUtil.getStringSecond());
+		room.setRoomModifytime(TimeUtil.getStringSecond());
+		roomMapper.insertSelective(room);
+		return "success";
 	}
 
 	// 房间分页功能

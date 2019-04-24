@@ -29,8 +29,10 @@ public interface RoomMapper {
     int updateByPrimaryKey(Room record);
     
     Room selectByNum(String roomNum);
+    
+    String getMaxNumber(String roomFloor);
 
-	String getMaxNumber(String roomFloor);
+	String getOneMaxNumber(String roomFloor);
 
 	String getTwoMaxNumber(String roomFloor);
 

@@ -32,8 +32,12 @@ public class TestFile {
 
 	@Test
 	public void addRoom() {
-		String staffId = "1";
-		String s = staffService.signin(staffId);
+		Room room = new Room();
+		room.setRoomType("单人间");
+		room.setRoomPrice("50");
+		room.setRoomFloor("12");
+		//String staffId = "1";
+		String s = hotelService.addRoom(room);
 		System.out.println(s);
 	}
 
