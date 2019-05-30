@@ -127,7 +127,6 @@ public class StaffController {
 	 */
 	@RequestMapping(value = "/updateStaff")
 	public ModelAndView updateStaff(Staff staff, Model model) {
-
 		ModelAndView modelAndView = new ModelAndView();
 		String check = staffService.updateStaffInfo(staff);
 		if (check == "updateStaff") {
@@ -135,6 +134,7 @@ public class StaffController {
 			modelAndView.setViewName("staff/staff_list");
 		} else {
 			modelAndView.addObject("state", check);
+			modelAndView.addObject("id", staff.getStaffId());
 			modelAndView.setViewName("staff/staff_detail");
 		}
 		return modelAndView;
@@ -153,7 +153,7 @@ public class StaffController {
 	}
 
 	/**
-	 * 验证身份证号是否重复
+	 * 验证手机号是否重复
 	 */
 	@RequestMapping(value = "/checkPhoneNumber")
 	public void checkPhoneNumber(HttpServletRequest request, HttpServletResponse response, String phoneNumber,

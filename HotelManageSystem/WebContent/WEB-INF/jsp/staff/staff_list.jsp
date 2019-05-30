@@ -140,7 +140,7 @@
 
 						<a
 							href="${pageContext.request.contextPath }/jump/jumpToAddStaff.do">
-							<input type="button" value="添加" class="form-control"
+							<input type="button" value="添加" class="form-control" name="addStaff"
 							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
 						</a>
 
@@ -278,7 +278,13 @@
 				toastr.success("添加员工成功!")
 			}
 			if (s == "updateStaff") {
-				toastr.success("更新员工成功!")
+				toastr.success("更新员工信息成功!")
+			}
+			if (s == "phoneRepeat") {
+				toastr.error("电话号码重复，更新员工信息失败!")
+			}
+			if (s == "repeat") {
+				toastr.error("身份证号码重复，更新员工信息失败!")
 			}
 			
 		})();

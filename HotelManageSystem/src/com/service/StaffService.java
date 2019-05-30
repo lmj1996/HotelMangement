@@ -173,9 +173,15 @@ public class StaffService {
 
 	// 更新员工信息
 	public String updateStaffInfo(Staff staff) {
+//		checkIDnumberIsRepeat(staff.getStaffIdnumber(), staff.getStaffId());
+//		checkPhoneNumberIsRepeat(staff.getStaffPhone(), staff.getStaffId());
 		Staff staffInfo = staffMapper.getStaffInfoByPhoneNumberExceptId(staff.getStaffPhone(), staff.getStaffId());
 		if (staffInfo != null) {
 			return "phoneRepeat";
+		}
+		Staff staffInfo1 = staffMapper.getStaffInfoByIDnumExceptId(staff.getStaffIdnumber(), staff.getStaffId());
+		if (staffInfo1 != null) {
+			return "repeat";
 		}
 		staff.setStaffModifytime(TimeUtil.getStringSecond());
 		staffMapper.updateByPrimaryKeySelective(staff);
@@ -198,7 +204,7 @@ public class StaffService {
 		if (staffInfo != null) {
 			return "phoneRepeat";
 		}
-		return null;
+		return "noRepeat";
 	}
 
 	// 根据编号获取员工信息

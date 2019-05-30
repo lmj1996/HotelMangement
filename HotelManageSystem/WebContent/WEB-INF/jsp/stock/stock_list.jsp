@@ -118,7 +118,7 @@
 
 				<div>
 					<a href="${pageContext.request.contextPath }/jump/jumpToStockAdd.do">
-						<input type="button" value="添加" class="form-control"
+						<input type="button" value="添加" class="form-control" name="addStock"
 						style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
 					</a>
 				</div>

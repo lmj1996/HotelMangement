@@ -40,39 +40,47 @@
 				toastr.error("更新失败，请检查!")
 			}
 		})();
+		
 </script>
 <script type="text/javascript">
 	function check(){
-		if(!checkPhoneNumber()){
-			return false;
-		}
-		if(!checkIDnumber()){
-			return false;
-		}
-		
+		alert(checkPhoneNumber()&&checkPhoneNumber())
+		return checkPhoneNumber()&&checkPhoneNumber();
 	}
 	
 	function checkIDnumber(){
+		
 		$.post("${pageContext.request.contextPath}/staff/checkIDnumber.do",{
 			"id" : $("#staffId_hidden").val(),
 			"IDnumber" : $("#staffIdnumber").val()
 		},function(data){
+			var r = false;
 			if(data == "repeat"){
 				toastr.error("身份证号重复！");
-				return false;
+				return r;
+			}else{
+			r = true;
+			return r;
 			}
 		},"json");
+		return r;
 	}
 	function checkPhoneNumber(){
+		
 		$.post("${pageContext.request.contextPath}/staff/checkPhoneNumber.do",{
 			"id" : $("#staffId_hidden").val(),
 			"phoneNumber" : $("#staffPhone").val()
 		},function(data){
+			var r = false;
 			if(data == "phoneRepeat"){
 				toastr.error("电话号码重复！");
-				return false;
+				return r;
+			}else{
+			r = true;
+			return r;
 			}
 		},"json");
+		return r;
 	}
 	
 </script>
@@ -135,7 +143,7 @@
 							<tr>
 								<td>身份证号：</td>
 								<td><input id="staffIdnumber" type="text"
-									disabled="disabled" maxlength="18"
+									readonly="readonly" maxlength="18"
 									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
 									name="staffIdnumber" onblur="checkIDnumber()" /></td>
 							</tr>
@@ -144,7 +152,8 @@
 								<td>联系方式：</td>
 								<td><input id="staffPhone" type="text" maxlength="11"
 									onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control"
-									name="staffPhone" onblur="checkPhoneNumber()" required="required" /></td>
+									name="staffPhone" onblur="checkPhoneNumber()"
+									required="required" /></td>
 							</tr>
 
 							<tr>
@@ -174,7 +183,7 @@
 
 							<shiro:hasPermission name="staff-manager:update">
 								<input type="submit" value="更新" class="form-control"
-									onclick="getStaffAddress()"
+									onclick="getStaffAddress()" name="submit" id="submit"
 									style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 50%; margin-left: 25%;" />
 							</shiro:hasPermission>
 
@@ -312,7 +321,7 @@
 	
 </script>
 
-	
+
 
 	<script>
 		var ylc = yeluochenCity('J-demo', (city) => {

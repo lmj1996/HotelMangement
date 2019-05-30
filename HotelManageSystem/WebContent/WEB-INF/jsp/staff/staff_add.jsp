@@ -159,7 +159,7 @@
 
 						</table>
 						<div style="text-align: center;">
-							<input type="submit" value="添加" class="form-control" onclick="getStaffAddress()"
+							<input type="submit" value="添加" class="form-control" onclick="getStaffAddress()" name="submit"
 								style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体';" />
 						</div>
 					</form>

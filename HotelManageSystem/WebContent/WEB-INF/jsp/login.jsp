@@ -49,7 +49,7 @@
 										required="" /> <label class="anim"> <input
 										type="checkbox" class="checkbox"> <span>
 											Remember me ?</span>
-									</label> <input type="submit" value="登录">
+									</label> <input type="submit" name="submit" value="登录">
 								</form>
 							</div>
 

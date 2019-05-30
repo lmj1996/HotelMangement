@@ -129,7 +129,7 @@
 
 						<a
 							href="${pageContext.request.contextPath }/jump/jumpToRoomAdd.do">
-							<input type="button" value="添加" class="form-control"
+							<input type="button" value="添加" class="form-control" name="addRoom"
 							style="border-radius: 15px; background-color: #23527C; color: #FFFFFF; font-family: '宋体'; width: 15%;" />
 						</a>
 

@@ -60,34 +60,34 @@
 
 				<c:if test="${requestScope.sc.choice == 1 }">
 
-					<li><a class="active"
+					<li><a class="active" id="home"
 						href="${pageContext.request.contextPath}/jump/jumpToHome.do">
 							<i class="fa fa-area-chart fa-fw"></i>首页
 					</a></li>
 					<shiro:hasAnyRoles name="room-manager,s-administrator">
-						<li><a
+						<li><a id="room"
 							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"><i
 								class="fa fa-home fa-fw"></i>房间</a></li>
 					</shiro:hasAnyRoles>
 
 					<shiro:hasAnyRoles name="staff-manager,s-administrator">
-						<li><a
+						<li><a id="staff"
 							href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><i
 								class="fa fa-users fa-fw"></i>员工</a></li>
 					</shiro:hasAnyRoles>
 					<shiro:hasAnyRoles name="stock-manager,s-administrator">
-						<li><a
+						<li><a id="stock"
 							href="${pageContext.request.contextPath}/jump/jumpToStockList.do"><i
 								class="fa fa-database fa-fw"></i>库存</a></li>
 					</shiro:hasAnyRoles>
 					
 					<shiro:hasAnyRoles name="index-checker,s-administrator,total-administrator">
-						<li><a
+						<li><a id="front"
 							href="${pageContext.request.contextPath}/jump/jumpToStaffHome.do"><i
 								class="fa fa-building fa-fw"></i>员工操作页面</a></li>
 					</shiro:hasAnyRoles>
 					
-					<li><a
+					<li><a name="logout"
 						href="${pageContext.request.contextPath}/staff/logout.do"><i
 							class="fa fa-power-off fa-fw"></i>注销</a></li>
 
@@ -95,101 +95,101 @@
 
 				<c:if test="${sessionScope.sc.choice == 2 }">
 
-					<li><a
+					<li><a id="home"
 						href="${pageContext.request.contextPath}/jump/jumpToHome.do">
 							<i class="fa fa-area-chart fa-fw"></i>首页
 					</a></li>
 					<shiro:hasAnyRoles name="room-manager, s-administrator">
-						<li><a class="active"
+						<li><a class="active" id="room"
 							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"><i
 								class="fa fa-home fa-fw"></i>房间</a></li>
 					</shiro:hasAnyRoles>
 
 					<shiro:hasAnyRoles name="staff-manager, s-administrator">
-						<li><a
+						<li><a id="staff"
 							href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><i
 								class="fa fa-users fa-fw"></i>员工</a></li>
 					</shiro:hasAnyRoles>
 					<shiro:hasAnyRoles name="stock-manager, s-administrator">
-						<li><a
+						<li><a id="stock"
 							href="${pageContext.request.contextPath}/jump/jumpToStockList.do"><i
 								class="fa fa-database fa-fw"></i>库存</a></li>
 					</shiro:hasAnyRoles>
 					
 					<shiro:hasAnyRoles name="index-checker,s-administrator,total-administrator">
-						<li><a
+						<li><a id="front"
 							href="${pageContext.request.contextPath}/jump/jumpToStaffHome.do"><i
 								class="fa fa-building fa-fw"></i>员工操作页面</a></li>
 					</shiro:hasAnyRoles>
 
-					<li><a
+					<li><a name="logout"
 						href="${pageContext.request.contextPath}/staff/logout.do"><i
 							class="fa fa-power-off fa-fw"></i>注销</a></li>
 				</c:if>
 
 				<c:if test="${sessionScope.sc.choice == 3 }">
 
-					<li><a
+					<li><a id="home"
 						href="${pageContext.request.contextPath}/jump/jumpToHome.do">
 							<i class="fa fa-area-chart fa-fw"></i>首页
 					</a></li>
 					<shiro:hasAnyRoles name="room-manager, s-administrator">
-						<li><a
+						<li><a id="room"
 							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"><i
 								class="fa fa-home fa-fw"></i>房间</a></li>
 					</shiro:hasAnyRoles>
 
 					<shiro:hasAnyRoles name="staff-manager, s-administrator">
-						<li><a class="active"
+						<li><a class="active" id="staff"
 							href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><i
 								class="fa fa-users fa-fw"></i>员工</a></li>
 					</shiro:hasAnyRoles>
 					<shiro:hasAnyRoles name="stock-manager, s-administrator">
-						<li><a
+						<li><a id="stock"
 							href="${pageContext.request.contextPath}/jump/jumpToStockList.do"><i
 								class="fa fa-database fa-fw"></i>库存</a></li>
 					</shiro:hasAnyRoles>
 					
 					<shiro:hasAnyRoles name="index-checker,s-administrator,total-administrator">
-						<li><a
+						<li><a id="front"
 							href="${pageContext.request.contextPath}/jump/jumpToStaffHome.do"><i
 								class="fa fa-building fa-fw"></i>员工操作页面</a></li>
 					</shiro:hasAnyRoles>
 
-					<li><a
+					<li><a name="logout"
 						href="${pageContext.request.contextPath}/staff/logout.do"><i
 							class="fa fa-power-off fa-fw"></i>注销</a></li>
 				</c:if>
 
 				<c:if test="${sessionScope.sc.choice == 4 }">
 
-					<li><a
+					<li><a id="home"
 						href="${pageContext.request.contextPath}/jump/jumpToHome.do">
 							<i class="fa fa-area-chart fa-fw"></i>首页
 					</a></li>
 					<shiro:hasAnyRoles name="room-manager, s-administrator">
-						<li><a
+						<li><a id="room"
 							href="${pageContext.request.contextPath}/jump/jumpToRoomList.do"><i
 								class="fa fa-home fa-fw"></i>房间</a></li>
 					</shiro:hasAnyRoles>
 					<shiro:hasAnyRoles name="staff-manager, s-administrator">
-						<li><a
+						<li><a id="staff"
 							href="${pageContext.request.contextPath}/jump/jumpToStaffList.do"><i
 								class="fa fa-users fa-fw"></i>员工</a></li>
 					</shiro:hasAnyRoles>
 					<shiro:hasAnyRoles name="stock-manager, s-administrator">
-						<li><a class="active"
+						<li><a class="active" id="stock"
 							href="${pageContext.request.contextPath}/jump/jumpToStockList.do"><i
 								class="fa fa-database fa-fw"></i>库存</a></li>
 					</shiro:hasAnyRoles>
 					
 					<shiro:hasAnyRoles name="index-checker,s-administrator,total-administrator">
-						<li><a
+						<li><a id="front"
 							href="${pageContext.request.contextPath}/jump/jumpToStaffHome.do"><i
 								class="fa fa-building fa-fw"></i>员工操作页面</a></li>
 					</shiro:hasAnyRoles>
 
-					<li><a
+					<li><a name="logout"
 						href="${pageContext.request.contextPath}/staff/logout.do"><i
 							class="fa fa-power-off fa-fw"></i>注销</a></li>
 				</c:if>
